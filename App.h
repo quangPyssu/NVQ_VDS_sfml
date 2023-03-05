@@ -5,9 +5,12 @@
 #include <SFML/Window.hpp>
 
 #include "Button.h"
+#include "Static_Array_Menu.h"
 
 using namespace std;
 using namespace sf;
+
+enum app_states { app_main = 0, app_static_array = 1, app_dynamic_array= 2 , app_linked_list= 3, app_stack= 4,app_queue= 5 };
 
 class App
 {
@@ -45,7 +48,15 @@ public:
 	Texture tet;
 
 private:
+	//States
+	short unsigned AppState;
+
+
 	Button* btn_Static_Array; Button* btn_Dynamic_Array; Button* btn_Linked_List;
 	Button* btn_Stack; Button* btn_Queue;
+
+	//Menus
+
+	Static_Array_Menu* Mn_Static_Array;
 };
 

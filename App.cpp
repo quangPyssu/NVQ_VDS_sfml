@@ -8,23 +8,31 @@ App::App()
 	initVariables();
 	initWindow();
 
+	AppState = app_main;
+
 	window->clear(Color::Black);
 	tet.loadFromFile("asset/texture/condauvoi.jpg");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
-	window->draw(sprite);
+
+	//btn for main
 
 	this->btn_Static_Array = new Button(100, 100, 150, 50, "Static Array", Color::White, Color(10, 255, 50, 255), Color::Yellow, Color::Blue);
 
-	this->btn_Dynamic_Array = new Button(100, 200, 150, 50, "Dynamic Array", Color::White, Color::Green, Color::Yellow, Color::Blue);
+	this->btn_Dynamic_Array = new Button(100, 200, 150, 50, "Dynamic Array", Color::White, Color::Blue, Color::Yellow, Color::Blue);
 
-	this->btn_Linked_List = new Button(100, 300, 150, 50, "Linked List", Color::White, Color::Green, Color::Yellow, Color::Blue);
+	this->btn_Linked_List = new Button(100, 300, 150, 50, "Linked List", Color::White, Color::Blue, Color::Yellow, Color::Blue);
 
-	this->btn_Stack = new Button(100, 400, 150, 50, "Stack", Color::White, Color::Green, Color::Yellow, Color::Blue);
+	this->btn_Stack = new Button(100, 400, 150, 50, "Stack", Color::White, Color::Blue, Color::Yellow, Color::Blue);
 
-	this->btn_Queue = new Button(100, 500, 150, 50, "Queue", Color::White, Color::Green, Color::Yellow, Color::Blue);
+	this->btn_Queue = new Button(100, 500, 150, 50, "Queue", Color::White, Color::Blue, Color::Yellow, Color::Blue);
 
-	window->setFramerateLimit(60);
+	// Menus
+
+	Mn_Static_Array = new Static_Array_Menu();
+
+	window->setFramerateLimit(30);
+	Render();
 	window->display();
 }
 
@@ -73,11 +81,48 @@ void App::initWindow()
 void App::update()
 {
 	updateMousePositions();
-	this->btn_Static_Array->update(mousePosWindowf);
-	this->btn_Dynamic_Array->update(mousePosWindowf);
-	this->btn_Linked_List->update(mousePosWindowf);
-	this->btn_Stack->update(mousePosWindowf);
-	this->btn_Queue->update(mousePosWindowf);
+
+	switch (AppState)
+	{
+		case app_main:
+			this->btn_Static_Array->update(mousePosWindowf);
+			this->btn_Dynamic_Array->update(mousePosWindowf);
+			this->btn_Linked_List->update(mousePosWindowf);
+			this->btn_Stack->update(mousePosWindowf);
+			this->btn_Queue->update(mousePosWindowf);
+
+			if (this->btn_Static_Array->isPressed()) AppState = app_static_array, Mn_Static_Array->stat = on; else
+			if (this->btn_Dynamic_Array->isPressed()) AppState = app_dynamic_array; else
+				if (this->btn_Linked_List->isPressed()) AppState = app_linked_list; else
+					if (this->btn_Queue->isPressed()) AppState = app_queue; else
+						if (this->btn_Stack->isPressed()) AppState = app_stack;
+			break;
+
+		case app_static_array:
+			Mn_Static_Array->update(mousePosWindowf);
+			if (!Mn_Static_Array->stat) AppState = app_main;
+			break;
+
+		case app_dynamic_array:
+
+			break;
+
+		case app_linked_list:
+
+			break;
+
+		case app_queue:
+
+			break;
+
+		case app_stack:
+
+			break;
+
+		default:
+		break;
+	}
+	
 }
 
 void App::Render()
@@ -91,8 +136,6 @@ void App::Render()
 	this->btn_Linked_List->render(window);
 	this->btn_Stack->render(window);
 	this->btn_Queue->render(window);
-
-	window->display();
 }
 
 
@@ -105,13 +148,39 @@ void App::pollEvents()
 		while (window->pollEvent(ev)) {
 
 			update();
+			cout << mousePosWindowi.x << " " << mousePosWindowi.y << endl;
 
 			if (ev.type == Event::Closed) {
 				window->close();
 			}
-		}
 
-		Render();
+		switch (AppState)
+		{
+			case app_main:
+				Render();
+				break;
+
+			case app_static_array:
+				Mn_Static_Array->Render(window);
+				break;
+
+			case app_dynamic_array:
+
+				break;
+
+			case app_linked_list:
+
+				break;
+
+			case app_queue:
+
+				break;
+
+			case app_stack:
+
+				break;
+		}window->display();
+		}
 
 	}
 }
