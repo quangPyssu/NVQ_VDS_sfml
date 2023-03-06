@@ -1,4 +1,5 @@
 #include "Button.h"
+#include <iostream>
 
 Button::Button(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor)
 {
@@ -9,19 +10,31 @@ Button::Button(float x, float y, float width, float height, string text, Color t
 	this->text.setFont(font);
 	this->text.setString(text);
 	this->text.setCharacterSize(24);
-	this->text.setFillColor(Color::White);
+	this->text.setFillColor(activeColor);
 	this->text.setPosition(this->shape.getPosition().x + this->shape.getSize().x / 2.f - this->text.getGlobalBounds().width/2.f,
 		this->shape.getPosition().y + this->shape.getSize().y / 2.f - this->text.getGlobalBounds().height/2.f);
 
 	buttonState = BTN_IDLE;
+
+	this->idleColor = idleColor;
+	this->hoverColor = hoverColor;
+	this->activeColor = activeColor;
+	this->textColor = activeColor;
+
 	shape.setFillColor(idleColor);
+	shape.setOutlineColor(hoverColor);
+	shape.setOutlineThickness(5);
 
 	target = NULL;
 }
 
 const bool Button::isPressed() const
 {
-	if (this->buttonState == BTN_PRESSED) return 1;
+	if (this->buttonState == BTN_PRESSED)
+	{
+		Sleep(10);
+		return 1;
+	}
 	return 0;
 }
 
@@ -30,7 +43,6 @@ void Button::update(const Vector2f mousePos)
 	// update BTN_STATEs
 
 	this->buttonState = BTN_IDLE;
-	int i = 1;
 	if (this->shape.getGlobalBounds().contains(mousePos))
 	{
 		this->buttonState = BTN_HOVER;
@@ -41,18 +53,21 @@ void Button::update(const Vector2f mousePos)
 	switch (buttonState)
 	{
 	case BTN_IDLE:
-		shape.setFillColor(Color::Blue);
-		text.setFillColor(Color::White);
+		shape.setFillColor(idleColor);
+		text.setFillColor(activeColor);
+		shape.setOutlineColor(hoverColor);
 		break;
 
 	case BTN_HOVER:
-		shape.setFillColor(Color::Yellow);
-		text.setFillColor(Color::Black);
+		shape.setFillColor(hoverColor);
+		text.setFillColor(idleColor);
+		shape.setOutlineColor(activeColor);
 		break;
 
 	case BTN_PRESSED:
-		shape.setFillColor(Color::Red);
-		text.setFillColor(Color::White);
+		shape.setFillColor(activeColor);
+		text.setFillColor(hoverColor);
+		shape.setOutlineColor(idleColor);
 		break;
 	}
 }

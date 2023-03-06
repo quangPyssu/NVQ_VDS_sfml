@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <windows.h>
 
 using namespace sf;
 using namespace std;

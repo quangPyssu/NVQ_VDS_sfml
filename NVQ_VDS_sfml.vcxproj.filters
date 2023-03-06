@@ -13,45 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{b443870a-f40c-4983-8c73-74a284a00592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes_h">
+      <UniqueIdentifier>{511bca7e-cb5d-4b1f-a33b-6e9ba088a75f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NVQ_VDS_sfml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="App.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Static_Array_Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="DisplayNode.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Static_Array_Menu.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedList.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Static_Array_Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Linked_List.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
     <ClInclude Include="DisplayNode.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Classes_h</Filter>
+    </ClInclude>
+    <ClInclude Include="Static_Array_Menu.h">
+      <Filter>Header Files\Classes_h</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files\Classes_h</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

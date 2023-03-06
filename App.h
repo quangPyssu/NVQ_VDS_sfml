@@ -25,7 +25,7 @@ public:
 
 	RenderWindow* window;
 	VideoMode videoMode;
-	Event ev;
+	Event event;
 
 	void initVariables();
 	void initWindow();
