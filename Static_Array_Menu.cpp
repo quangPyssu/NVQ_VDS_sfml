@@ -12,14 +12,13 @@ Static_Array_Menu::Static_Array_Menu(Event* event)
 	this->btn_back = new Button(100, 600, 150, 50, "Back", Color::White, Color(10, 255, 50, 255), Color::Color(246,190,0,255), Color::Blue);
 
 	// make TextBox;
-	this->box_read = new TextBox(300, 200, 150, 50, "", Color::White, Color::Red, Color::Color(246, 190, 0, 255), Color::Blue);
-
+	this->box_read = new TextBox(300, 200, 150, 50, "Input Value", Color::White, Color::Red, Color::Color(246, 190, 0, 255), Color::Blue);
 
 	tet.loadFromFile("asset/texture/condauvoi.jpg");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
 	target = nullptr;
-	stat = off;
+	stat = off; data = 0;
 	this->event = event;
 
 	l.addHead(New(10));
@@ -59,6 +58,11 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 	this->btn_Search->update(mousePosWindowf);
 	this->btn_back->update(mousePosWindowf);
 	this->box_read->update(mousePosWindowf,event);
+
+	//data getting
+	this->data = box_read->data;
+	if (this->data!=0) l.addHead(New(this->data));
+	this->data = 0;
 
 	if (this->btn_back->isPressed()) stat = off; else
 		if (this->btn_Initialize->isPressed()); else

@@ -31,6 +31,7 @@ private:
 	//TEXT BOX
 
 	TextBox* box_read;
+	int data;
 
 	//Drawzie
 	RenderTarget* target;
