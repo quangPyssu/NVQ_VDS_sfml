@@ -148,6 +148,7 @@
     <ClCompile Include="NVQ_VDS_sfml.cpp" />
     <ClCompile Include="Static_Array_Menu.cpp" />
     <ClCompile Include="TextBox.cpp" />
+    <ClCompile Include="ToggleButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Static_Array_Menu.h" />
     <ClInclude Include="TextBox.h" />
+    <ClInclude Include="ToggleButton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

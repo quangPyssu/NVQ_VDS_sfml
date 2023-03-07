@@ -7,9 +7,11 @@ Node* New(int data)
     node->Next = node->Prev = nullptr;
     return node;
 }
+
 void LinkedList::addTail(Node* node)
 {
-    if (Head == nullptr)
+    Size++;
+    if (Tail == nullptr)
     {
         Head = node;
         Tail = node;
@@ -23,16 +25,42 @@ void LinkedList::addTail(Node* node)
 
 void LinkedList::addHead(Node* node)
 {
-    if (Head == nullptr)
+    add(Head, node);
+}
+
+void LinkedList::addKth(Node* node,int k)
+{
+    int i = 0;
+    Node* tmp = Head;
+
+    while (tmp != nullptr)
+    {
+        if (i++ >= k)
+        {
+            add(tmp,node);
+            return;
+        }
+        tmp = tmp->Next;
+    }
+
+    addTail(node);
+}
+
+void LinkedList::add(Node* cur,Node* node)
+{
+    Size++;
+    if (cur == nullptr)
     {
         Head = node;
         Tail = node;
         return;
     }
 
-    Head->Prev = node;
-    node->Next = Head;
-    Head = node;
+    node->Prev = cur->Prev;
+    node->Next = cur;
+
+    if (cur->Prev!= nullptr) cur->Prev->Next = node; else Head = node;
+    cur->Prev = node;
 }
 
 void LinkedList::delTail()
@@ -67,6 +95,7 @@ void LinkedList::delKth(int k)
 
 void LinkedList::del(Node* Cur) // Delete specific node on List
 {    
+    Size--;
     if (Cur->Prev != nullptr) Cur->Prev->Next = Cur->Next;
     if (Cur->Next != nullptr) Cur->Next->Prev = Cur->Prev;
 

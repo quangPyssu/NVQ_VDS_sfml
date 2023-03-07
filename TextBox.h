@@ -8,7 +8,7 @@
 using namespace std;
 using namespace sf;
 
-enum box_states { IDLE = 0, ACTIVE = 1};
+enum box_states { IDLE = 0, ACTIVE = 1, nothing = -1000000000};
 
 class TextBox
 {    
@@ -17,11 +17,13 @@ class TextBox
         string input_text;
         string default_S,current_S;
         Text text;
-        int data;
+        int data=nothing;
+        
+        short unsigned box_Stat;
 
         //constructor
 
-        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor);
+        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y);
 
         //destructor
         virtual~TextBox();
@@ -34,7 +36,7 @@ class TextBox
 
         void confirm(const string& s);
    private:
-        short unsigned box_Stat;
+        
 
         //attribute
 
@@ -43,6 +45,8 @@ class TextBox
         Color hoverColor;
         Color activeColor;
         Color textColor;
+        float height = 30;
+        float width = 100;
 
         //event & clock
         RenderTarget* target;

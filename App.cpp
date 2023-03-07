@@ -85,11 +85,11 @@ void App::update()
 	switch (AppState)
 	{
 		case app_main:
-			this->btn_Static_Array->update(mousePosWindowf);
-			this->btn_Dynamic_Array->update(mousePosWindowf);
-			this->btn_Linked_List->update(mousePosWindowf);
-			this->btn_Stack->update(mousePosWindowf);
-			this->btn_Queue->update(mousePosWindowf);
+			this->btn_Static_Array->update(mousePosWindowf, &event);
+			this->btn_Dynamic_Array->update(mousePosWindowf, &event);
+			this->btn_Linked_List->update(mousePosWindowf, &event);
+			this->btn_Stack->update(mousePosWindowf, &event);
+			this->btn_Queue->update(mousePosWindowf, &event);
 
 			if (this->btn_Static_Array->isPressed()) AppState = app_static_array, Mn_Static_Array->stat = on; else
 			if (this->btn_Dynamic_Array->isPressed()) AppState = app_dynamic_array; else

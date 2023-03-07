@@ -9,10 +9,15 @@ struct LinkedList
 {
     Node* Head = nullptr;
     Node* Tail = nullptr;
+    int Size=0;
+
+    void add(Node* cur,Node* node);
 
     void addTail(Node* node);
 
     void addHead(Node* node);
+
+    void addKth(Node* node, int k);
 
     void del(Node* Cur);
 

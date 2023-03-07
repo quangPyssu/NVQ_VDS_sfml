@@ -42,6 +42,9 @@
     <ClCompile Include="TextBox.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="ToggleButton.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
+      <Filter>Header Files\Classes_h</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleButton.h">
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "ToggleButton.h"
 #include "TextBox.h"
 #include "LinkedList.h"
 
@@ -17,7 +18,15 @@ public:
 	void Render(RenderTarget* target);
 	void update(const Vector2f mousePos);
 
+	// update for stuff
+
+	void update_add();
+
+	//menu stat
+
 	short unsigned stat;
+
+	//LL
 
 	LinkedList l;
 
@@ -28,10 +37,14 @@ private:
 	Button* btn_Delete; Button* btn_Update;
 	Button* btn_Search; Button* btn_back;
 
-	//TEXT BOX
+	//TEXT BOX & BTN for ADD
 
-	TextBox* box_read;
-	int data;
+	TextBox* box_add_val;
+	TextBox* box_add_pos;
+	ToggleButton* tog_add_head;
+	ToggleButton* tog_add_tail;
+
+	int add_data_val=0,add_data_pos=0;
 
 	//Drawzie
 	RenderTarget* target;
@@ -42,5 +55,9 @@ private:
 
 	// Mouse pos
 	Vector2f mousePosWindowf;
+
+	// stats
+	bool add_stat = 0;
+	bool init_stat = 0;
 };
 

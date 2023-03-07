@@ -1,19 +1,23 @@
 #include "TextBox.h"
 
-TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor)
+TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y)
 {
-	shape.setSize(Vector2f(width, height));
+	this->height = height ? height : this->height;
+	this->width = width ? width : this->width;
+
+	shape.setSize(Vector2f(this->width, this->height));
 	shape.setPosition(Vector2f(x, y));
 
 	font.loadFromFile("asset/fonts/ArialTh.ttf");
 	this->text.setFont(font);
 	default_S = text;
 	this->text.setString(text);
-	this->text.setCharacterSize(30);
+	this->text.setCharacterSize((int) this->height/3*2);
 	this->text.setFillColor(Color::White);
-	this->text.setPosition(this->shape.getPosition().x + 5,this->shape.getPosition().y + 10);
+	this->text.setPosition(this->shape.getPosition().x + this->shape.getSize().x / 2.f - this->text.getGlobalBounds().width / 2.f,
+		this->shape.getPosition().y + this->shape.getSize().y / 2.f - this->text.getGlobalBounds().height / 2.f);
 
-	this->btn_cofirm = new Button(500, 200, 100, 50, "CONFIRM", Color::White, Color::Green, Color::Color(246, 190, 0, 255), Color::Blue);
+	this->btn_cofirm = new Button(x+btn_x, y+btn_y, 0, 0, "CONFIRM", Color::White, Color::Green, Color::Color(246, 190, 0, 255), Color::Blue);
 
 	box_Stat = IDLE;
 
@@ -41,7 +45,7 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 {
 	// update Box_STATEs
 
-	btn_cofirm->update(mousePos);
+	btn_cofirm->update(mousePos,event);
 	data = 0;
 
 	if (Mouse::isButtonPressed(Mouse::Left))
@@ -73,7 +77,7 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 		text.setString(default_S);
 	}
 	
-	if (btn_cofirm->isPressed()) confirm(input_text);
+	if (btn_cofirm->isPressed() || (event->type == Event::KeyPressed && event->key.code == Keyboard::Enter)) confirm(input_text); else data = nothing;
 }
 
 void TextBox::render(RenderTarget* target)
@@ -103,9 +107,11 @@ bool TextBox::is_number(const string& s)
 
 void TextBox::confirm(const string& s)
 {
+	data = nothing;
 	if (is_number(s))
 	{
 		data = stoi(s);
+		
 		input_text = "";
 	}
 }
