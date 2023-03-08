@@ -9,6 +9,9 @@ Button::Button(float x, float y, float width, float height, string text, Color t
 	shape.setSize(Vector2f(this->width, this->height));
 	shape.setPosition(Vector2f(x, y));
 
+	size_x = this->width; size_y = this->height;
+	pos_x = x; pos_y = y;
+
 	font.loadFromFile("asset/fonts/ArialTh.ttf");
 	this->text.setFont(font);
 	this->text.setString(text);

@@ -1,12 +1,16 @@
 #include "TextBox.h"
 
-TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y)
+TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y) 
+// btn_x and btn_y is for displacement of btn compare to TextBox
 {
 	this->height = height ? height : this->height;
 	this->width = width ? width : this->width;
 
 	shape.setSize(Vector2f(this->width, this->height));
 	shape.setPosition(Vector2f(x, y));
+
+	size_x = (int) this->width; size_y = (int) this->height;
+	pos_x = (int) x; pos_y = (int) y;
 
 	font.loadFromFile("asset/fonts/ArialTh.ttf");
 	this->text.setFont(font);

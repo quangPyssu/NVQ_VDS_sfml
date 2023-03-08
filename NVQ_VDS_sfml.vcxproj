@@ -149,6 +149,7 @@
     <ClCompile Include="Static_Array_Menu.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="ToggleButton.cpp" />
+    <ClCompile Include="Toggle_Group.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Static_Array_Menu.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="ToggleButton.h" />
+    <ClInclude Include="Toggle_Group.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

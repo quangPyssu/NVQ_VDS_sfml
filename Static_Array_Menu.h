@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "ToggleButton.h"
+#include "Toggle_Group.h"
 #include "TextBox.h"
 #include "LinkedList.h"
 
@@ -33,9 +34,11 @@ public:
 private:
 	//BTN
 
-	Button* btn_Initialize;	Button* btn_Add;
-	Button* btn_Delete; Button* btn_Update;
-	Button* btn_Search; Button* btn_back;
+	ToggleButton* tog_Initialize;ToggleButton* tog_Add;
+	ToggleButton* tog_Delete; ToggleButton* tog_Update;
+	ToggleButton* tog_Search; Button* btn_back;
+
+	Toggle_Group Toggle_Group_Static_Array;
 
 	//TEXT BOX & BTN for ADD
 
@@ -57,7 +60,10 @@ private:
 	Vector2f mousePosWindowf;
 
 	// stats
-	bool add_stat = 0;
 	bool init_stat = 0;
+	bool add_stat = 0;
+	bool del_stat = 0;
+	bool upd_stat = 0;
+	bool ser_stat = 0;
 };
 

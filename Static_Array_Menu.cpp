@@ -4,19 +4,27 @@
 Static_Array_Menu::Static_Array_Menu(Event* event)
 {
 	// make btn;
-	this->btn_Initialize = new Button(50, 50, 0, 0, "Initialize", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue);
-	this->btn_Add = new Button(50, 120, 0, 0, "Add", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue);
-	this->btn_Delete = new Button(50, 190, 0, 0, "Delete", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue);
-	this->btn_Update = new Button(50, 260, 0, 0, "Update", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue);
-	this->btn_Search = new Button(50, 330, 0, 0, "Search", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue);
+	this->tog_Initialize = new ToggleButton(50, 50, 0, 0, "Initialize", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue,1);
+	this->tog_Add = new ToggleButton(50, 120, 0, 0, "Add", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue,1);
+	this->tog_Delete = new ToggleButton(50, 190, 0, 0, "Delete", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue,1);
+	this->tog_Update = new ToggleButton(50, 260, 0, 0, "Update", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue,1);
+	this->tog_Search = new ToggleButton(50, 330, 0, 0, "Search", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue,1);
 	this->btn_back = new Button(50, 400, 0, 0, "Back", Color::White, Color(10, 255, 50, 255), Color(246,190,0,255), Color::Blue);
 
-	// make TextBox&btn for ADD;
-	this->box_add_val = new TextBox(240, 120, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue,200,0);
-	this->box_add_pos = new TextBox(140, 120, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300,0);
+	Toggle_Group_Static_Array.Toggle_Btn_Grp[0] = tog_Initialize;
+	Toggle_Group_Static_Array.Toggle_Btn_Grp[1] = tog_Add;
+	Toggle_Group_Static_Array.Toggle_Btn_Grp[2] = tog_Delete;
+	Toggle_Group_Static_Array.Toggle_Btn_Grp[3] = tog_Update;
+	Toggle_Group_Static_Array.Toggle_Btn_Grp[4] = tog_Search;
+	Toggle_Group_Static_Array.n = 5;
 
-	this->tog_add_head = new ToggleButton(140, 160, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue,Type_Neighbor);
-	this->tog_add_tail = new ToggleButton(140, 200, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue,Type_Neighbor);
+
+	// make TextBox&btn for ADD;
+	this->box_add_val = new TextBox(240, tog_Add->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue,200,0);
+	this->box_add_pos = new TextBox(140, tog_Add->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300,0);
+
+	this->tog_add_head = new ToggleButton(box_add_pos->pos_x, 85, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue,Type_Neighbor);
+	this->tog_add_tail = new ToggleButton(box_add_pos->pos_x, 155, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue,Type_Neighbor);
 
 	tet.loadFromFile("asset/texture/condauvoi.jpg");
 	sprite.setTexture(tet);
@@ -37,9 +45,9 @@ Static_Array_Menu::Static_Array_Menu(Event* event)
 Static_Array_Menu::~Static_Array_Menu()
 {
 	//Button
-	delete btn_Initialize; delete btn_Add;
-	delete btn_Delete; delete btn_Update;
-	delete btn_Search; delete btn_back;
+	delete tog_Initialize; delete tog_Add;
+	delete tog_Delete; delete tog_Update;
+	delete tog_Search; delete btn_back;
 
 	delete tog_add_head; delete tog_add_tail;
 
@@ -56,14 +64,14 @@ void Static_Array_Menu::Render(RenderTarget* target)
 {
 	target->clear(Color::Black);
 	target->draw(sprite);
-	this->btn_Initialize->render(target);
-	this->btn_Add->render(target);
-	this->btn_Delete->render(target);
-	this->btn_Update->render(target);
-	this->btn_Search->render(target);
+	this->tog_Initialize->render(target);
+	this->tog_Add->render(target);
+	this->tog_Delete->render(target);
+	this->tog_Update->render(target);
+	this->tog_Search->render(target);
 	this->btn_back->render(target);
 
-	if (add_stat)
+	if (tog_Add->Toggled())
 	{
 		this->box_add_val->render(target);
 		this->box_add_pos->render(target);
@@ -89,14 +97,15 @@ void Static_Array_Menu::update_add()
 void Static_Array_Menu::update(const Vector2f mousePos)
 {
 	this->mousePosWindowf = mousePos;
-	this->btn_Initialize->update(mousePosWindowf,event);
-	this->btn_Add->update(mousePosWindowf, event);
-	this->btn_Delete->update(mousePosWindowf, event);
-	this->btn_Update->update(mousePosWindowf, event);
-	this->btn_Search->update(mousePosWindowf, event);
+	this->tog_Initialize->update(mousePosWindowf,event);
+	this->tog_Add->update(mousePosWindowf, event);
+	this->tog_Delete->update(mousePosWindowf, event);
+	this->tog_Update->update(mousePosWindowf, event);
+	this->tog_Search->update(mousePosWindowf, event);
 	this->btn_back->update(mousePosWindowf, event);
 
-	if (add_stat)
+
+	if (tog_Add->Toggled())
 	{
 		this->box_add_val->update(mousePosWindowf, event);
 		this->box_add_pos->update(mousePosWindowf, event);
@@ -107,9 +116,9 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 			tog_add_tail->disable();
 		}
 		this->tog_add_head->update(mousePosWindowf, event);
-		if (tog_add_head->isPressed()) add_data_pos = 0, tog_add_tail->disable(); 
+		if (tog_add_head->Toggled()) add_data_pos = 0, tog_add_tail->disable();
 		this->tog_add_tail->update(mousePosWindowf, event);
-		if (tog_add_tail->isPressed()) add_data_pos = 21, tog_add_head->disable(); 
+		if (tog_add_tail->Toggled()) add_data_pos = 21, tog_add_head->disable();
 
 		update_add();
 	}
@@ -119,28 +128,14 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 
 	if (this->btn_back->isPressed()) stat = off; else
 	{
-		if (this->btn_Initialize->isPressed()); else
-			if (this->btn_Add->isPressed())
-			{
-				add_stat = !add_stat;
-			}
-			else
-				if (this->btn_Delete->isPressed())
-					l.delHead(); else
-					if (this->btn_Update->isPressed())
-					{
-						l.addKth(New(10),5);
-					} else
-						if (this->btn_Search->isPressed())
-						{
-							Node* tmp = l.Head;
-							while (tmp)
-							{
-								cout << tmp->data << " ";
-								tmp = tmp->Next;
-							}
-							cout << endl;
-						}
-		;
+		if (this->tog_Initialize->isPressed(mousePosWindowf, event)) Toggle_Group_Static_Array.update(0);
+		
+		if (this->tog_Add->isPressed(mousePosWindowf, event)) Toggle_Group_Static_Array.update(1); 
+		
+		if (this->tog_Delete->isPressed(mousePosWindowf, event)) Toggle_Group_Static_Array.update(2); 
+		
+		if (this->tog_Update->isPressed(mousePosWindowf, event)) Toggle_Group_Static_Array.update(3); 
+
+		if (this->tog_Search->isPressed(mousePosWindowf, event)) Toggle_Group_Static_Array.update(4);
 	}
 }

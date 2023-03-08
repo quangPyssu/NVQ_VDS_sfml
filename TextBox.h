@@ -35,6 +35,10 @@ class TextBox
         void render(RenderTarget* target);
 
         void confirm(const string& s);
+
+        // position &size
+        int pos_x, pos_y;
+        int size_x, size_y;
    private:
         
 
@@ -62,5 +66,7 @@ class TextBox
 
         bool is_number(const string& s);
         Button* btn_cofirm;
+
+        
 };
 

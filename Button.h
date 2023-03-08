@@ -48,5 +48,9 @@ public:
     void update(const Vector2f mousePos, Event* event);
 
     void render(RenderTarget* target);
+
+    // position &size
+    int pos_x,pos_y;
+    int size_x, size_y;
 };
 
