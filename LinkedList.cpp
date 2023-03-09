@@ -87,10 +87,12 @@ void LinkedList::delKth(int k)
         if (i++ == k)
         {
             del(tmp);
-            break;
+            return;
         }
         tmp = tmp->Next;
     }
+
+    delTail();
 }
 
 void LinkedList::del(Node* Cur) // Delete specific node on List

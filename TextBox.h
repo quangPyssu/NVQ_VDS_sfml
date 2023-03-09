@@ -39,6 +39,10 @@ class TextBox
         // position &size
         int pos_x, pos_y;
         int size_x, size_y;
+
+        //accessor
+        
+        Button* btn_cofirm;
    private:
         
 
@@ -65,8 +69,5 @@ class TextBox
         // input accept?
 
         bool is_number(const string& s);
-        Button* btn_cofirm;
-
-        
 };
 

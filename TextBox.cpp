@@ -52,11 +52,11 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 	btn_cofirm->update(mousePos,event);
 	data = 0;
 
-	if (Mouse::isButtonPressed(Mouse::Left))
+	if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
 	{
-		if (shape.getGlobalBounds().contains(mousePos)) box_Stat = ACTIVE;
+		if (this->shape.getGlobalBounds().contains(mousePos)) box_Stat = ACTIVE;
 		else box_Stat = IDLE;
-	}
+	}	
 
 	if (box_Stat == ACTIVE)
 	{
