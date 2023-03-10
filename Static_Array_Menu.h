@@ -23,6 +23,7 @@ public:
 
 	void update_add();
 	void update_del();
+	void update_upd();
 
 	//menu stat
 
@@ -61,8 +62,20 @@ private:
 	ToggleButton* tog_del_pos;
 
 	Toggle_Group Toggle_Group_Del;
-
+	
 	int  del_data_pos = nothing;
+
+	//TEXT BOX & BTN for UPDATE
+
+	TextBox* box_upd_val;
+	TextBox* box_upd_pos;
+	ToggleButton* tog_upd_head;
+	ToggleButton* tog_upd_tail;
+	ToggleButton* tog_upd_pos;
+
+	Toggle_Group Toggle_Group_Upd;
+
+	int upd_data_val = nothing, upd_data_pos = nothing;
 
 	//Drawzie
 	RenderTarget* target;

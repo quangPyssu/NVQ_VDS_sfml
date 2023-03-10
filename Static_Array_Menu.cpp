@@ -37,6 +37,17 @@ Static_Array_Menu::Static_Array_Menu(Event* event)
 	Toggle_Group_Del.Toggle_Btn_Grp[0] = tog_del_head;	Toggle_Group_Del.Toggle_Btn_Grp[1] = tog_del_tail;	Toggle_Group_Del.Toggle_Btn_Grp[2] = tog_del_pos;
 	Toggle_Group_Del.n = 3;
 
+	// make TextBox&btn for UPDATE;
+	this->box_upd_val = new TextBox(240, tog_Update->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0);
+	this->box_upd_pos = new TextBox(140, tog_Update->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0);
+
+	this->tog_upd_head = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y - 35, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+	this->tog_upd_tail = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + 35, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+	this->tog_upd_pos = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
+
+	Toggle_Group_Upd.Toggle_Btn_Grp[0] = tog_upd_head;	Toggle_Group_Upd.Toggle_Btn_Grp[1] = tog_upd_tail;	Toggle_Group_Upd.Toggle_Btn_Grp[2] = tog_upd_pos;
+	Toggle_Group_Upd.n = 3;
+
 	// Back display
 
 	tet.loadFromFile("asset/texture/condauvoi.jpg");
@@ -68,11 +79,16 @@ Static_Array_Menu::~Static_Array_Menu()
 	delete tog_del_head; delete tog_del_tail;
 	delete tog_del_pos;
 
+	delete tog_upd_head; delete tog_upd_tail;
+	delete tog_upd_pos;
+
 	//Box
 
 	delete box_add_val; delete box_add_pos;
 
 	delete box_del_pos;
+
+	delete box_upd_pos; delete box_upd_val;
 
 	// Linked list
 
@@ -104,14 +120,24 @@ void Static_Array_Menu::Render(RenderTarget* target)
 		this->tog_del_tail->render(target);
 		this->box_del_pos->render(target);
 	}
+
+	if (tog_Update->Toggled())
+	{
+		this->tog_upd_head->render(target);
+		this->tog_upd_tail->render(target);
+		this->box_upd_val->render(target);
+		this->box_upd_pos->render(target);
+	}
 }
 
 void Static_Array_Menu::update_add()
 {
+	if (tog_add_head->Toggled()) add_data_pos = 0;  	
+	if (tog_add_tail->Toggled()) add_data_pos = 21;
+	if (tog_add_pos->Toggled()) add_data_pos = nothing;
+	
 	if (box_add_val->data != nothing && add_data_val == nothing) add_data_val = box_add_val->data, box_add_val->data = nothing;
 	if (box_add_pos->data != nothing && add_data_pos == nothing) add_data_pos = box_add_pos->data, box_add_val->data = nothing;
-
-	if (tog_add_head->Toggled()) add_data_pos = 0;  	if (tog_add_tail->Toggled()) add_data_pos = 21;
 
 	if (add_data_val != nothing && add_data_pos != nothing)
 	{
@@ -133,9 +159,11 @@ void Static_Array_Menu::update_add()
 
 void Static_Array_Menu::update_del()
 {
+	if (tog_del_head->Toggled()) del_data_pos = 0; 	
+	if (tog_del_tail->Toggled()) del_data_pos = 21;
+	if (tog_del_pos->Toggled()) del_data_pos = nothing;
+	
 	if (box_del_pos->data != nothing && del_data_pos == nothing) del_data_pos = box_del_pos->data;
-
-	if (tog_del_head->Toggled()) del_data_pos = 0; 	if (tog_del_tail->Toggled()) del_data_pos = 21;
 
 	if (del_data_pos != nothing && box_del_pos->btn_cofirm->isPressed())
 	{
@@ -155,6 +183,33 @@ void Static_Array_Menu::update_del()
 	}
 }
 
+void Static_Array_Menu::update_upd()
+{
+	if (tog_upd_head->Toggled()) upd_data_pos = 0;
+	if (tog_upd_tail->Toggled()) upd_data_pos = 21;
+	if (tog_upd_pos->Toggled()) upd_data_pos = nothing;
+
+	if (box_upd_val->data != nothing && upd_data_val == nothing) upd_data_val = box_upd_val->data, box_upd_val->data = nothing;
+	if (box_upd_pos->data != nothing && upd_data_pos == nothing) upd_data_pos = box_upd_pos->data, box_upd_val->data = nothing;
+
+	if (upd_data_val != nothing && upd_data_pos != nothing)
+	{
+		l.UpdateKth(upd_data_pos, upd_data_val);
+
+		// Delete later
+		{
+			Node* tmp = l.Head;
+			while (tmp != nullptr)
+			{
+				cout << tmp->data << " ";
+				tmp = tmp->Next;
+			}cout << endl;
+		}
+
+		upd_data_val = upd_data_pos = nothing;
+	}
+}
+
 void Static_Array_Menu::update(const Vector2f mousePos)
 {
 	this->mousePosWindowf = mousePos;
@@ -169,8 +224,6 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 
 	if (tog_Add->Toggled())
 	{
-		this->box_add_val->update(mousePosWindowf, event);
-		this->box_add_pos->update(mousePosWindowf, event);
 		this->tog_add_head->update(mousePosWindowf, event);
 		this->tog_add_tail->update(mousePosWindowf, event);
 		this->tog_add_pos->update(mousePosWindowf, event);
@@ -180,6 +233,9 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 		if (this->tog_add_tail->isPressed(mousePosWindowf, event)) Toggle_Group_Add.update(1); 
 
 		if (this->tog_add_pos->isPressed(mousePosWindowf, event)) Toggle_Group_Add.update(2);
+		
+		this->box_add_val->update(mousePosWindowf, event);
+		this->box_add_pos->update(mousePosWindowf, event);
 
 		update_add();
 	}
@@ -188,7 +244,6 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 
 	if (tog_Delete->Toggled())
 	{
-		this->box_del_pos->update(mousePosWindowf, event);
 		this->tog_del_head->update(mousePosWindowf, event);
 		this->tog_del_tail->update(mousePosWindowf, event);
 		this->tog_del_pos->update(mousePosWindowf, event);
@@ -198,8 +253,30 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 		if (this->tog_del_tail->isPressed(mousePosWindowf, event)) Toggle_Group_Del.update(1);
 
 		if (this->tog_del_pos->isPressed(mousePosWindowf, event)) Toggle_Group_Del.update(2);
+		
+		this->box_del_pos->update(mousePosWindowf, event);
 
 		update_del();
+	}
+
+	// UPDATE
+
+	if (tog_Update->Toggled())
+	{
+		this->tog_upd_head->update(mousePosWindowf, event);
+		this->tog_upd_tail->update(mousePosWindowf, event);
+		this->tog_upd_pos->update(mousePosWindowf, event);
+
+		if (this->tog_upd_head->isPressed(mousePosWindowf, event)) Toggle_Group_Upd.update(0);
+
+		if (this->tog_upd_tail->isPressed(mousePosWindowf, event)) Toggle_Group_Upd.update(1);
+
+		if (this->tog_upd_pos->isPressed(mousePosWindowf, event)) Toggle_Group_Upd.update(2);
+
+		this->box_upd_val->update(mousePosWindowf, event);
+		this->box_upd_pos->update(mousePosWindowf, event);
+
+		update_upd();
 	}
 
 	

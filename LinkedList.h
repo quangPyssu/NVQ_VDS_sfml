@@ -28,6 +28,8 @@ struct LinkedList
     void delKth(int k);
 
     void delAll();
+
+    void UpdateKth(int k,int data);
 };
 
 Node* New(int data);

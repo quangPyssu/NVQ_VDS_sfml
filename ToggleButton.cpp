@@ -59,7 +59,7 @@ const bool ToggleButton::Toggled() const
 {
 	if (this->buttonState == TOGGLE_ON) 
 	{ 
-		Sleep(10); 
+		Sleep(0); 
 		return 1; 
 	}
 	return 0;

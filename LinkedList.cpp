@@ -118,3 +118,23 @@ void LinkedList::delAll()
         delete tmp;
     }
 }
+
+void LinkedList::UpdateKth(int k,int data)
+{
+    if (Head == nullptr) return;
+
+    int i = 0;
+    Node* tmp = Head;
+
+    while (tmp != nullptr)
+    {
+        if (i++ == k)
+        {
+            tmp->data = data;
+            return;
+        }
+        tmp = tmp->Next;
+    }
+
+    Tail->data = data;
+}
