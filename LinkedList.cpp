@@ -111,12 +111,14 @@ void LinkedList::del(Node* Cur) // Delete specific node on List
 
 void LinkedList::delAll()
 {
-    while (Head)
+    while (Head!=nullptr)
     {
         Node* tmp = Head;
         Head = Head->Next;
         delete tmp;
     }
+
+    Head = Tail = nullptr;
 }
 
 void LinkedList::UpdateKth(int k,int data)

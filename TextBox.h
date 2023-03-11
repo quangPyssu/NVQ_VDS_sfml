@@ -23,7 +23,7 @@ class TextBox
 
         //constructor
 
-        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y);
+        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size);
 
         //destructor
         virtual~TextBox();
@@ -55,6 +55,8 @@ class TextBox
         Color textColor;
         float height = 30;
         float width = 100;
+
+        int size;
 
         //event & clock
         RenderTarget* target;

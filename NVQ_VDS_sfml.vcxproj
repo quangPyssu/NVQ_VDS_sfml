@@ -147,6 +147,7 @@
     <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="NVQ_VDS_sfml.cpp" />
     <ClCompile Include="Static_Array_Menu.cpp" />
+    <ClCompile Include="StringProccess.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="ToggleButton.cpp" />
     <ClCompile Include="Toggle_Group.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="DisplayNode.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Static_Array_Menu.h" />
+    <ClInclude Include="StringProccess.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="ToggleButton.h" />
     <ClInclude Include="Toggle_Group.h" />

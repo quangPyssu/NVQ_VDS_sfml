@@ -48,6 +48,9 @@
     <ClCompile Include="Toggle_Group.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="StringProccess.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
     <ClInclude Include="Toggle_Group.h">
+      <Filter>Header Files\Classes_h</Filter>
+    </ClInclude>
+    <ClInclude Include="StringProccess.h">
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "TextBox.h"
 
-TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y) 
+TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size) 
 // btn_x and btn_y is for displacement of btn compare to TextBox
 {
 	this->height = height ? height : this->height;
@@ -38,6 +38,7 @@ TextBox::TextBox(float x, float y, float width, float height, string text, Color
 	event = nullptr;
 	show_cursor = 0;
 	data = 0;
+	this->size = size;
 }
 
 TextBox::~TextBox()
@@ -64,7 +65,7 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 		shape.setFillColor(activeColor);
 		if (event->type == Event::TextEntered)
 		{
-			if (isprint(event->text.unicode) && input_text.size()<9)
+			if (isprint(event->text.unicode) && input_text.size()<this->size)
 				input_text += event->text.unicode;
 		}
 

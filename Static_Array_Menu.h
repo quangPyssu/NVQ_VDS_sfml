@@ -1,14 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cstdlib>
 #include "Button.h"
 #include "ToggleButton.h"
 #include "Toggle_Group.h"
 #include "TextBox.h"
 #include "LinkedList.h"
+#include "StringProccess.h"
 
 using namespace sf;
 
-enum Menu_stat { off = 0, on = 1 };
+enum Menu_stat { off = 0, on = 1 , init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4};
 
 class Static_Array_Menu
 {
@@ -21,6 +23,7 @@ public:
 
 	// update for stuff
 
+	void update_init();
 	void update_add();
 	void update_del();
 	void update_upd();
@@ -28,10 +31,13 @@ public:
 	//menu stat
 
 	short unsigned stat;
+	short init_stat=0;
 
 	//LL
 
 	LinkedList l;
+	int n = 0;
+	StringProccess init_get;
 
 private:
 	//BTN
@@ -41,6 +47,21 @@ private:
 	ToggleButton* tog_Search; Button* btn_back;
 
 	Toggle_Group Toggle_Group_Static_Array;
+
+	//TEXT BOX & BTN for INITIALIZE
+
+	TextBox* box_init_read;
+	TextBox* box_init_fixed;
+
+	ToggleButton* tog_init_empty;
+	ToggleButton* tog_init_random;
+	ToggleButton* tog_init_fixed;
+	ToggleButton* tog_init_read;
+	ToggleButton* tog_init_load;
+
+	Toggle_Group Toggle_Group_Init;
+
+	string init_data_val = ""; int init_data_size = nothing;
 
 	//TEXT BOX & BTN for ADD
 
@@ -88,10 +109,5 @@ private:
 	Vector2f mousePosWindowf;
 
 	// stats
-	bool init_stat = 0;
-	bool add_stat = 0;
-	bool del_stat = 0;
-	bool upd_stat = 0;
-	bool ser_stat = 0;
 };
 
