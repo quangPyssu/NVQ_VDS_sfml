@@ -140,3 +140,18 @@ void LinkedList::UpdateKth(int k,int data)
 
     Tail->data = data;
 }
+
+short LinkedList::find(int data)
+{
+    int i = 0;
+    Node* tmp = Head;
+
+    while (tmp != nullptr)
+    {
+        if (tmp->data == data) return i;
+        
+        i++;tmp = tmp->Next;
+    }
+
+    if (tmp == nullptr) return -1;
+}

@@ -27,6 +27,7 @@ public:
 	void update_add();
 	void update_del();
 	void update_upd();
+	void update_search();
 
 	//menu stat
 
@@ -97,6 +98,12 @@ private:
 	Toggle_Group Toggle_Group_Upd;
 
 	int upd_data_val = nothing, upd_data_pos = nothing;
+
+	//TEXT BOX & BTN for SEARCH
+
+	TextBox* box_ser_val;
+
+	int ser_data_val = nothing;
 
 	//Drawzie
 	RenderTarget* target;

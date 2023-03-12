@@ -17,52 +17,65 @@ Static_Array_Menu::Static_Array_Menu(Event* event)
 	Toggle_Group_Static_Array.n = 5;
 
 	// make TextBox&btn for INITIALIZE;
+	{
 
-	this->box_init_read = new TextBox(tog_Initialize->pos_x + 340, tog_Initialize->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0,50);
-	this->box_init_fixed = new TextBox(tog_Initialize->pos_x + 240, tog_Initialize->pos_y, 0, 0, "Input Size", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0,9);
+		this->box_init_read = new TextBox(tog_Initialize->pos_x + 340, tog_Initialize->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0, 50);
+		this->box_init_fixed = new TextBox(tog_Initialize->pos_x + 240, tog_Initialize->pos_y, 0, 0, "Input Size", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0, 9);
 
-	this->tog_init_empty = new ToggleButton(tog_Initialize->pos_x+100, tog_Initialize->pos_y, 70, 0, "Empty", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
-	this->tog_init_random = new ToggleButton(tog_Initialize->pos_x+170, tog_Initialize->pos_y, 70, 0, "Random", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
-	this->tog_init_fixed = new ToggleButton(tog_Initialize->pos_x+240, tog_Initialize->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
-	this->tog_init_read = new ToggleButton(tog_Initialize->pos_x+340, tog_Initialize->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
-	this->tog_init_load = new ToggleButton(tog_Initialize->pos_x+440, tog_Initialize->pos_y, 70, 0, "Load", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_init_empty = new ToggleButton(tog_Initialize->pos_x + 100, tog_Initialize->pos_y, 70, 0, "Empty", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_init_random = new ToggleButton(tog_Initialize->pos_x + 170, tog_Initialize->pos_y, 70, 0, "Random", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_init_fixed = new ToggleButton(tog_Initialize->pos_x + 240, tog_Initialize->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
+		this->tog_init_read = new ToggleButton(tog_Initialize->pos_x + 340, tog_Initialize->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
+		this->tog_init_load = new ToggleButton(tog_Initialize->pos_x + 440, tog_Initialize->pos_y, 70, 0, "Load", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
 
-	Toggle_Group_Init.Toggle_Btn_Grp[0] = tog_init_empty;	Toggle_Group_Init.Toggle_Btn_Grp[1] = tog_init_random;	Toggle_Group_Init.Toggle_Btn_Grp[2] = tog_init_fixed;
-	Toggle_Group_Init.Toggle_Btn_Grp[3] = tog_init_read;	Toggle_Group_Init.Toggle_Btn_Grp[4] = tog_init_load;
-	Toggle_Group_Init.n = 5;
-
+		Toggle_Group_Init.Toggle_Btn_Grp[0] = tog_init_empty;	Toggle_Group_Init.Toggle_Btn_Grp[1] = tog_init_random;	Toggle_Group_Init.Toggle_Btn_Grp[2] = tog_init_fixed;
+		Toggle_Group_Init.Toggle_Btn_Grp[3] = tog_init_read;	Toggle_Group_Init.Toggle_Btn_Grp[4] = tog_init_load;
+		Toggle_Group_Init.n = 5;
+	}
 
 	// make TextBox&btn for ADD;
-	this->box_add_val = new TextBox(240, tog_Add->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue,200,0,9);
-	this->box_add_pos = new TextBox(140, tog_Add->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300,0,9);
+	{
+		this->box_add_val = new TextBox(240, tog_Add->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0, 9);
+		this->box_add_pos = new TextBox(140, tog_Add->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0, 9);
 
-	this->tog_add_head = new ToggleButton(box_add_pos->pos_x, 85, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue,Type_Neighbor);
-	this->tog_add_tail = new ToggleButton(box_add_pos->pos_x, 155, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue,Type_Neighbor);
-	this->tog_add_pos = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
+		this->tog_add_head = new ToggleButton(box_add_pos->pos_x, 85, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_add_tail = new ToggleButton(box_add_pos->pos_x, 155, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_add_pos = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
 
-	Toggle_Group_Add.Toggle_Btn_Grp[0] = tog_add_head;	Toggle_Group_Add.Toggle_Btn_Grp[1] = tog_add_tail;	Toggle_Group_Add.Toggle_Btn_Grp[2] = tog_add_pos;
-	Toggle_Group_Add.n = 3;
+		Toggle_Group_Add.Toggle_Btn_Grp[0] = tog_add_head;	Toggle_Group_Add.Toggle_Btn_Grp[1] = tog_add_tail;	Toggle_Group_Add.Toggle_Btn_Grp[2] = tog_add_pos;
+		Toggle_Group_Add.n = 3;
+	}
 
 	// make TextBox&btn for DEL;
-	this->box_del_pos = new TextBox(140, tog_Delete->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0,9);
+	{
+		this->box_del_pos = new TextBox(140, tog_Delete->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0, 9);
 
-	this->tog_del_head = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y-35, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
-	this->tog_del_tail = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y+35, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
-	this->tog_del_pos = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
+		this->tog_del_head = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y - 35, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_del_tail = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + 35, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_del_pos = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
 
-	Toggle_Group_Del.Toggle_Btn_Grp[0] = tog_del_head;	Toggle_Group_Del.Toggle_Btn_Grp[1] = tog_del_tail;	Toggle_Group_Del.Toggle_Btn_Grp[2] = tog_del_pos;
-	Toggle_Group_Del.n = 3;
+		Toggle_Group_Del.Toggle_Btn_Grp[0] = tog_del_head;	Toggle_Group_Del.Toggle_Btn_Grp[1] = tog_del_tail;	Toggle_Group_Del.Toggle_Btn_Grp[2] = tog_del_pos;
+		Toggle_Group_Del.n = 3;
+	}
 
 	// make TextBox&btn for UPDATE;
-	this->box_upd_val = new TextBox(240, tog_Update->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0,9);
-	this->box_upd_pos = new TextBox(140, tog_Update->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0,9);
+	{
+		this->box_upd_val = new TextBox(240, tog_Update->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0, 9);
+		this->box_upd_pos = new TextBox(140, tog_Update->pos_y, 0, 0, "Input Position", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 300, 0, 9);
 
-	this->tog_upd_head = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y - 35, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
-	this->tog_upd_tail = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + 35, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
-	this->tog_upd_pos = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
+		this->tog_upd_head = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y - 35, 100, 0, "Head", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_upd_tail = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + 35, 100, 0, "Tail", Color::White, Color(10, 255, 50, 255), Color(246, 190, 0, 255), Color::Blue, Type_Neighbor);
+		this->tog_upd_pos = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y, 100, 0, "", Color::White, Color::Black, Color::Green, Color::Blue, Type_Neighbor);
 
-	Toggle_Group_Upd.Toggle_Btn_Grp[0] = tog_upd_head;	Toggle_Group_Upd.Toggle_Btn_Grp[1] = tog_upd_tail;	Toggle_Group_Upd.Toggle_Btn_Grp[2] = tog_upd_pos;
-	Toggle_Group_Upd.n = 3;
+
+		Toggle_Group_Upd.Toggle_Btn_Grp[0] = tog_upd_head;	Toggle_Group_Upd.Toggle_Btn_Grp[1] = tog_upd_tail;	Toggle_Group_Upd.Toggle_Btn_Grp[2] = tog_upd_pos;
+		Toggle_Group_Upd.n = 3;
+	}
+
+	// make TextBox&btn for SEARCH;
+	{
+		this->box_ser_val = new TextBox(240, tog_Search->pos_y, 0, 0, "Input Value", Color::White, Color::Red, Color(246, 190, 0, 255), Color::Blue, 200, 0, 9);
+	}
 
 	// Back display
 
@@ -113,6 +126,8 @@ Static_Array_Menu::~Static_Array_Menu()
 
 	delete box_upd_pos; delete box_upd_val;
 
+	delete box_ser_val;
+
 	// Linked list
 
 	l.delAll();
@@ -161,6 +176,11 @@ void Static_Array_Menu::Render(RenderTarget* target)
 		this->box_upd_val->render(target);
 		this->box_upd_pos->render(target);
 	}
+
+	if (tog_Search->Toggled())
+	{
+		this->box_ser_val->render(target);
+	}
 }
 
 void Static_Array_Menu::update_init()
@@ -188,11 +208,14 @@ void Static_Array_Menu::update_init()
 				break;
 
 			case init_fixed:
-				if (init_data_size != nothing && init_data_size<21)
-				{
-					n = init_data_size;
-					l.delAll();
-					for (int i = 0; i < n; i++) l.addHead((New(rand() % 100)));
+				if (init_data_size != nothing )
+				{	
+					if (init_data_size < 21)
+					{
+						n = init_data_size;
+						l.delAll();
+						for (int i = 0; i < n; i++) l.addHead((New(rand() % 100)));
+					}
 					init_data_size = nothing;
 				}
 
@@ -224,7 +247,6 @@ void Static_Array_Menu::update_init()
 		}
 	}
 }
-
 
 void Static_Array_Menu::update_add()
 {
@@ -303,6 +325,20 @@ void Static_Array_Menu::update_upd()
 		}
 
 		upd_data_val = upd_data_pos = nothing;
+	}
+}
+
+void Static_Array_Menu::update_search()
+{
+	if (box_ser_val->data != nothing && ser_data_val == nothing) ser_data_val = box_ser_val->data, box_ser_val->data = nothing;
+
+	if (box_ser_val->btn_cofirm->isPressed())
+	{
+		if (ser_data_val != nothing)
+		{
+			cout << ser_data_val << ": " << l.find(ser_data_val) << endl;
+			ser_data_val = nothing;
+		}
 	}
 }
 
@@ -400,6 +436,16 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 
 		update_upd();
 	}
+
+	// SEARCH
+
+	if (tog_Search->Toggled())
+	{
+		this->box_ser_val->update(mousePosWindowf, event);
+
+		update_search();
+	}
+
 
 	
 

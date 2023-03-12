@@ -30,6 +30,8 @@ struct LinkedList
     void delAll();
 
     void UpdateKth(int k,int data);
+
+    short find(int data);
 };
 
 Node* New(int data);
