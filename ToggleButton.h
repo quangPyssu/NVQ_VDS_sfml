@@ -21,6 +21,7 @@ private:
     Color hoverColor;
     Color activeColor;
     Color textColor;
+    Color borderColor;
     Texture texture;
     RenderTarget* target;
     RectangleShape shape;
@@ -39,7 +40,7 @@ public:
 
     //constructor
 
-    ToggleButton(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,bool type);
+    ToggleButton(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,bool type,Color borderColor);
 
     //Accessors
     const bool isPressed(Vector2f mousePos,Event* event) const;

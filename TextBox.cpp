@@ -1,6 +1,6 @@
 #include "TextBox.h"
 
-TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size) 
+TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size, Color borderColor)
 // btn_x and btn_y is for displacement of btn compare to TextBox
 {
 	this->height = height ? height : this->height;
@@ -16,12 +16,12 @@ TextBox::TextBox(float x, float y, float width, float height, string text, Color
 	this->text.setFont(font);
 	default_S = text;
 	this->text.setString(text);
-	this->text.setCharacterSize((int) this->height/3*2);
+	this->text.setCharacterSize((int) this->height/2);
 	this->text.setFillColor(Color::White);
 	this->text.setPosition(this->shape.getPosition().x + this->shape.getSize().x / 2.f - this->text.getGlobalBounds().width / 2.f,
 		this->shape.getPosition().y + this->shape.getSize().y / 2.f - this->text.getGlobalBounds().height / 2.f);
 
-	this->btn_cofirm = new Button(x+btn_x, y+btn_y, 0, 0, "CONFIRM", Color::White, Color::Green, Color::Color(246, 190, 0, 255), Color::Blue);
+	this->btn_cofirm = new Button(x+btn_x, y+btn_y, 0, 0, "CONFIRM", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
 	box_Stat = IDLE;
 
@@ -31,8 +31,8 @@ TextBox::TextBox(float x, float y, float width, float height, string text, Color
 	this->textColor = activeColor;
 
 	shape.setFillColor(idleColor);
-	shape.setOutlineColor(hoverColor);
-	shape.setOutlineThickness(5);
+	shape.setOutlineColor(borderColor);
+	shape.setOutlineThickness(2);
 
 	target = nullptr;
 	event = nullptr;
@@ -63,6 +63,7 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 	{
 		text.setString("");
 		shape.setFillColor(activeColor);
+		text.setFillColor(idleColor);
 		if (event->type == Event::TextEntered)
 		{
 			if (isprint(event->text.unicode) && input_text.size()<this->size)
@@ -78,7 +79,8 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 	}
 	else
 	{
-		shape.setFillColor(Color::Green);
+		shape.setFillColor(idleColor);
+		text.setFillColor(activeColor);
 		text.setString(default_S);
 	}
 	

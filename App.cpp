@@ -17,15 +17,15 @@ App::App()
 
 	//btn for main
 
-	this->btn_Static_Array = new Button(100, 100, 150, 50, "Static Array", Color::White, Color::Green, Color(246,190,0,255), Color::Blue);
+	this->btn_Static_Array = new Button(100, 100, 150, 50, "Static Array", Color::Black, Color::White, Color::Color(90,90,90,180), Color::Color(90, 90, 90, 255), Color::Black);
 
-	this->btn_Dynamic_Array = new Button(100, 200, 150, 50, "Dynamic Array", Color::White, Color::Green, Color::Color(246,190,0,255), Color::Blue);
+	this->btn_Dynamic_Array = new Button(100, 200, 150, 50, "Dynamic Array", Color::Black, Color::White, Color::Color(90,90,90,180), Color::Color(90, 90, 90, 255), Color::Black);
 
-	this->btn_Linked_List = new Button(100, 300, 150, 50, "Linked List", Color::White, Color::Green, Color::Color(246,190,0,255), Color::Blue);
+	this->btn_Linked_List = new Button(100, 300, 150, 50, "Linked List", Color::Black, Color::White, Color::Color(90,90,90,180), Color::Color(90, 90, 90, 255), Color::Black);
 
-	this->btn_Stack = new Button(100, 400, 150, 50, "Stack", Color::White, Color::Green, Color::Color(246,190,0,255), Color::Blue);
+	this->btn_Stack = new Button(100, 400, 150, 50, "Stack", Color::Black, Color::White, Color::Color(90,90,90,180), Color::Color(90, 90, 90, 255), Color::Black);
 
-	this->btn_Queue = new Button(100, 500, 150, 50, "Queue", Color::White, Color::Green, Color::Color(246,190,0,255), Color::Blue);
+	this->btn_Queue = new Button(100, 500, 150, 50, "Queue", Color::Black, Color::White, Color::Color(90,90,90,180), Color::Color(90, 90, 90, 255), Color::Black);
 
 	// Menus
 

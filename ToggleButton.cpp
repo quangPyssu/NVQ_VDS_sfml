@@ -1,7 +1,7 @@
 #include "ToggleButton.h"
 #include <iostream>
 
-ToggleButton::ToggleButton(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,bool type)
+ToggleButton::ToggleButton(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,bool type,Color borderColor)
 {
 	this->height = height ? height : this->height;
 	this->width = width ? width : this->width;
@@ -26,10 +26,11 @@ ToggleButton::ToggleButton(float x, float y, float width, float height, string t
 	this->activeColor = activeColor;
 	this->textColor = textColor;
 	this->hoverColor = hoverColor;
+	this->borderColor = borderColor;
 
 	shape.setFillColor(idleColor);
-	shape.setOutlineColor(hoverColor);
-	shape.setOutlineThickness(5);
+	shape.setOutlineColor(borderColor);
+	shape.setOutlineThickness(2);
 
 	target = NULL;
 	this->event = event;
@@ -59,7 +60,7 @@ const bool ToggleButton::Toggled() const
 {
 	if (this->buttonState == TOGGLE_ON) 
 	{ 
-		Sleep(0); 
+		Sleep(5); 
 		return 1; 
 	}
 	return 0;
@@ -69,7 +70,10 @@ const bool ToggleButton::isPressed(Vector2f mousePos,Event* event) const
 {
 	if (this->shape.getGlobalBounds().contains(mousePos) && buttonState==TOGGLE_ON)
 		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
+		{
+			Sleep(5);
 			return 1;
+		}
 }
 
 void ToggleButton::update(const Vector2f mousePos, Event* event)
@@ -87,13 +91,11 @@ void ToggleButton::update(const Vector2f mousePos, Event* event)
 	case TOGGLE_OFF:
 		shape.setFillColor(idleColor);
 		text.setFillColor(activeColor);
-		shape.setOutlineColor(hoverColor);
 		break;
 
 	case TOGGLE_ON:
 		shape.setFillColor(activeColor);
-		text.setFillColor(hoverColor);
-		shape.setOutlineColor(hoverColor);
+		text.setFillColor(idleColor);
 		break;
 	}
 }

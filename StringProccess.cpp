@@ -5,7 +5,7 @@ void StringProccess::StringFilter(string& S)
 	init_data.clear();
     int temp = 0;
     
-    if (S.size() == 0) return;
+    if (S.size() == 0)  return;
     int i = 0;
 
     for (i = 0; i < S.size(); i++)

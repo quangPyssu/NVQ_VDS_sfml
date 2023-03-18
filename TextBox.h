@@ -23,7 +23,7 @@ class TextBox
 
         //constructor
 
-        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size);
+        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size,Color borderColor);
 
         //destructor
         virtual~TextBox();

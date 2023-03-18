@@ -1,7 +1,7 @@
 #include "Button.h"
 #include <iostream>
 
-Button::Button(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor)
+Button::Button(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,Color borderColor)
 {
 	this->height = height ? height : this->height;
 	this->width = width ? width : this->width;
@@ -25,11 +25,12 @@ Button::Button(float x, float y, float width, float height, string text, Color t
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
-	this->textColor = activeColor;
+	this->textColor = textColor;
+	this->borderColor = borderColor;
 
 	shape.setFillColor(idleColor);
-	shape.setOutlineColor(hoverColor);
-	shape.setOutlineThickness(5);
+	shape.setOutlineColor(borderColor);
+	shape.setOutlineThickness(2);
 
 	target = NULL;
 	this->event = event;
@@ -39,7 +40,7 @@ const bool Button::isPressed() const
 {
 	if (this->buttonState == BTN_PRESSED)
 	{
-		Sleep(0);
+		Sleep(5);
 		return 1;
 	}
 	return 0;
@@ -62,19 +63,16 @@ void Button::update(const Vector2f mousePos, Event* event)
 	case BTN_IDLE:
 		shape.setFillColor(idleColor);
 		text.setFillColor(activeColor);
-		shape.setOutlineColor(hoverColor);
 		break;
 
 	case BTN_HOVER:
 		shape.setFillColor(hoverColor);
 		text.setFillColor(idleColor);
-		shape.setOutlineColor(activeColor);
 		break;
 
 	case BTN_PRESSED:
 		shape.setFillColor(activeColor);
 		text.setFillColor(hoverColor);
-		shape.setOutlineColor(idleColor);
 		break;
 	}
 }

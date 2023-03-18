@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Classes_h">
       <UniqueIdentifier>{511bca7e-cb5d-4b1f-a33b-6e9ba088a75f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Classes_h\Tools">
+      <UniqueIdentifier>{b4620619-bd52-4dc7-8d4c-be2ed3ad75dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Tools">
+      <UniqueIdentifier>{35894988-aa5d-4571-aa5a-e4b1d0ad3ab7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NVQ_VDS_sfml.cpp">
@@ -27,58 +33,58 @@
     <ClCompile Include="App.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="DisplayNode.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Static_Array_Menu.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Classes\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayNode.cpp">
+      <Filter>Source Files\Classes\Tools</Filter>
+    </ClCompile>
     <ClCompile Include="LinkedList.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="TextBox.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="ToggleButton.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Toggle_Group.cpp">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\Tools</Filter>
     </ClCompile>
     <ClCompile Include="StringProccess.cpp">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\Classes\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Toggle_Group.cpp">
+      <Filter>Source Files\Classes\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleButton.cpp">
+      <Filter>Source Files\Classes\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\Classes_h</Filter>
-    </ClInclude>
-    <ClInclude Include="DisplayNode.h">
-      <Filter>Header Files\Classes_h</Filter>
-    </ClInclude>
     <ClInclude Include="Static_Array_Menu.h">
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
-    <ClInclude Include="LinkedList.h">
-      <Filter>Header Files\Classes_h</Filter>
+    <ClInclude Include="Toggle_Group.h">
+      <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
-      <Filter>Header Files\Classes_h</Filter>
+      <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
     <ClInclude Include="ToggleButton.h">
-      <Filter>Header Files\Classes_h</Filter>
+      <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Toggle_Group.h">
-      <Filter>Header Files\Classes_h</Filter>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Classes_h\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayNode.h">
+      <Filter>Header Files\Classes_h\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
     <ClInclude Include="StringProccess.h">
-      <Filter>Header Files\Classes_h</Filter>
+      <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
