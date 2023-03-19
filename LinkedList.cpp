@@ -2,10 +2,71 @@
 
 Node* New(int data)
 {
+    //dataing
     Node* node = new Node;
     node->data = data;
     node->Next = node->Prev = nullptr;
+
+    //display part
+
+    node->arrow_head=CircleShape(8,3);
+    node->body.setRadius(15);
+    node->body.setOrigin(node->body.getRadius(), node->body.getRadius());
+    node->line.setSize(Vector2f(1,2));
+    node->arrow_head.setOrigin(node->arrow_head.getRadius(), node->arrow_head.getRadius());
+
+    node->body.setFillColor(Color::White);
+    node->body.setOutlineThickness(2);
+    node->body.setOutlineColor(Color::Black);
+    node->line.setFillColor(Color::Color(211,211,211,255));
+    node->arrow_head.setFillColor(Color::Green);
+
+    node->font.loadFromFile("asset/fonts/ArialTh.ttf");
+    node->text.setFont(node->font);
+    node->text.setFillColor(Color::Black);
+    node->text.setCharacterSize(15);
+
     return node;
+}
+
+void Node::renderNode(RenderTarget* window)
+{
+    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f,body.getPosition().y - text.getGlobalBounds().height / 2.f);
+
+    string s = to_string(data); 
+    text.setString(s);
+
+    line.setPosition(body.getPosition());
+    if (Next == nullptr)
+    {   
+        line.setScale(Vector2f(0, 0));
+        arrow_head.setScale(Vector2f(0, 0));
+    }
+    else
+    {
+        Node* next = Next;
+
+        float dx = -body.getPosition().x + next->body.getPosition().x;
+        float dy = -body.getPosition().y + next->body.getPosition().y;
+
+        float distance = sqrt(dx*dx+dy*dy);
+
+        line.setScale(Vector2f(distance,1));
+        arrow_head.setScale(Vector2f(1, 1));
+
+        line.setPosition(body.getPosition());
+        arrow_head.setPosition(Vector2f(body.getPosition().x+dx/2, body.getPosition().y+dy/2));
+
+        if (dx) angle = (float) atan(dy / dx) * 180 / PI; else angle = 0;
+
+        line.setRotation(angle);
+        arrow_head.setRotation(angle+90);
+    }
+
+    window->draw(line);
+    window->draw(body);
+    window->draw(arrow_head);
+    window->draw(text);
 }
 
 void LinkedList::addTail(Node* node)
@@ -73,7 +134,7 @@ void LinkedList::delTail()
 void LinkedList::delHead()
 {
     if (Head == nullptr) return;
-
+    
     del(Head);
 }
 
@@ -118,6 +179,7 @@ void LinkedList::delAll()
         delete tmp;
     }
 
+    Size = 0;
     Head = Tail = nullptr;
 }
 
@@ -154,4 +216,32 @@ short LinkedList::find(int data)
     }
 
     if (tmp == nullptr) return -1;
+
+    return 0;
+}
+
+void LinkedList::render(RenderTarget* window)
+{
+    if (Head == nullptr) return;
+    Node* cur = Head;
+    //repostion
+    
+    float between = (float) 800/Size;
+    float original = 500-400;
+
+    int cnt = 0;
+    while (cur != nullptr)
+    {
+        cur->body.setPosition(Vector2f(original+between*cnt,500));
+
+        cnt++; cur = cur->Next;
+    }
+    
+    //draw
+    cur = Head;
+    while (cur != nullptr)
+    {
+        cur->renderNode(window);
+        cur = cur->Next;
+    }
 }

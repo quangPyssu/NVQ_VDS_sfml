@@ -39,9 +39,6 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Classes\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayNode.cpp">
-      <Filter>Source Files\Classes\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="LinkedList.cpp">
       <Filter>Source Files\Classes\Tools</Filter>
     </ClCompile>
@@ -75,9 +72,6 @@
       <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Header Files\Classes_h\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="DisplayNode.h">
       <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
     <ClInclude Include="LinkedList.h">

@@ -187,6 +187,8 @@ void Static_Array_Menu::Render(RenderTarget* target)
 	{
 		this->box_ser_val->render(target);
 	}
+
+	l.render(target);
 }
 
 void Static_Array_Menu::update_init()
@@ -201,7 +203,7 @@ void Static_Array_Menu::update_init()
 
 	if (box_init_fixed->btn_cofirm->isPressed())
 	{
-		cout << box_init_read->input_text << endl;
+		//cout << box_init_read->input_text << endl;
 		switch (this->init_stat)
 		{
 			
@@ -416,5 +418,4 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 
 		update_search();
 	}
-
 }

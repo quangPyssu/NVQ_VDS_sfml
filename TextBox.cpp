@@ -36,7 +36,6 @@ TextBox::TextBox(float x, float y, float width, float height, string text, Color
 
 	target = nullptr;
 	event = nullptr;
-	show_cursor = 0;
 	data = 0;
 	this->size = size;
 }
@@ -89,17 +88,16 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 
 void TextBox::render(RenderTarget* target)
 {
-	text_effect_time += clock.restart();
-
-	if (text_effect_time >= sf::seconds(0.5f))
+	if (input_text.size() > 9)
 	{
-		show_cursor = !show_cursor;
-		text_effect_time = sf::Time::Zero;
+		output_text = "";
+		for (int i = 1; i <= 9; i++)
+			output_text = input_text[input_text.size() - i] + output_text;
+		output_text = "..." + output_text;
 	}
+	else output_text = input_text;
 
-	if (box_Stat == IDLE) show_cursor = 0;
-
-	if (input_text != "" || box_Stat==ACTIVE)	text.setString(input_text + (show_cursor ? '_' : ' '));
+	if (input_text != "" || box_Stat==ACTIVE) text.setString(output_text);
 	else text.setString(default_S);
 
 	target->draw(shape);

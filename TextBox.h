@@ -63,13 +63,11 @@ class TextBox
         RectangleShape shape;
 
         Event* event;
-        Clock clock;
-
-        Time text_effect_time;
-        bool show_cursor;
 
         // input accept?
 
         bool is_number(const string& s);
+
+        string output_text;
 };
 

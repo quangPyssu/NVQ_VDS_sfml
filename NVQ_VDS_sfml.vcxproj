@@ -143,7 +143,6 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="DisplayNode.cpp" />
     <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="NVQ_VDS_sfml.cpp" />
     <ClCompile Include="Static_Array_Menu.cpp" />
@@ -155,7 +154,6 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="DisplayNode.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Static_Array_Menu.h" />
     <ClInclude Include="StringProccess.h" />
