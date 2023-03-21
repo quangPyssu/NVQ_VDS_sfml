@@ -9,10 +9,13 @@ Node* New(int data)
 
     //display part
 
-    node->arrow_head=CircleShape(8,3);
     node->body.setRadius(15);
     node->body.setOrigin(node->body.getRadius(), node->body.getRadius());
+
     node->line.setSize(Vector2f(1,2));
+    node->line.setOrigin(Vector2f(0,1));
+    
+    node->arrow_head=CircleShape(8,3);
     node->arrow_head.setOrigin(node->arrow_head.getRadius(), node->arrow_head.getRadius());
 
     node->body.setFillColor(Color::White);
@@ -25,6 +28,9 @@ Node* New(int data)
     node->text.setFont(node->font);
     node->text.setFillColor(Color::Black);
     node->text.setCharacterSize(15);
+
+    node->ChosenColor = Color::Green;
+    node->IdleColor = Color::Black;
 
     return node;
 }
@@ -67,6 +73,13 @@ void Node::renderNode(RenderTarget* window)
     window->draw(body);
     window->draw(arrow_head);
     window->draw(text);
+
+    if (isPos != isMiddle)
+    {
+        text.setPosition(Vector2f(text.getPosition().x, text.getPosition().y+body.getRadius() + 5));
+        if (isPos == isHead) text.setString("Head"); else text.setString("Tail");
+        window->draw(text);
+    }
 }
 
 void LinkedList::addTail(Node* node)
@@ -220,7 +233,7 @@ short LinkedList::find(int data)
     return 0;
 }
 
-void LinkedList::render(RenderTarget* window)
+void LinkedList::render(RenderWindow* window)
 {
     if (Head == nullptr) return;
     Node* cur = Head;
@@ -241,7 +254,23 @@ void LinkedList::render(RenderTarget* window)
     cur = Head;
     while (cur != nullptr)
     {
+        if (cur == Head) cur->isPos = isHead; else
+            if (cur == Tail) cur->isPos = isTail; else
+                cur->isPos = isMiddle;
+
+
         cur->renderNode(window);
         cur = cur->Next;
     }
+
+    //window->display();
+}
+
+void LinkedList::choose(int n)
+{
+    Node* node = Head;
+    for (int i = 0; i < n - 1; i++)
+        node = node->Next;
+
+    node->body.setOutlineColor(node->ChosenColor);
 }

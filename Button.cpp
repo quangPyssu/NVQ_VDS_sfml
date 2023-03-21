@@ -40,7 +40,7 @@ const bool Button::isPressed() const
 {
 	if (this->buttonState == BTN_PRESSED)
 	{
-		Sleep(5);
+		//Sleep(5);
 		return 1;
 	}
 	return 0;

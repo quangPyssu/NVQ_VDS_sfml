@@ -25,6 +25,7 @@ void StringProccess::StringFilter(string& S)
     }
     
     init_data.push_back(temp);
+    while (init_data.size() > 20) init_data.pop_back();
 
     S = "";
 }

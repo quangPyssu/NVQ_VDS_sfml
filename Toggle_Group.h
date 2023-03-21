@@ -6,7 +6,7 @@
 class Toggle_Group
 {
 public:
-	ToggleButton* Toggle_Btn_Grp[10] = { nullptr };
+	ToggleButton* Toggle_Btn_Grp[5] = { nullptr };
 	int n=0;
 
 	Event* event; 

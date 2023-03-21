@@ -29,7 +29,7 @@ App::App()
 
 	// Menus
 
-	Mn_Static_Array = new Static_Array_Menu(&event);
+	Mn_Static_Array = new Static_Array_Menu(&event,window);
 
 	window->setFramerateLimit(30);
 	Render();
@@ -148,39 +148,44 @@ void App::pollEvents()
 		while (window->pollEvent(event)) {
 
 			update();
-			//cout << mousePosWindowi.x << " " << mousePosWindowi.y << endl;
 
 			if (event.type == Event::Closed) {
 				window->close();
 			}
 
-		switch (AppState)
-		{
-			case app_main:
-				Render();
-				break;
-
-			case app_static_array:
-				Mn_Static_Array->Render(window);
-				break;
-
-			case app_dynamic_array:
-
-				break;
-
-			case app_linked_list:
-
-				break;
-
-			case app_queue:
-
-				break;
-
-			case app_stack:
-
-				break;
-		}window->display();
 		}
 
+		switch (AppState)
+		{
+		case app_main:
+
+			Render();
+			window->display();
+
+			break;
+
+		case app_static_array:
+
+			Mn_Static_Array->Render(window);
+			window->display();
+
+			break;
+
+		case app_dynamic_array:
+
+			break;
+
+		case app_linked_list:
+
+			break;
+
+		case app_queue:
+
+			break;
+
+		case app_stack:
+
+			break;
+		}
 	}
 }

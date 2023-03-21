@@ -54,6 +54,9 @@
     <ClCompile Include="ToggleButton.cpp">
       <Filter>Source Files\Classes\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Classes\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
     <ClInclude Include="StringProccess.h">
+      <Filter>Header Files\Classes_h\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
       <Filter>Header Files\Classes_h\Tools</Filter>
     </ClInclude>
   </ItemGroup>

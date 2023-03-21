@@ -1,7 +1,7 @@
 #include "Static_Array_Menu.h"
 #include <iostream>
 
-Static_Array_Menu::Static_Array_Menu(Event* event)
+Static_Array_Menu::Static_Array_Menu(Event* event,RenderWindow* window)
 {
 	// make btn;
 	this->tog_Initialize = new ToggleButton(50, 50, 0, 0, "Initialize", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Type_Neighbor, Color::Black);
@@ -90,15 +90,17 @@ Static_Array_Menu::Static_Array_Menu(Event* event)
 	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
 
 	//set default
-	target = nullptr;
+	this->window = window;
 	stat = off; 
 	add_data_val = nothing;
 	add_data_pos = nothing;
 
 	this->event = event;
 
-	l.addHead(New(10));
-	l.addTail(New(11));
+	l.addHead(New(10));	l.addTail(New(11));		l.render(window);
+
+	anime = new Animation(event, &l, window);
+
 	srand(time(NULL));
 }
 
@@ -139,56 +141,56 @@ Static_Array_Menu::~Static_Array_Menu()
 	l.delAll();
 }
 
-void Static_Array_Menu::Render(RenderTarget* target)
+void Static_Array_Menu::Render(RenderWindow* window)
 {
-	target->clear(Color::Black);
-	target->draw(sprite);
-	this->tog_Initialize->render(target);
-	this->tog_Add->render(target);
-	this->tog_Delete->render(target);
-	this->tog_Update->render(target);
-	this->tog_Search->render(target);
-	this->btn_back->render(target);
+	window->clear(Color::Black);
+	window->draw(sprite);
+	this->tog_Initialize->render(window);
+	this->tog_Add->render(window);
+	this->tog_Delete->render(window);
+	this->tog_Update->render(window);
+	this->tog_Search->render(window);
+	this->btn_back->render(window);
 
 	if (tog_Initialize->Toggled())
 	{
-		tog_init_empty->render(target);
-		tog_init_random->render(target);
-		tog_init_load->render(target);
+		tog_init_empty->render(window);
+		tog_init_random->render(window);
+		tog_init_load->render(window);
 
-		box_init_read->render(target);
-		box_init_fixed->render(target);
+		box_init_read->render(window);
+		box_init_fixed->render(window);
 	}
 
 	if (tog_Add->Toggled())
 	{
-		this->tog_add_head->render(target);
-		this->tog_add_tail->render(target);
-		this->box_add_val->render(target);
-		this->box_add_pos->render(target);
+		this->tog_add_head->render(window);
+		this->tog_add_tail->render(window);
+		this->box_add_val->render(window);
+		this->box_add_pos->render(window);
 	}
 
 	if (tog_Delete->Toggled())
 	{
-		this->tog_del_head->render(target);
-		this->tog_del_tail->render(target);
-		this->box_del_pos->render(target);
+		this->tog_del_head->render(window);
+		this->tog_del_tail->render(window);
+		this->box_del_pos->render(window);
 	}
 
 	if (tog_Update->Toggled())
 	{
-		this->tog_upd_head->render(target);
-		this->tog_upd_tail->render(target);
-		this->box_upd_val->render(target);
-		this->box_upd_pos->render(target);
+		this->tog_upd_head->render(window);
+		this->tog_upd_tail->render(window);
+		this->box_upd_val->render(window);
+		this->box_upd_pos->render(window);
 	}
 
 	if (tog_Search->Toggled())
 	{
-		this->box_ser_val->render(target);
+		this->box_ser_val->render(window);
 	}
 
-	l.render(target);
+	l.render(window);
 }
 
 void Static_Array_Menu::update_init()
@@ -203,10 +205,9 @@ void Static_Array_Menu::update_init()
 
 	if (box_init_fixed->btn_cofirm->isPressed())
 	{
-		//cout << box_init_read->input_text << endl;
+		tog_Initialize->disable();
 		switch (this->init_stat)
 		{
-			
 			case init_empty:
 				l.delAll();
 				break;
@@ -244,6 +245,7 @@ void Static_Array_Menu::update_init()
 				break;
 
 		}
+
 		// Delete later
 		{
 			Node* tmp = l.Head;
@@ -253,6 +255,7 @@ void Static_Array_Menu::update_init()
 				tmp = tmp->Next;
 			}cout << endl;
 		}
+
 	}
 }
 
@@ -265,8 +268,12 @@ void Static_Array_Menu::update_add()
 	if (box_add_val->data != nothing && add_data_val == nothing) add_data_val = box_add_val->data, box_add_val->data = nothing;
 	if (box_add_pos->data != nothing && add_data_pos == nothing) add_data_pos = box_add_pos->data, box_add_val->data = nothing;
 
-	if (add_data_val != nothing && add_data_pos != nothing)
+	if (add_data_val != nothing && add_data_pos != nothing && l.Size<20)
 	{
+		tog_Add->disable();
+		if (tog_add_tail->Toggled()) add_data_pos = 21;
+		if (tog_add_pos->Toggled()) add_data_pos = nothing;
+
 		l.addKth(New(add_data_val), add_data_pos);
 		
 		// Delete later
@@ -280,6 +287,8 @@ void Static_Array_Menu::update_add()
 		}
 		
 		add_data_val = add_data_pos = nothing;
+
+		
 	}
 }
 
@@ -293,6 +302,21 @@ void Static_Array_Menu::update_del()
 
 	if (del_data_pos != nothing && box_del_pos->btn_cofirm->isPressed())
 	{
+		tog_Delete->disable();
+		if (render_Speed == slow)
+		{
+			if (tog_del_head->Toggled())
+			{
+				l.choose(0);
+				Render(window);
+				window->display();
+				Sleep(1000);
+			}
+		}
+
+		if (tog_del_tail->Toggled()) del_data_pos = 21;
+		if (tog_del_pos->Toggled()) del_data_pos = nothing;
+
 		l.delKth(del_data_pos);
 
 		// Delete later
@@ -306,6 +330,8 @@ void Static_Array_Menu::update_del()
 		}
 
 		del_data_pos = nothing;
+
+		
 	}
 }
 
@@ -320,6 +346,7 @@ void Static_Array_Menu::update_upd()
 
 	if (upd_data_val != nothing && upd_data_pos != nothing)
 	{
+		tog_Update->disable();
 		l.UpdateKth(upd_data_pos, upd_data_val);
 
 		// Delete later
@@ -333,6 +360,8 @@ void Static_Array_Menu::update_upd()
 		}
 
 		upd_data_val = upd_data_pos = nothing;
+
+		
 	}
 }
 
@@ -342,11 +371,14 @@ void Static_Array_Menu::update_search()
 
 	if (box_ser_val->btn_cofirm->isPressed())
 	{
+		tog_Search->disable();
 		if (ser_data_val != nothing)
 		{
 			cout << ser_data_val << ": " << l.find(ser_data_val) << endl;
 			ser_data_val = nothing;
 		}
+
+		
 	}
 }
 
@@ -358,7 +390,8 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 
 	if (this->btn_back->isPressed())
 	{
-		Sleep(10), stat = off; 
+		//Sleep(10)
+		stat = off; 
 		Toggle_Group_Static_Array.clearAll();
 	} 
 	else Toggle_Group_Static_Array.filter(mousePos, event);

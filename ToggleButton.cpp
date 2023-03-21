@@ -60,7 +60,7 @@ const bool ToggleButton::Toggled() const
 {
 	if (this->buttonState == TOGGLE_ON) 
 	{ 
-		Sleep(5); 
+		//Sleep(5); 
 		return 1; 
 	}
 	return 0;
@@ -71,7 +71,7 @@ const bool ToggleButton::isPressed(Vector2f mousePos,Event* event) const
 	if (this->shape.getGlobalBounds().contains(mousePos) && buttonState==TOGGLE_ON)
 		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
 		{
-			Sleep(5);
+			//Sleep(5);
 			return 1;
 		}
 }

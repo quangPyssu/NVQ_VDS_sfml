@@ -7,18 +7,19 @@
 #include "TextBox.h"
 #include "LinkedList.h"
 #include "StringProccess.h"
+#include "Animation.h"
 
 using namespace sf;
 
-enum Menu_stat { off = 0, on = 1 , init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4};
+enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 class Static_Array_Menu
 {
 public:
-	Static_Array_Menu(Event* event);
+	Static_Array_Menu(Event* event,RenderWindow* window);
 	virtual ~Static_Array_Menu();
 
-	void Render(RenderTarget* target);
+	void Render(RenderWindow* target);
 	void update(const Vector2f mousePos);
 
 	// update for stuff
@@ -39,6 +40,10 @@ public:
 	LinkedList l;
 	int n = 0;
 	StringProccess init_get;
+
+	//Stat for render
+	Animation* anime;
+	short unsigned render_Speed = slow;
 
 private:
 	//BTN
@@ -106,7 +111,7 @@ private:
 	int ser_data_val = nothing;
 
 	//Drawzie
-	RenderTarget* target;
+	RenderWindow* window;
 	Event* event;
 
 	Texture tet;
