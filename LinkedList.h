@@ -21,6 +21,7 @@ struct Node {
     Font font;
 
     Text text;
+    Text PosText;
 
     //attributes
     

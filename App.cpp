@@ -11,7 +11,7 @@ App::App()
 	AppState = app_main;
 
 	window->clear(Color::Black);
-	tet.loadFromFile("asset/texture/condauvoi.jpg");
+	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
 

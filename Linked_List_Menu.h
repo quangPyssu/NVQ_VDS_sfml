@@ -16,7 +16,7 @@ enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 
 class Static_Array_Menu
 {
 public:
-	Static_Array_Menu(Event* event,RenderWindow* window);
+	Static_Array_Menu(Event* event, RenderWindow* window);
 	virtual ~Static_Array_Menu();
 
 	void Render(RenderWindow* target);
@@ -33,27 +33,22 @@ public:
 	//menu stat
 
 	short unsigned stat;
-	short init_stat=0;
+	short init_stat = 0;
 
 	//LL
 
 	LinkedList l;
 	int n = 0;
 	StringProccess init_get;
-	int Search_Result;
 
 	//Stat for render
 	Animation* anime;
 	short unsigned render_Speed = slow;
 
-	// animation
-	void drawFrom(int step);
-	bool isDrawing=0;
-
 private:
 	//BTN
 
-	ToggleButton* tog_Initialize;ToggleButton* tog_Add;
+	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
 	ToggleButton* tog_Delete; ToggleButton* tog_Update;
 	ToggleButton* tog_Search; Button* btn_back;
 
@@ -84,7 +79,7 @@ private:
 
 	Toggle_Group Toggle_Group_Add;
 
-	int add_data_val=nothing,add_data_pos=nothing;
+	int add_data_val = nothing, add_data_pos = nothing;
 
 	//TEXT BOX & BTN for DELETE
 
@@ -94,7 +89,7 @@ private:
 	ToggleButton* tog_del_pos;
 
 	Toggle_Group Toggle_Group_Del;
-	
+
 	int  del_data_pos = nothing;
 
 	//TEXT BOX & BTN for UPDATE

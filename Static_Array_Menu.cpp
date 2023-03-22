@@ -85,7 +85,7 @@ Static_Array_Menu::Static_Array_Menu(Event* event,RenderWindow* window)
 
 	// Back display
 
-	tet.loadFromFile("asset/texture/condauvoi.jpg");
+	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
 
@@ -141,6 +141,22 @@ Static_Array_Menu::~Static_Array_Menu()
 	l.delAll();
 }
 
+void Static_Array_Menu::drawFrom(int Current)
+{
+	isDrawing = 1;
+
+	cout << anime->step << " " << anime->DisplayRecord->size() << endl;
+	for (int i = Current; i < anime->step; i++)
+	{
+		Render(window);
+		anime->drawOneStep(i);
+		window->display();
+		Sleep(500);
+	}
+
+	isDrawing = 0;
+}
+
 void Static_Array_Menu::Render(RenderWindow* window)
 {
 	window->clear(Color::Black);
@@ -190,7 +206,7 @@ void Static_Array_Menu::Render(RenderWindow* window)
 		this->box_ser_val->render(window);
 	}
 
-	l.render(window);
+	if (!isDrawing) l.render(window);
 }
 
 void Static_Array_Menu::update_init()
@@ -221,7 +237,7 @@ void Static_Array_Menu::update_init()
 			case init_fixed:
 				if (init_data_size != nothing )
 				{	
-					if (init_data_size < 21)
+					if (init_data_size <= 10)
 					{
 						n = init_data_size;
 						l.delAll();
@@ -262,17 +278,20 @@ void Static_Array_Menu::update_init()
 void Static_Array_Menu::update_add()
 {
 	if (tog_add_head->Toggled()) add_data_pos = 0;  	
-	if (tog_add_tail->Toggled()) add_data_pos = 21;
+	if (tog_add_tail->Toggled()) add_data_pos = 11;
 	if (tog_add_pos->Toggled()) add_data_pos = nothing;
 	
 	if (box_add_val->data != nothing && add_data_val == nothing) add_data_val = box_add_val->data, box_add_val->data = nothing;
 	if (box_add_pos->data != nothing && add_data_pos == nothing) add_data_pos = box_add_pos->data, box_add_val->data = nothing;
 
-	if (add_data_val != nothing && add_data_pos != nothing && l.Size<20)
+	if (add_data_val != nothing && add_data_pos != nothing && l.Size<10)
 	{
-		tog_Add->disable();
-		if (tog_add_tail->Toggled()) add_data_pos = 21;
-		if (tog_add_pos->Toggled()) add_data_pos = nothing;
+		tog_Add->disable(); 
+		anime->clearAll();
+
+		if (tog_add_tail->Toggled()) anime->MakeChoosenUpTo(l.Size-1, l.Size - 1); else
+		anime->MakeChoosenUpTo(0, min(add_data_pos, l.Size - 1));
+		drawFrom(0);
 
 		l.addKth(New(add_data_val), add_data_pos);
 		
@@ -286,16 +305,14 @@ void Static_Array_Menu::update_add()
 			}cout << endl;
 		}
 		
-		add_data_val = add_data_pos = nothing;
-
-		
-	}
+		add_data_val = add_data_pos = nothing;	
+	} else if (l.Size==10) add_data_val = add_data_pos = nothing;
 }
 
 void Static_Array_Menu::update_del()
 {
 	if (tog_del_head->Toggled()) del_data_pos = 0; 	
-	if (tog_del_tail->Toggled()) del_data_pos = 21;
+	if (tog_del_tail->Toggled()) del_data_pos = 11;
 	if (tog_del_pos->Toggled()) del_data_pos = nothing;
 	
 	if (box_del_pos->data != nothing && del_data_pos == nothing) del_data_pos = box_del_pos->data;
@@ -303,19 +320,10 @@ void Static_Array_Menu::update_del()
 	if (del_data_pos != nothing && box_del_pos->btn_cofirm->isPressed())
 	{
 		tog_Delete->disable();
-		if (render_Speed == slow)
-		{
-			if (tog_del_head->Toggled())
-			{
-				l.choose(0);
-				Render(window);
-				window->display();
-				Sleep(1000);
-			}
-		}
-
-		if (tog_del_tail->Toggled()) del_data_pos = 21;
-		if (tog_del_pos->Toggled()) del_data_pos = nothing;
+		anime->clearAll();
+		
+		anime->MakeChoosenUpTo(0, min(del_data_pos,l.Size-1));
+		drawFrom(0);
 
 		l.delKth(del_data_pos);
 
@@ -330,15 +338,13 @@ void Static_Array_Menu::update_del()
 		}
 
 		del_data_pos = nothing;
-
-		
 	}
 }
 
 void Static_Array_Menu::update_upd()
 {
 	if (tog_upd_head->Toggled()) upd_data_pos = 0;
-	if (tog_upd_tail->Toggled()) upd_data_pos = 21;
+	if (tog_upd_tail->Toggled()) upd_data_pos = 10;
 	if (tog_upd_pos->Toggled()) upd_data_pos = nothing;
 
 	if (box_upd_val->data != nothing && upd_data_val == nothing) upd_data_val = box_upd_val->data, box_upd_val->data = nothing;
@@ -347,6 +353,12 @@ void Static_Array_Menu::update_upd()
 	if (upd_data_val != nothing && upd_data_pos != nothing)
 	{
 		tog_Update->disable();
+
+		anime->clearAll();
+
+		anime->MakeChoosenUpTo(0, min(upd_data_pos, l.Size - 1));
+		drawFrom(0);
+
 		l.UpdateKth(upd_data_pos, upd_data_val);
 
 		// Delete later
@@ -359,9 +371,7 @@ void Static_Array_Menu::update_upd()
 			}cout << endl;
 		}
 
-		upd_data_val = upd_data_pos = nothing;
-
-		
+		upd_data_val = upd_data_pos = nothing;		
 	}
 }
 
@@ -374,8 +384,14 @@ void Static_Array_Menu::update_search()
 		tog_Search->disable();
 		if (ser_data_val != nothing)
 		{
-			cout << ser_data_val << ": " << l.find(ser_data_val) << endl;
+			Search_Result = l.find(ser_data_val);
+			cout << ser_data_val << ": " << Search_Result << endl;
 			ser_data_val = nothing;
+
+			anime->clearAll();
+
+			anime->MakeChoosenUpTo(0, Search_Result);
+			drawFrom(0);
 		}
 
 		

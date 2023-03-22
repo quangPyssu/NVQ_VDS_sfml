@@ -21,13 +21,14 @@ Node* New(int data)
     node->body.setFillColor(Color::White);
     node->body.setOutlineThickness(2);
     node->body.setOutlineColor(Color::Black);
-    node->line.setFillColor(Color::Color(211,211,211,255));
-    node->arrow_head.setFillColor(Color::Green);
+    node->line.setFillColor(Color::Color(91,91,91,255));
+    node->arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
 
     node->font.loadFromFile("asset/fonts/ArialTh.ttf");
     node->text.setFont(node->font);
     node->text.setFillColor(Color::Black);
     node->text.setCharacterSize(15);
+    node->PosText = node->text;
 
     node->ChosenColor = Color::Green;
     node->IdleColor = Color::Black;
@@ -76,10 +77,10 @@ void Node::renderNode(RenderTarget* window)
 
     if (isPos != isMiddle)
     {
-        text.setPosition(Vector2f(text.getPosition().x, text.getPosition().y+body.getRadius() + 5));
-        if (isPos == isHead) text.setString("Head"); else text.setString("Tail");
-        window->draw(text);
-    }
+        PosText.setPosition(Vector2f(text.getPosition().x- body.getRadius(), text.getPosition().y+body.getRadius() + 5));
+        if (isPos == isHead) PosText.setString("Head"); else PosText.setString("Tail");
+        window->draw(PosText);
+    } 
 }
 
 void LinkedList::addTail(Node* node)

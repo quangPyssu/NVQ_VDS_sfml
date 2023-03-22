@@ -57,6 +57,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Classes\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Linked_List_Menu.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Classes_h\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Linked_List_Menu.h">
+      <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
