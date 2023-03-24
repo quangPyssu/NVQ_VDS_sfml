@@ -13,6 +13,7 @@ class ToggleButton
 {
 private:
     short unsigned buttonState;
+    short unsigned isHover=0;
 
     //attribute
 

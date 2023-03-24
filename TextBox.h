@@ -20,6 +20,7 @@ class TextBox
         int data=nothing;
         
         short unsigned box_Stat;
+        short unsigned isHover = 0;
 
         //constructor
 

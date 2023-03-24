@@ -9,17 +9,17 @@ Node* New(int data)
 
     //display part
 
-    node->body.setRadius(15);
+    node->body.setRadius(25);
     node->body.setOrigin(node->body.getRadius(), node->body.getRadius());
 
-    node->line.setSize(Vector2f(1,2));
-    node->line.setOrigin(Vector2f(0,1));
+    node->line.setSize(Vector2f(1,5));
+    node->line.setOrigin(Vector2f(0,2.5));
     
-    node->arrow_head=CircleShape(8,3);
+    node->arrow_head=CircleShape(12,3);
     node->arrow_head.setOrigin(node->arrow_head.getRadius(), node->arrow_head.getRadius());
 
     node->body.setFillColor(Color::White);
-    node->body.setOutlineThickness(2);
+    node->body.setOutlineThickness(5);
     node->body.setOutlineColor(Color::Black);
     node->line.setFillColor(Color::Color(91,91,91,255));
     node->arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
@@ -27,8 +27,11 @@ Node* New(int data)
     node->font.loadFromFile("asset/fonts/ArialTh.ttf");
     node->text.setFont(node->font);
     node->text.setFillColor(Color::Black);
-    node->text.setCharacterSize(15);
+    node->text.setCharacterSize(node->body.getRadius());
     node->PosText = node->text;
+    
+    string s = to_string(data); 
+    node->text.setString(s);
 
     node->ChosenColor = Color::Green;
     node->IdleColor = Color::Black;
@@ -38,10 +41,9 @@ Node* New(int data)
 
 void Node::renderNode(RenderTarget* window)
 {
-    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f,body.getPosition().y - text.getGlobalBounds().height / 2.f);
-
-    string s = to_string(data); 
+    string s = to_string(data);
     text.setString(s);
+    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
 
     line.setPosition(body.getPosition());
     if (Next == nullptr)
@@ -62,7 +64,8 @@ void Node::renderNode(RenderTarget* window)
         arrow_head.setScale(Vector2f(1, 1));
 
         line.setPosition(body.getPosition());
-        arrow_head.setPosition(Vector2f(body.getPosition().x+dx/2, body.getPosition().y+dy/2));
+        arrow_head.setPosition(Vector2f(Next->body.getPosition().x-Next->body.getRadius()-arrow_head.getRadius(),
+            body.getPosition().y + dy / 2));
 
         if (dx) angle = (float) atan(dy / dx) * 180 / PI; else angle = 0;
 
@@ -240,10 +243,10 @@ void LinkedList::render(RenderWindow* window)
     Node* cur = Head;
     //repostion
     
-    float between = (float) 800/Size;
-    float original = 500-400;
+    float between = Distance[Size-1];
+    float original = window->getSize().x/2 - between*Size/2;
 
-    int cnt = 0;
+    float cnt = 0.5;
     while (cur != nullptr)
     {
         cur->body.setPosition(Vector2f(original+between*cnt,500));

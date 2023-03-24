@@ -82,15 +82,17 @@ void ToggleButton::update(const Vector2f mousePos, Event* event)
 
 	if (this->shape.getGlobalBounds().contains(mousePos))
 	{
-		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
-				press();
-	} 
+		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left) press();
+		else if (this->buttonState != TOGGLE_ON || event->mouseButton.button == Event::MouseButtonReleased) isHover=1;
+	}
+	else if (this->buttonState != TOGGLE_ON || event->mouseButton.button == Event::MouseButtonReleased) isHover = 0;
 
 	switch (buttonState)
 	{
 	case TOGGLE_OFF:
 		shape.setFillColor(idleColor);
 		text.setFillColor(activeColor);
+		if (isHover) shape.setFillColor(hoverColor);
 		break;
 
 	case TOGGLE_ON:

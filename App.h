@@ -6,6 +6,7 @@
 
 #include "Button.h"
 #include "Static_Array_Menu.h"
+#include "Linked_List_Menu.h"
 
 using namespace std;
 using namespace sf;
@@ -58,5 +59,6 @@ private:
 	//Menus
 
 	Static_Array_Menu* Mn_Static_Array;
+	Linked_List_Menu* Mn_Linked_List;
 };
 

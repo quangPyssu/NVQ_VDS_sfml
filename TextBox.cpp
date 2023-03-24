@@ -54,9 +54,11 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 
 	if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
 	{
+		isHover = 0;
 		if (this->shape.getGlobalBounds().contains(mousePos)) box_Stat = ACTIVE;
 		else box_Stat = IDLE;
-	}	
+	}
+	else if (this->shape.getGlobalBounds().contains(mousePos)) isHover = 1; else isHover = 0;
 
 	if (box_Stat == ACTIVE)
 	{
@@ -81,6 +83,7 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 		shape.setFillColor(idleColor);
 		text.setFillColor(activeColor);
 		text.setString(default_S);
+		if (isHover) shape.setFillColor(hoverColor);
 	}
 	
 	if (btn_cofirm->isPressed() || (event->type == Event::KeyPressed && event->key.code == Keyboard::Enter)) confirm(input_text); else data = nothing;

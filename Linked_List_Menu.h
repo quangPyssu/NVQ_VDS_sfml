@@ -11,15 +11,13 @@
 
 using namespace sf;
 
-enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
-
-class Static_Array_Menu
+class Linked_List_Menu
 {
 public:
-	Static_Array_Menu(Event* event, RenderWindow* window);
-	virtual ~Static_Array_Menu();
+	Linked_List_Menu(Event* event, RenderWindow* window);
+	virtual ~Linked_List_Menu();
 
-	void Render(RenderWindow* target);
+	void Render();
 	void update(const Vector2f mousePos);
 
 	// update for stuff
@@ -40,19 +38,25 @@ public:
 	LinkedList l;
 	int n = 0;
 	StringProccess init_get;
+	int Search_Result=-1;
 
 	//Stat for render
 	Animation* anime;
 	short unsigned render_Speed = slow;
 
+	// animation
+	void drawFrom(int step);
+	bool isDrawing = 0;
+
 private:
 	//BTN
+	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
 	ToggleButton* tog_Delete; ToggleButton* tog_Update;
 	ToggleButton* tog_Search; Button* btn_back;
 
-	Toggle_Group Toggle_Group_Static_Array;
+	Toggle_Group Toggle_Group_Linked_List;
 
 	//TEXT BOX & BTN for INITIALIZE
 

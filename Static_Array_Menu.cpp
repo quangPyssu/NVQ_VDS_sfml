@@ -87,7 +87,7 @@ Static_Array_Menu::Static_Array_Menu(Event* event,RenderWindow* window)
 
 	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
-	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
+	sprite.setScale(Vector2f(1350.f / tet.getSize().x, 800.f / tet.getSize().y));
 
 	//set default
 	this->window = window;

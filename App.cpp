@@ -13,7 +13,7 @@ App::App()
 	window->clear(Color::Black);
 	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
-	sprite.setScale(Vector2f(1000.f / tet.getSize().x, 800.f / tet.getSize().y));
+	sprite.setScale(Vector2f(1350.f / tet.getSize().x, 800.f / tet.getSize().y));
 
 	//btn for main
 
@@ -30,6 +30,7 @@ App::App()
 	// Menus
 
 	Mn_Static_Array = new Static_Array_Menu(&event,window);
+	Mn_Linked_List = new Linked_List_Menu(&event, window);
 
 	window->setFramerateLimit(30);
 	Render();
@@ -71,7 +72,7 @@ void App::initVariables()
 void App::initWindow()
 {
 	videoMode.height = 800;
-	videoMode.width = 1000;
+	videoMode.width = 1350;
 
 	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar | Style::Close);;
 }
@@ -93,7 +94,7 @@ void App::update()
 
 			if (this->btn_Static_Array->isPressed()) AppState = app_static_array, Mn_Static_Array->stat = on; else
 			if (this->btn_Dynamic_Array->isPressed()) AppState = app_dynamic_array; else
-				if (this->btn_Linked_List->isPressed()) AppState = app_linked_list; else
+				if (this->btn_Linked_List->isPressed()) AppState = app_linked_list, Mn_Linked_List->stat = on; else
 					if (this->btn_Queue->isPressed()) AppState = app_queue; else
 						if (this->btn_Stack->isPressed()) AppState = app_stack;
 			break;
@@ -108,7 +109,8 @@ void App::update()
 			break;
 
 		case app_linked_list:
-
+			Mn_Linked_List->update(mousePosWindowf);
+			if (!Mn_Linked_List->stat) AppState = app_main;
 			break;
 
 		case app_queue:
@@ -160,14 +162,13 @@ void App::pollEvents()
 		case app_main:
 
 			Render();
-			window->display();
+			
 
 			break;
 
 		case app_static_array:
 
 			Mn_Static_Array->Render(window);
-			window->display();
 
 			break;
 
@@ -176,6 +177,8 @@ void App::pollEvents()
 			break;
 
 		case app_linked_list:
+
+			Mn_Linked_List->Render();
 
 			break;
 
@@ -187,5 +190,7 @@ void App::pollEvents()
 
 			break;
 		}
+
+		window->display();
 	}
 }

@@ -46,6 +46,7 @@ struct LinkedList
     Node* Tail = nullptr;
 
     int Size=0;
+    int Distance[10] = { 300,300,280,240,200,160,140,130,120,110 };
 
     void add(Node* cur,Node* node);
 
