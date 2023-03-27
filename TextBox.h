@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "Button.h"
+#include "ToggleButton.h"
 
 using namespace std;
 using namespace sf;
@@ -24,7 +25,7 @@ class TextBox
 
         //constructor
 
-        TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size,Color borderColor);
+        TextBox(float x, float y, float width, float height, float thick, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size,Color borderColor);
 
         //destructor
         virtual~TextBox();
@@ -44,6 +45,8 @@ class TextBox
         //accessor
         
         Button* btn_cofirm;
+        bool isToggle = 0;
+
    private:
         
 
@@ -64,6 +67,8 @@ class TextBox
         RectangleShape shape;
 
         Event* event;
+
+        Clock clock;
 
         // input accept?
 

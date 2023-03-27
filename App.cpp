@@ -92,7 +92,7 @@ void App::update()
 			this->btn_Stack->update(mousePosWindowf, &event);
 			this->btn_Queue->update(mousePosWindowf, &event);
 
-			if (this->btn_Static_Array->isPressed()) AppState = app_static_array, Mn_Static_Array->stat = on; else
+			if (this->btn_Static_Array->isPressed()) AppState = app_static_array; else
 			if (this->btn_Dynamic_Array->isPressed()) AppState = app_dynamic_array; else
 				if (this->btn_Linked_List->isPressed()) AppState = app_linked_list, Mn_Linked_List->stat = on; else
 					if (this->btn_Queue->isPressed()) AppState = app_queue; else

@@ -45,6 +45,9 @@ public:
 	short unsigned render_Speed = slow;
 
 	// animation
+
+	void TimeTravel();
+
 	void drawFrom(int step);
 	bool isDrawing = 0;
 
@@ -87,6 +90,7 @@ private:
 
 	//TEXT BOX & BTN for DELETE
 
+	Button* btn_del_confirm;
 	TextBox* box_del_pos;
 	ToggleButton* tog_del_head;
 	ToggleButton* tog_del_tail;
@@ -113,6 +117,13 @@ private:
 	TextBox* box_ser_val;
 
 	int ser_data_val = nothing;
+
+	// BTN for TIME TRAVEl
+
+	ToggleButton* tog_speed;
+	Button* btn_step_prev;
+	Button* btn_step_next;
+	ToggleButton* tog_play;
 
 	//Drawzie
 	RenderWindow* window;

@@ -16,9 +16,9 @@ struct DisplayNode {
     CircleShape arrow_head;
     CircleShape body;
 
-    Font font;
+	shared_ptr<Font> font= make_shared<Font>();;
 
-    Text text;
+	Text text;
 	Text PosText;
 
     //attributes
@@ -47,6 +47,7 @@ public:
 	virtual ~Animation();
 	
 	int step = 0;
+	int curStep = 0;
 	vector <DisplayNode> DisplayRecord[30];
 	vector <DisplayNode> AdditionalNode[30];
 	int DisplayRecordSize[30]{0};

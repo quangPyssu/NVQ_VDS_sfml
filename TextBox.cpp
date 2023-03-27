@@ -1,6 +1,6 @@
 #include "TextBox.h"
 
-TextBox::TextBox(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size, Color borderColor)
+TextBox::TextBox(float x, float y, float width, float height,float thick, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,int btn_x,int btn_y,int size, Color borderColor)
 // btn_x and btn_y is for displacement of btn compare to TextBox
 {
 	this->height = height ? height : this->height;
@@ -32,7 +32,7 @@ TextBox::TextBox(float x, float y, float width, float height, string text, Color
 
 	shape.setFillColor(idleColor);
 	shape.setOutlineColor(borderColor);
-	shape.setOutlineThickness(2);
+	shape.setOutlineThickness(thick);
 
 	target = nullptr;
 	event = nullptr;
@@ -52,30 +52,52 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 	btn_cofirm->update(mousePos,event);
 	data = 0;
 
+	/*if (this->shape.getGlobalBounds().contains(mousePos))
+	{
+		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
+		{
+			if (box_Stat == ACTIVE) box_Stat = IDLE; else box_Stat = ACTIVE;
+		}
+		else if (!isToggle || event->mouseButton.button == Event::MouseButtonReleased) isHover = 1;
+	}
+	else
+	{
+		if (!isToggle || event->mouseButton.button == Event::MouseButtonReleased) isHover = 0;
+
+		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left) box_Stat = IDLE;
+	}*/
+
 	if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
 	{
 		isHover = 0;
-		if (this->shape.getGlobalBounds().contains(mousePos)) box_Stat = ACTIVE;
+		if (this->shape.getGlobalBounds().contains(mousePos))box_Stat = ACTIVE;
 		else box_Stat = IDLE;
 	}
 	else if (this->shape.getGlobalBounds().contains(mousePos)) isHover = 1; else isHover = 0;
 
-	if (box_Stat == ACTIVE)
+	//if (tog_ghost!= nullptr && tog_ghost->Toggled()) isToggle = true; else isToggle = false;
+
+	if (box_Stat == ACTIVE || isToggle)
 	{
-		text.setString("");
 		shape.setFillColor(activeColor);
 		text.setFillColor(idleColor);
-		if (event->type == Event::TextEntered)
+		
+		if (box_Stat == ACTIVE)
 		{
-			if (isprint(event->text.unicode) && input_text.size()<this->size)
-				input_text += event->text.unicode;
-		}
-
-		else if (event->type == Event::KeyPressed) {
-			if (event->key.code == Keyboard::BackSpace) {
-				if (!input_text.empty())
-					input_text.pop_back();
+			if (event->type == Event::TextEntered)
+			{
+				if (isprint(event->text.unicode) && input_text.size() < this->size)
+					input_text += event->text.unicode;
 			}
+			else
+				if (event->type == Event::KeyPressed)
+				{
+					if (event->key.code == Keyboard::BackSpace)
+					{
+						if (!input_text.empty())
+							input_text.pop_back();
+					}
+				}
 		}
 	}
 	else
@@ -85,8 +107,9 @@ void TextBox::update(const Vector2f mousePos,Event* event)
 		text.setString(default_S);
 		if (isHover) shape.setFillColor(hoverColor);
 	}
+
 	
-	if (btn_cofirm->isPressed() || (event->type == Event::KeyPressed && event->key.code == Keyboard::Enter)) confirm(input_text); else data = nothing;
+	if (btn_cofirm->isPressed() || (event->type == Event::KeyPressed && event->key.code == Keyboard::Enter)) confirm(input_text),cout << "data " << data << endl; else data = nothing;
 }
 
 void TextBox::render(RenderTarget* target)
@@ -100,7 +123,24 @@ void TextBox::render(RenderTarget* target)
 	}
 	else output_text = input_text;
 
-	if (input_text != "" || box_Stat==ACTIVE) text.setString(output_text);
+	if (input_text != "" || box_Stat == ACTIVE)
+	{
+		if (box_Stat == ACTIVE)
+		{
+			static sf::Time text_effect_time;
+			static bool show_cursor;
+
+			text_effect_time += clock.restart();
+
+			if (text_effect_time >= sf::seconds(0.5f))
+			{
+				show_cursor = !show_cursor;
+				text_effect_time = sf::Time::Zero;
+			}
+			text.setString(output_text + (show_cursor ? '_' : ' '));
+		} 
+		else text.setString(output_text);
+	}
 	else text.setString(default_S);
 
 	target->draw(shape);

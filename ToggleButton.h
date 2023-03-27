@@ -7,13 +7,15 @@
 using namespace sf;
 using namespace std;
 
-enum button_tog { TOGGLE_OFF = 0, TOGGLE_ON = 1 , HOVER = 2 ,PRESSING = 3, Type_Toggle = 0, Type_Neighbor = 1 };
+enum button_tog { TOGGLE_OFF = 0, TOGGLE_ON = 1 , HOVER = 2 ,PRESSING = 3 };
 
 class ToggleButton
 {
 private:
     short unsigned buttonState;
     short unsigned isHover=0;
+
+    bool canToggle = 1;
 
     //attribute
 
@@ -39,9 +41,12 @@ public:
 
     Text text;
 
+    string s = "";
+    string s2 = "";
+
     //constructor
 
-    ToggleButton(float x, float y, float width, float height, string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,bool type,Color borderColor);
+    ToggleButton(float x, float y, float width, float height, float thick,string text, Color textColor, Color idleColor, Color hoverColor, Color activeColor,bool canToggle,Color borderColor);
 
     //Accessors
     const bool isPressed(Vector2f mousePos,Event* event) const;

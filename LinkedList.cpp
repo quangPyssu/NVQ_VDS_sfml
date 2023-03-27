@@ -24,8 +24,10 @@ Node* New(int data)
     node->line.setFillColor(Color::Color(91,91,91,255));
     node->arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
 
-    node->font.loadFromFile("asset/fonts/ArialTh.ttf");
-    node->text.setFont(node->font);
+   // Font font;
+    node->font->loadFromFile("asset/fonts/ArialTh.ttf");
+
+    node->text = Text("", *node->font);
     node->text.setFillColor(Color::Black);
     node->text.setCharacterSize(node->body.getRadius());
     node->PosText = node->text;
@@ -243,8 +245,8 @@ void LinkedList::render(RenderWindow* window)
     Node* cur = Head;
     //repostion
     
-    float between = Distance[Size-1];
-    float original = window->getSize().x/2 - between*Size/2;
+    float between = Distance;
+    float original = window->getSize().x/2 - between*10/2;
 
     float cnt = 0.5;
     while (cur != nullptr)

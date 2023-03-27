@@ -17,11 +17,11 @@ Animation::~Animation()
 
 void Animation::clearAll()
 {
-	step = 0;
+	step = curStep = 0;
 	for (int i = 0; i < 30; i++) DisplayRecord[i].clear(), DisplayRecordSize[i] = 0, AdditionalNode[i].clear();
 }
 
-void Animation::cloneList()
+void Animation::cloneList()   //copy linked list
 {
 	Node* Cur = l->Head;
 
@@ -43,7 +43,7 @@ void Animation::cloneList()
 	step++;
 }
 
-void Animation::cloneState()
+void Animation::cloneState() //copy display linked list
 {
 	DisplayRecord[step] = DisplayRecord[step - 1];
 	DisplayRecordSize[step] = DisplayRecordSize[step - 1];
@@ -81,6 +81,7 @@ void Animation::CalculateLine(DisplayNode* cur, Vector2f NextPos)
 	}
 
 	cur->text.setPosition(cur->body.getPosition().x - cur->text.getGlobalBounds().width / 2.f, cur->body.getPosition().y - cur->text.getGlobalBounds().height / 3 * 2);
+	cur->PosText.setPosition(cur->text.getPosition()-Vector2f(25,-25));
 }
 
 void Animation::CalculatePos(int pos)
@@ -93,7 +94,7 @@ void Animation::CalculatePos(int pos)
 
 	for (int i = 0; i < AdditionalNode[pos].size(); i++)
 	{
-		AdditionalNode[pos][i].PosText.setString("");
+		AdditionalNode[pos][i].PosText.setString(""); 
 		CalculateLine(&AdditionalNode[pos][i], AdditionalNode[pos][i].NextPos);
 	}
 }
@@ -148,22 +149,23 @@ void Animation::Del_pos(int v)
 }
 
 void Animation::Add_pos(int v,int data)
-{	
+{
 	if (l->Size == 1) return;
-	v = min(v, l->Size - 2);
 
 	string s = to_string(data);
 
-	MakeFillIndex(v, Color::Green);
+	MakeFillIndex(min(v,l->Size-2), Color::Green);
 
-	if (v == l->Size-2)
-	{	//tail
+	if (v > l->Size-2)
+	{	
+		v = min(v, l->Size - 2);
+		//tail
 		//make node appear
 		cloneState();
 
 		DisplayNode DisplayCur = DisplayRecord[step][v];
 
-		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance[v], -150));
+		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance, -150));
 		DisplayCur.body.setFillColor(Color::Magenta);
 		DisplayCur.NextPos = DisplayCur.body.getPosition();
 		DisplayCur.text.setString(s);
@@ -180,9 +182,10 @@ void Animation::Add_pos(int v,int data)
 		CalculatePos(step);
 
 		step++;
-
 	} else if (v>0)
-	{	//middle
+	{
+		v = min(v, l->Size - 2);
+		//middle
 		//make node appear
 		cloneState();
 
@@ -208,16 +211,18 @@ void Animation::Add_pos(int v,int data)
 		step++;
 	}
 	else
-	{	//head
+	{
+		v = min(v, l->Size - 2);
+		//head
 		// make node appear
 		cloneState();
 
 		DisplayNode DisplayCur;
 
 		DisplayCur.NodeCovert(l->Head);
-		DisplayCur.body.setPosition(DisplayRecord[step - 1][0].body.getPosition() - Vector2f(l->Distance[l->Size - 2], -150));
+		DisplayCur.body.setPosition(DisplayRecord[step - 1][0].body.getPosition() - Vector2f(l->Distance, -150));
 		DisplayCur.body.setFillColor(Color::Magenta);
-		DisplayCur.NextPos = DisplayCur.body.getPosition();
+		DisplayCur.NextPos = DisplayCur.body.getPosition(); 
 
 		AdditionalNode[step].push_back(DisplayCur);
 		CalculatePos(step);
@@ -225,21 +230,21 @@ void Animation::Add_pos(int v,int data)
 		step++;
 
 		//make node point to head
-		cloneState();
+		cloneState(); 
 
 		AdditionalNode[step].back().NextPos = DisplayRecord[step - 1][0].body.getPosition();
 		CalculatePos(step);
 
-		step++;
+		step++;		
 	}
+	
 }
 
 
 
 void Animation::drawOneStep(int i)
 {
-	for (auto cur : AdditionalNode[i])
-		cur.renderNode(window);
+	for (auto cur : AdditionalNode[i])	cur.renderNode(window);
 
 	for (int j = 0; j < DisplayRecordSize[i]; j++)
 		DisplayRecord[i][j].renderNode(window);
@@ -266,14 +271,17 @@ void DisplayNode::NodeCovert(Node* node)
     line = node->line;
 	arrow_head = node->arrow_head;
 
-    body.setOutlineColor(Color::Black);
-    node->line.setFillColor(Color::Color(91, 91, 91, 255));
-    node->arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
-
 	if (node->Next != nullptr) NextPos = node->Next->body.getPosition(); else NextPos = body.getPosition();
 
+	this->font = node->font;
+
 	text = node->text;
+
+	this->text.setFont(*this->font);
+	
 	PosText = node->PosText;
+
+	this->PosText.setFont(*this->font);
 }
 
 

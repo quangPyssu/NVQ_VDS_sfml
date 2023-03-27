@@ -17,8 +17,8 @@ struct Node {
     RectangleShape line;
     CircleShape arrow_head;
     CircleShape body;
-    
-    Font font;
+  
+    shared_ptr<Font> font = make_shared<Font>();;
 
     Text text;
     Text PosText;
@@ -41,12 +41,12 @@ struct Node {
 };
 
 struct LinkedList
-{
+{    
     Node* Head = nullptr;
     Node* Tail = nullptr;
 
     int Size=0;
-    int Distance[10] = { 300,300,280,240,200,160,140,130,120,110 };
+    int Distance = 120;
 
     void add(Node* cur,Node* node);
 
