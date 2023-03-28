@@ -36,7 +36,14 @@ struct DisplayNode {
 	// copy stat;
 	void NodeCovert(Node* node);
 
-	Vector2f NextPos=Vector2f(0,0);
+	void Dissolve();
+
+	// Interpolate
+	DisplayNode interpolate(DisplayNode* a, DisplayNode* b, float t);
+
+	//next Point
+	DisplayNode* NextPos=nullptr;
+	void CalculateLine(DisplayNode* next);
 };
 
 
@@ -49,7 +56,8 @@ public:
 	int step = 0;
 	int curStep = 0;
 	vector <DisplayNode> DisplayRecord[30];
-	vector <DisplayNode> AdditionalNode[30];
+	DisplayNode AdditionalNode[30];
+	int AdditionPos[30]{0};
 	int DisplayRecordSize[30]{0};
 
 	//tool
@@ -58,7 +66,7 @@ public:
 	void MakeFillIndex(int n, Color color);
 
 	void CalculatePos(int pos);
-	void CalculateLine(DisplayNode* cur, Vector2f NextPos);
+	
 
 	// uses
 
@@ -72,6 +80,8 @@ public:
 
 	void render();
 	void drawOneStep(int i);
+
+	void drawSmoothTransition(int start, int end, float progress);
 
 private:
 	Event* event;
@@ -89,6 +99,8 @@ private:
 	string s_Add_Tail[3];
 	string s_Add_Middle[7];
 
-
+	// transition
+	void Link(int cur);
+	
 };
 

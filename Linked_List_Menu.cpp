@@ -162,10 +162,20 @@ void Linked_List_Menu::TimeTravel()
 	//anime->drawOneStep(anime->curStep);
 }
 
+void Linked_List_Menu::stop(float i)
+{
+	float total_time = 0.0f;
+	
+	while (total_time < i) {
+		float elapsed_time = clock.restart().asSeconds();	
+		total_time += elapsed_time;
+	}
+}
+
 void Linked_List_Menu::drawFrom(int Current)
 {
 	cout << "Step " << anime->step << endl;
-	isDrawing = 1;
+	isDrawing = DrawStep;
 
 	if (!tog_speed->Toggled())
 	for (int i = Current; i < anime->step; i++)
@@ -173,12 +183,30 @@ void Linked_List_Menu::drawFrom(int Current)
 		anime->curStep = i;
 		Render();
 		window->display();
-		Sleep(500);
+
+		float StepTime = 0.5;
+		float frame = 20;
+		stop(0.5);
+		float FrameTime = StepTime / frame;
+
+		if (i < anime->step - 1)
+		{
+			isDrawing = DrawAnimation;
+			for (int j = 0; j < 10; j++)
+			{
+				Render();
+				anime->drawSmoothTransition(i, i+1, j * 0.1);
+				stop(FrameTime);
+			}
+			isDrawing = DrawStep;
+		}
+		
 	}
+	stop(0.5);
 
 	anime->curStep = anime->step;
 
-	isDrawing = 0;
+	isDrawing = DrawNormal;
 }
 
 void Linked_List_Menu::Render()
@@ -240,7 +268,8 @@ void Linked_List_Menu::Render()
 		this->box_ser_val->render(window);
 	}
 
-	if (!isDrawing) l.render(window); else anime->drawOneStep(anime->curStep);
+	if (isDrawing==DrawNormal) l.render(window); else 
+	if (isDrawing==DrawStep) anime->drawOneStep(anime->curStep); 
 }
 
 void Linked_List_Menu::update_init()
@@ -291,7 +320,21 @@ void Linked_List_Menu::update_init()
 			break;
 
 		case init_load:
-
+			string s = "data/data.inp";
+			ifstream Fin(s);
+			if (Fin.is_open())
+			{
+				l.delAll();
+				int n; Fin >> n;
+				for (int i = 0; i < n; i++)
+				{
+					int j; Fin >> j;
+					l.addTail(New(j));
+				}
+				Fin.close();
+			}
+			else cout << "There was no data!!" << endl;
+			
 			break;
 
 		}
@@ -451,7 +494,7 @@ void Linked_List_Menu::update_search()
 			}
 			else
 			{
-				anime->MakeChoosenUpTo(0, l.Size);
+				anime->MakeChoosenUpTo(0, l.Size-1);
 			}
 
 			drawFrom(0);

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
+#include <fstream>
 #include "Button.h"
 #include "ToggleButton.h"
 #include "Toggle_Group.h"
@@ -10,6 +11,8 @@
 #include "Animation.h"
 
 using namespace sf;
+
+enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation= 2 };
 
 class Linked_List_Menu
 {
@@ -49,7 +52,7 @@ public:
 	void TimeTravel();
 
 	void drawFrom(int step);
-	bool isDrawing = 0;
+	short unsigned isDrawing = DrawNormal;
 
 private:
 	//BTN
@@ -136,5 +139,9 @@ private:
 	Vector2f mousePosWindowf;
 
 	// stats
+
+	//timer
+	Clock clock;
+	void stop(float i);
 };
 
