@@ -42,12 +42,16 @@ ToggleButton::ToggleButton(float x, float y, float width, float height, float th
 void ToggleButton::disable()
 {
 	this->buttonState = TOGGLE_OFF;
+	shape.setFillColor(idleColor);
+	text.setFillColor(activeColor);
 	Toggle_stat = 0;
 }
 
 void ToggleButton::TurnOn()
 {
 	this->buttonState = TOGGLE_ON;
+	shape.setFillColor(activeColor);
+	text.setFillColor(idleColor);
 	Toggle_stat = 1;
 }
 

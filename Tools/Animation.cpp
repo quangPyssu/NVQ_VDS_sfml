@@ -8,7 +8,7 @@ Animation::Animation(Event* event, LinkedList* l,RenderWindow* window)
 
 	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
-	sprite.setScale(Vector2f(1350.f / tet.getSize().x, 800.f / tet.getSize().y));
+	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
 }
 
 Animation::~Animation()

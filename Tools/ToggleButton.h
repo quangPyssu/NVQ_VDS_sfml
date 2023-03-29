@@ -29,8 +29,8 @@ private:
     RenderTarget* target;
     RectangleShape shape;
 
-    float height = 30;
-    float width = 70;
+    float height = 50;
+    float width = 120;
 
     bool Toggle_stat=0;
 

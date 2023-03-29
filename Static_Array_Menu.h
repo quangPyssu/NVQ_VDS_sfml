@@ -1,25 +1,24 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
-#include "Button.h"
-#include "ToggleButton.h"
-#include "Toggle_Group.h"
-#include "TextBox.h"
-#include "LinkedList.h"
-#include "StringProccess.h"
-#include "Animation.h"
+#include <fstream>
+#include "Tools/Button.h"
+#include "Tools/ToggleButton.h"
+#include "Tools/Toggle_Group.h"
+#include "Tools/TextBox.h"
+#include "Tools/LinkedList.h"
+#include "Tools/StringProccess.h"
+#include "Tools/Animation.h"
 
 using namespace sf;
-
-enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 class Static_Array_Menu
 {
 public:
-	Static_Array_Menu(Event* event,RenderWindow* window);
+	Static_Array_Menu(Event* event, RenderWindow* window);
 	virtual ~Static_Array_Menu();
 
-	void Render(RenderWindow* target);
+	void Render();
 	void update(const Vector2f mousePos);
 
 	// update for stuff
@@ -33,31 +32,37 @@ public:
 	//menu stat
 
 	short unsigned stat;
-	short init_stat=0;
+	short init_stat = 0;
 
 	//LL
 
 	LinkedList l;
 	int n = 0;
 	StringProccess init_get;
-	int Search_Result;
+	int Search_Result=-1;
 
 	//Stat for render
 	Animation* anime;
 	short unsigned render_Speed = slow;
 
 	// animation
+
+	void TimeTravel();
+
 	void drawFrom(int step);
-	bool isDrawing=0;
+	short unsigned isDrawing = DrawNormal;
 
 private:
 	//BTN
 
-	ToggleButton* tog_Initialize;ToggleButton* tog_Add;
+	enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation = 2 };
+	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
+
+	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
 	ToggleButton* tog_Delete; ToggleButton* tog_Update;
 	ToggleButton* tog_Search; Button* btn_back;
 
-	Toggle_Group Toggle_Group_Static_Array;
+	Toggle_Group Toggle_Group_Linked_List;
 
 	//TEXT BOX & BTN for INITIALIZE
 
@@ -84,17 +89,18 @@ private:
 
 	Toggle_Group Toggle_Group_Add;
 
-	int add_data_val=nothing,add_data_pos=nothing;
+	int add_data_val = nothing, add_data_pos = nothing;
 
 	//TEXT BOX & BTN for DELETE
 
+	Button* btn_del_confirm;
 	TextBox* box_del_pos;
 	ToggleButton* tog_del_head;
 	ToggleButton* tog_del_tail;
 	ToggleButton* tog_del_pos;
 
 	Toggle_Group Toggle_Group_Del;
-	
+
 	int  del_data_pos = nothing;
 
 	//TEXT BOX & BTN for UPDATE
@@ -115,6 +121,13 @@ private:
 
 	int ser_data_val = nothing;
 
+	// BTN for TIME TRAVEl
+
+	ToggleButton* tog_speed;
+	Button* btn_step_prev;
+	Button* btn_step_next;
+	ToggleButton* tog_play;
+
 	//Drawzie
 	RenderWindow* window;
 	Event* event;
@@ -126,5 +139,9 @@ private:
 	Vector2f mousePosWindowf;
 
 	// stats
+
+	//timer
+	Clock clock;
+	void stop(float i);
 };
 

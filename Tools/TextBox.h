@@ -57,8 +57,8 @@ class TextBox
         Color hoverColor;
         Color activeColor;
         Color textColor;
-        float height = 30;
-        float width = 100;
+        float height = 50;
+        float width = 150;
 
         int size;
 

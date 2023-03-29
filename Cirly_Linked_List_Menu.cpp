@@ -1,14 +1,14 @@
-#include "Linked_List_Menu.h"
+#include "Cirly_Linked_List_Menu.h"
 #include <iostream>
 
-Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
+Cirly_Linked_List_Menu::Cirly_Linked_List_Menu(Event* event, RenderWindow* window)
 {
 	// make btn;
-	this->tog_Initialize = new ToggleButton(50, 50, 0, 0, 2, "Initialize", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),true ,  Color::Black);
-	this->tog_Add = new ToggleButton(50, tog_Initialize->pos_y+ tog_Initialize->size_y+10, 0, 0, 2, "Add", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),true ,  Color::Black);
-	this->tog_Delete = new ToggleButton(50, tog_Add->pos_y + tog_Add->size_y + 10, 0, 0, 2, "Delete", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),true ,  Color::Black);
-	this->tog_Update = new ToggleButton(50, tog_Delete->pos_y + tog_Delete->size_y + 10, 0, 0, 2, "Update", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),true ,  Color::Black);
-	this->tog_Search = new ToggleButton(50, tog_Update->pos_y + tog_Update->size_y + 10, 0, 0, 2, "Search", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),true ,  Color::Black);
+	this->tog_Initialize = new ToggleButton(50, 50, 0, 0, 2, "Initialize", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->tog_Add = new ToggleButton(50, tog_Initialize->pos_y + tog_Initialize->size_y + 10, 0, 0, 2, "Add", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->tog_Delete = new ToggleButton(50, tog_Add->pos_y + tog_Add->size_y + 10, 0, 0, 2, "Delete", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->tog_Update = new ToggleButton(50, tog_Delete->pos_y + tog_Delete->size_y + 10, 0, 0, 2, "Update", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->tog_Search = new ToggleButton(50, tog_Update->pos_y + tog_Update->size_y + 10, 0, 0, 2, "Search", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 	this->btn_back = new Button(50, tog_Search->pos_y + tog_Search->size_y + 10, 0, 0, "Back", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
 	Toggle_Group_Linked_List.Toggle_Btn_Grp[0] = tog_Initialize;	Toggle_Group_Linked_List.Toggle_Btn_Grp[1] = tog_Add;	Toggle_Group_Linked_List.Toggle_Btn_Grp[2] = tog_Delete;
@@ -19,14 +19,14 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 	// make TextBox&btn for INITIALIZE;
 	{
 
-		this->tog_init_empty = new ToggleButton(tog_Initialize->pos_x + tog_Initialize->size_x+20, tog_Initialize->pos_y, 0, 0, 2, "Empty", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
-		this->tog_init_random = new ToggleButton(tog_init_empty->pos_x + tog_init_empty->size_x+4, tog_Initialize->pos_y, 0, 0, 2, "Random", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
-		this->tog_init_fixed = new ToggleButton(tog_init_random->pos_x + tog_init_random->size_x+4, tog_Initialize->pos_y, 150, 0, 2, "", Color::White, Color::Black, Color::Green, Color::Blue,false ,  Color::Black);
-		this->tog_init_read = new ToggleButton(tog_init_fixed->pos_x + tog_init_fixed->size_x+4, tog_Initialize->pos_y, 150, 0, 2, "", Color::White, Color::Black, Color::Green, Color::Blue,false ,  Color::Black);
-		this->tog_init_load = new ToggleButton(tog_init_read->pos_x + tog_init_read->size_x+4, tog_Initialize->pos_y, 150, 0, 2, "Load", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
+		this->tog_init_empty = new ToggleButton(tog_Initialize->pos_x + tog_Initialize->size_x + 20, tog_Initialize->pos_y, 0, 0, 2, "Empty", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
+		this->tog_init_random = new ToggleButton(tog_init_empty->pos_x + tog_init_empty->size_x + 4, tog_Initialize->pos_y, 0, 0, 2, "Random", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
+		this->tog_init_fixed = new ToggleButton(tog_init_random->pos_x + tog_init_random->size_x + 4, tog_Initialize->pos_y, 150, 0, 2, "", Color::White, Color::Black, Color::Green, Color::Blue, false, Color::Black);
+		this->tog_init_read = new ToggleButton(tog_init_fixed->pos_x + tog_init_fixed->size_x + 4, tog_Initialize->pos_y, 150, 0, 2, "", Color::White, Color::Black, Color::Green, Color::Blue, false, Color::Black);
+		this->tog_init_load = new ToggleButton(tog_init_read->pos_x + tog_init_read->size_x + 4, tog_Initialize->pos_y, 150, 0, 2, "Load", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
 
-		this->box_init_read = new TextBox(tog_init_read->pos_x , tog_init_read->pos_y, tog_init_read->size_x, tog_init_read->size_y, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), tog_init_read->size_x*2+20, 0, 50, Color::Black);
-		this->box_init_fixed = new TextBox(tog_init_fixed->pos_x , tog_init_fixed->pos_y, tog_init_fixed->size_x, tog_init_fixed->size_y, 2, "Input Size", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), tog_init_read->size_x*3+20+4, 0, 9, Color::Black);
+		this->box_init_read = new TextBox(tog_init_read->pos_x, tog_init_read->pos_y, tog_init_read->size_x, tog_init_read->size_y, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), tog_init_read->size_x * 2 + 20, 0, 50, Color::Black);
+		this->box_init_fixed = new TextBox(tog_init_fixed->pos_x, tog_init_fixed->pos_y, tog_init_fixed->size_x, tog_init_fixed->size_y, 2, "Input Size", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), tog_init_read->size_x * 3 + 20 + 4, 0, 9, Color::Black);
 
 		Toggle_Group_Init.Toggle_Btn_Grp[0] = tog_init_empty;	Toggle_Group_Init.Toggle_Btn_Grp[1] = tog_init_random;	Toggle_Group_Init.Toggle_Btn_Grp[2] = tog_init_fixed;
 		Toggle_Group_Init.Toggle_Btn_Grp[3] = tog_init_read;	Toggle_Group_Init.Toggle_Btn_Grp[4] = tog_init_load;
@@ -37,12 +37,12 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 	{
 		Toggle_Group_Add.tog_Grp_Head = new ToggleButton(tog_Add->pos_x + tog_Add->size_x + 20, tog_Add->pos_y, 150, 0, 2, "Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 
-		this->box_add_pos = new TextBox(tog_Add->pos_x + tog_Add->size_x + 20, tog_Add->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Add.tog_Grp_Head->size_x*2+20+4,0, 9, Color::Black);
-		this->box_add_val = new TextBox(box_add_pos->pos_x + box_add_pos->size_x+4, tog_Add->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Add.tog_Grp_Head->size_x+20 , 0, 9, Color::Black);
+		this->box_add_pos = new TextBox(tog_Add->pos_x + tog_Add->size_x + 20, tog_Add->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Add.tog_Grp_Head->size_x * 2 + 20 + 4, 0, 9, Color::Black);
+		this->box_add_val = new TextBox(box_add_pos->pos_x + box_add_pos->size_x + 4, tog_Add->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Add.tog_Grp_Head->size_x + 20, 0, 9, Color::Black);
 
-		this->tog_add_head = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y+10, box_add_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
-		this->tog_add_tail = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y*2+10, box_add_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
-		this->tog_add_pos  = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y*3+10, box_add_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
+		this->tog_add_head = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y + 10, box_add_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
+		this->tog_add_tail = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y * 2 + 10, box_add_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
+		this->tog_add_pos = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y * 3 + 10, box_add_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
 
 		Toggle_Group_Add.Toggle_Btn_Grp[0] = tog_add_head;	Toggle_Group_Add.Toggle_Btn_Grp[1] = tog_add_pos;	Toggle_Group_Add.Toggle_Btn_Grp[2] = tog_add_tail;
 		Toggle_Group_Add.n = 3;
@@ -54,12 +54,12 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 	{
 		Toggle_Group_Del.tog_Grp_Head = new ToggleButton(tog_Delete->pos_x + tog_Delete->size_x + 20, tog_Delete->pos_y, 150, 0, 2, "Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 
-		this->box_del_pos = new TextBox(tog_Delete->pos_x + tog_Delete->size_x + 20, tog_Delete->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Del.tog_Grp_Head->size_x+20, 0, 9, Color::Black);
+		this->box_del_pos = new TextBox(tog_Delete->pos_x + tog_Delete->size_x + 20, tog_Delete->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Del.tog_Grp_Head->size_x + 20, 0, 9, Color::Black);
 		this->btn_del_confirm = new Button(box_del_pos->pos_x + box_del_pos->size_x + 20, tog_Delete->pos_y, 0, 0, "CONFIRM", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
-		this->tog_del_head = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y + 10, box_del_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
-		this->tog_del_tail = new ToggleButton(box_del_pos->pos_x,box_del_pos->pos_y + box_del_pos->size_y*2 + 10, box_del_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
-		this->tog_del_pos = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y*3 + 10, box_del_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255),false ,  Color::Black);
+		this->tog_del_head = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y + 10, box_del_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
+		this->tog_del_tail = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y * 2 + 10, box_del_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
+		this->tog_del_pos = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y * 3 + 10, box_del_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
 
 		Toggle_Group_Del.Toggle_Btn_Grp[0] = tog_del_head;	Toggle_Group_Del.Toggle_Btn_Grp[1] = tog_del_pos;	Toggle_Group_Del.Toggle_Btn_Grp[2] = tog_del_tail;
 		Toggle_Group_Del.n = 3;
@@ -71,7 +71,7 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 	{
 		Toggle_Group_Upd.tog_Grp_Head = new ToggleButton(tog_Update->pos_x + tog_Update->size_x + 20, tog_Update->pos_y, 150, 0, 2, "Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 
-		this->box_upd_pos = new TextBox(tog_Update->pos_x + tog_Update->size_x + 20, tog_Update->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Upd.tog_Grp_Head->size_x * 2 + 20+4, 0, 9, Color::Black);
+		this->box_upd_pos = new TextBox(tog_Update->pos_x + tog_Update->size_x + 20, tog_Update->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Upd.tog_Grp_Head->size_x * 2 + 20 + 4, 0, 9, Color::Black);
 		this->box_upd_val = new TextBox(box_upd_pos->pos_x + box_upd_pos->size_x + 4, tog_Update->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Upd.tog_Grp_Head->size_x + 20, 0, 9, Color::Black);
 
 		this->tog_upd_head = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + box_upd_pos->size_y + 10, box_upd_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
@@ -86,16 +86,16 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 
 	// make TextBox&btn for SEARCH;
 	{
-		this->box_ser_val = new TextBox(tog_Search->pos_x + tog_Search->size_x+20, tog_Search->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), 150+20, 0, 9, Color::Black);
+		this->box_ser_val = new TextBox(tog_Search->pos_x + tog_Search->size_x + 20, tog_Search->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), 150 + 20, 0, 9, Color::Black);
 	}
-	
+
 	// make btn for Time travel;
 
 	this->tog_speed = new ToggleButton(1500, 100, 0, 0, 2, "Slow Speed", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->tog_play = new ToggleButton(1500, tog_speed->pos_y+tog_speed->size_y*2+6+20, 0, 0, 2, "Play", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->btn_step_prev = new Button(1500 - tog_speed->size_x/2-10, tog_speed->pos_y + tog_speed->size_y + 4+10, 0, 0, "Step Back", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
-	this->btn_step_next = new Button(1500 + tog_speed->size_x/2+10, tog_speed->pos_y + tog_speed->size_y + 4+10, 0, 0, "Step Forward", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
-	
+	this->tog_play = new ToggleButton(1500, tog_speed->pos_y + tog_speed->size_y * 2 + 6 + 20, 0, 0, 2, "Play", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->btn_step_prev = new Button(1500 - tog_speed->size_x / 2 - 10, tog_speed->pos_y + tog_speed->size_y + 4 + 10, 0, 0, "Step Back", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
+	this->btn_step_next = new Button(1500 + tog_speed->size_x / 2 + 10, tog_speed->pos_y + tog_speed->size_y + 4 + 10, 0, 0, "Step Forward", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
+
 	this->tog_speed->s2 = "Fast Speed";
 
 	// Back display
@@ -117,7 +117,7 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 	srand(time(NULL));
 }
 
-Linked_List_Menu::~Linked_List_Menu()
+Cirly_Linked_List_Menu::~Cirly_Linked_List_Menu()
 {
 	//Button
 	delete tog_Initialize; delete tog_Add;
@@ -146,7 +146,7 @@ Linked_List_Menu::~Linked_List_Menu()
 
 	delete box_add_val; delete box_add_pos;
 
-	delete box_del_pos; 
+	delete box_del_pos;
 
 	delete box_upd_pos; delete box_upd_val;
 
@@ -157,52 +157,52 @@ Linked_List_Menu::~Linked_List_Menu()
 	l.delAll();
 }
 
-void Linked_List_Menu::TimeTravel()
+void Cirly_Linked_List_Menu::TimeTravel()
 {
 	//Render();
 	//anime->drawOneStep(anime->curStep);
 }
 
-void Linked_List_Menu::stop(float i)
+void Cirly_Linked_List_Menu::stop(float i)
 {
 	float total_time = 0.0f;
-	
+
 	while (total_time < i) {
-		float elapsed_time = clock.restart().asSeconds();	
+		float elapsed_time = clock.restart().asSeconds();
 		total_time += elapsed_time;
 	}
 }
 
-void Linked_List_Menu::drawFrom(int Current)
+void Cirly_Linked_List_Menu::drawFrom(int Current)
 {
 	cout << "Step " << anime->step << endl;
 	isDrawing = DrawStep;
 
 	if (!tog_speed->Toggled())
-	for (int i = Current; i < anime->step; i++)
-	{
-		anime->curStep = i;
-		Render();
-		window->display();
-
-		float StepTime = 0.5;
-		float frame = 20;
-		stop(0.5);
-		float FrameTime = StepTime / frame;
-
-		if (i < anime->step - 1)
+		for (int i = Current; i < anime->step; i++)
 		{
-			isDrawing = DrawAnimation;
-			for (int j = 0; j < 10; j++)
+			anime->curStep = i;
+			Render();
+			window->display();
+
+			float StepTime = 0.5;
+			float frame = 20;
+			stop(0.5);
+			float FrameTime = StepTime / frame;
+
+			if (i < anime->step - 1)
 			{
-				Render();
-				anime->drawSmoothTransition(i, i+1, j * 0.1);
-				stop(FrameTime);
+				isDrawing = DrawAnimation;
+				for (int j = 0; j < 10; j++)
+				{
+					Render();
+					anime->drawSmoothTransition(i, i + 1, j * 0.1);
+					stop(FrameTime);
+				}
+				isDrawing = DrawStep;
 			}
-			isDrawing = DrawStep;
+
 		}
-		
-	}
 	stop(0.5);
 
 	anime->curStep = anime->step;
@@ -210,7 +210,7 @@ void Linked_List_Menu::drawFrom(int Current)
 	isDrawing = DrawNormal;
 }
 
-void Linked_List_Menu::Render()
+void Cirly_Linked_List_Menu::Render()
 {
 	window->clear(Color::Black);
 	window->draw(sprite);
@@ -238,11 +238,11 @@ void Linked_List_Menu::Render()
 
 	if (tog_Add->Toggled())
 	{
-		
+
 		Toggle_Group_Add.render(window);
 
-		if (Toggle_Group_Add.tog_Grp_Head!=nullptr && Toggle_Group_Add.isOn == 1) this->box_add_pos->render(window);
-		
+		if (Toggle_Group_Add.tog_Grp_Head != nullptr && Toggle_Group_Add.isOn == 1) this->box_add_pos->render(window);
+
 		this->box_add_val->render(window);
 	}
 
@@ -269,11 +269,11 @@ void Linked_List_Menu::Render()
 		this->box_ser_val->render(window);
 	}
 
-	if (isDrawing==DrawNormal) l.render(window); else 
-	if (isDrawing==DrawStep) anime->drawOneStep(anime->curStep); 
+	if (isDrawing == DrawNormal) l.render(window); else
+		if (isDrawing == DrawStep) anime->drawOneStep(anime->curStep);
 }
 
-void Linked_List_Menu::update_init()
+void Cirly_Linked_List_Menu::update_init()
 {
 	if (tog_init_empty->Toggled()) init_stat = init_empty;
 	if (tog_init_random->Toggled()) init_stat = init_random;
@@ -335,7 +335,7 @@ void Linked_List_Menu::update_init()
 				Fin.close();
 			}
 			else cout << "There was no data!!" << endl;
-			
+
 			break;
 
 		}
@@ -353,7 +353,7 @@ void Linked_List_Menu::update_init()
 	}
 }
 
-void Linked_List_Menu::update_add()
+void Cirly_Linked_List_Menu::update_add()
 {
 	if (tog_add_head->Toggled()) add_data_pos = 0;
 	if (tog_add_tail->Toggled()) add_data_pos = 11;
@@ -367,7 +367,7 @@ void Linked_List_Menu::update_add()
 		tog_Add->disable();
 
 		anime->clearAll();
-		
+
 		if (l.Size)
 		{
 			if (tog_add_tail->Toggled()) anime->MakeChoosenUpTo(l.Size - 1, l.Size - 1); else
@@ -375,7 +375,7 @@ void Linked_List_Menu::update_add()
 		}
 
 		l.addKth(New(add_data_val), add_data_pos);
-		
+
 		anime->Add_pos(add_data_pos, add_data_val);
 
 		// Delete later
@@ -394,7 +394,7 @@ void Linked_List_Menu::update_add()
 	else if (l.Size == 10) add_data_val = add_data_pos = nothing;
 }
 
-void Linked_List_Menu::update_del()
+void Cirly_Linked_List_Menu::update_del()
 {
 	if (tog_del_head->Toggled()) del_data_pos = 0;
 	if (tog_del_tail->Toggled()) del_data_pos = 11;
@@ -427,11 +427,11 @@ void Linked_List_Menu::update_del()
 			}cout << endl;
 		}
 
-		del_data_pos = nothing;		
+		del_data_pos = nothing;
 	}
 }
 
-void Linked_List_Menu::update_upd()
+void Cirly_Linked_List_Menu::update_upd()
 {
 	if (tog_upd_head->Toggled()) upd_data_pos = 0;
 	if (tog_upd_tail->Toggled()) upd_data_pos = 10;
@@ -468,12 +468,12 @@ void Linked_List_Menu::update_upd()
 		upd_data_val = upd_data_pos = nothing;
 
 		//draw
-	
-		
+
+
 	}
 }
 
-void Linked_List_Menu::update_search()
+void Cirly_Linked_List_Menu::update_search()
 {
 	if (box_ser_val->data != nothing && ser_data_val == nothing) ser_data_val = box_ser_val->data, box_ser_val->data = nothing;
 
@@ -495,7 +495,7 @@ void Linked_List_Menu::update_search()
 			}
 			else
 			{
-				anime->MakeChoosenUpTo(0, l.Size-1);
+				anime->MakeChoosenUpTo(0, l.Size - 1);
 			}
 
 			drawFrom(0);
@@ -505,7 +505,7 @@ void Linked_List_Menu::update_search()
 	}
 }
 
-void Linked_List_Menu::update(const Vector2f mousePos)
+void Cirly_Linked_List_Menu::update(const Vector2f mousePos)
 {
 	this->mousePosWindowf = mousePos;
 
@@ -530,7 +530,7 @@ void Linked_List_Menu::update(const Vector2f mousePos)
 		this->btn_step_prev->update(mousePosWindowf, event);
 		this->btn_step_next->update(mousePosWindowf, event);
 
-		if (this->btn_step_prev->isPressed()) anime->curStep=max(anime->curStep-1,0); else
+		if (this->btn_step_prev->isPressed()) anime->curStep = max(anime->curStep - 1, 0); else
 			if (this->btn_step_next->isPressed()) anime->curStep = min(anime->curStep + 1, anime->step);
 
 		if (anime->curStep != anime->step)

@@ -251,7 +251,7 @@ void LinkedList::render(RenderWindow* window)
     float cnt = 0.5;
     while (cur != nullptr)
     {
-        cur->body.setPosition(Vector2f(original+between*cnt,500));
+        cur->body.setPosition(Vector2f(original+between*cnt,600));
 
         cnt++; cur = cur->Next;
     }

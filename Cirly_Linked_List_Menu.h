@@ -12,14 +12,11 @@
 
 using namespace sf;
 
-enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation= 2 };
-enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
-
-class Linked_List_Menu
+class Cirly_Linked_List_Menu
 {
 public:
-	Linked_List_Menu(Event* event, RenderWindow* window);
-	virtual ~Linked_List_Menu();
+	Cirly_Linked_List_Menu(Event* event, RenderWindow* window);
+	virtual ~Cirly_Linked_List_Menu();
 
 	void Render();
 	void update(const Vector2f mousePos);
@@ -42,7 +39,7 @@ public:
 	LinkedList l;
 	int n = 0;
 	StringProccess init_get;
-	int Search_Result=-1;
+	int Search_Result = -1;
 
 	//Stat for render
 	Animation* anime;
@@ -57,6 +54,9 @@ public:
 
 private:
 	//BTN
+
+	enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation = 2 };
+	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
 	ToggleButton* tog_Delete; ToggleButton* tog_Update;

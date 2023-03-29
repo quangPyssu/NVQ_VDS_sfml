@@ -141,29 +141,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="LinkedList.cpp" />
+    <ClCompile Include="Cirly_Linked_List_Menu.cpp" />
+    <ClCompile Include="Doubly_Linked_List_Menu.cpp" />
+    <ClCompile Include="Dynamic_Array_Menu.cpp" />
     <ClCompile Include="Linked_List_Menu.cpp" />
     <ClCompile Include="NVQ_VDS_sfml.cpp" />
+    <ClCompile Include="Queue_Menu.cpp" />
+    <ClCompile Include="Stack_Menu.cpp" />
     <ClCompile Include="Static_Array_Menu.cpp" />
-    <ClCompile Include="StringProccess.cpp" />
-    <ClCompile Include="TextBox.cpp" />
-    <ClCompile Include="ToggleButton.cpp" />
-    <ClCompile Include="Toggle_Group.cpp" />
+    <ClCompile Include="Tools\Animation.cpp" />
+    <ClCompile Include="Tools\Button.cpp" />
+    <ClCompile Include="Tools\LinkedList.cpp" />
+    <ClCompile Include="Tools\StringProccess.cpp" />
+    <ClCompile Include="Tools\TextBox.cpp" />
+    <ClCompile Include="Tools\ToggleButton.cpp" />
+    <ClCompile Include="Tools\Toggle_Group.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
     <ClInclude Include="App.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="Cirly_Linked_List_Menu.h" />
+    <ClInclude Include="Doubly_Linked_List_Menu.h" />
+    <ClInclude Include="Dynamic_Array_Menu.h" />
     <ClInclude Include="Linked_List_Menu.h" />
+    <ClInclude Include="Queue_Menu.h" />
+    <ClInclude Include="Stack_Menu.h" />
     <ClInclude Include="Static_Array_Menu.h" />
-    <ClInclude Include="StringProccess.h" />
-    <ClInclude Include="TextBox.h" />
-    <ClInclude Include="ToggleButton.h" />
-    <ClInclude Include="Toggle_Group.h" />
+    <ClInclude Include="Tools\Animation.h" />
+    <ClInclude Include="Tools\Button.h" />
+    <ClInclude Include="Tools\LinkedList.h" />
+    <ClInclude Include="Tools\StringProccess.h" />
+    <ClInclude Include="Tools\TextBox.h" />
+    <ClInclude Include="Tools\ToggleButton.h" />
+    <ClInclude Include="Tools\Toggle_Group.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
