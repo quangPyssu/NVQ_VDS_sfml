@@ -5,16 +5,13 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 {
 	// make btn;
 	this->tog_Initialize = new ToggleButton(50, 50, 0, 0, 2, "Initialize", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->tog_Add = new ToggleButton(50, tog_Initialize->pos_y + tog_Initialize->size_y + 10, 0, 0, 2, "Add", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->tog_Delete = new ToggleButton(50, tog_Add->pos_y + tog_Add->size_y + 10, 0, 0, 2, "Delete", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->tog_Update = new ToggleButton(50, tog_Delete->pos_y + tog_Delete->size_y + 10, 0, 0, 2, "Update", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->tog_Update = new ToggleButton(50, tog_Initialize->pos_y + tog_Initialize->size_y + 10, 0, 0, 2, "Update", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 	this->tog_Search = new ToggleButton(50, tog_Update->pos_y + tog_Update->size_y + 10, 0, 0, 2, "Search", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 	this->btn_back = new Button(50, tog_Search->pos_y + tog_Search->size_y + 10, 0, 0, "Back", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
-	Toggle_Group_Linked_List.Toggle_Btn_Grp[0] = tog_Initialize;	Toggle_Group_Linked_List.Toggle_Btn_Grp[1] = tog_Add;	Toggle_Group_Linked_List.Toggle_Btn_Grp[2] = tog_Delete;
-	Toggle_Group_Linked_List.Toggle_Btn_Grp[3] = tog_Update;	Toggle_Group_Linked_List.Toggle_Btn_Grp[4] = tog_Search;
+	Toggle_Group_Linked_List.Toggle_Btn_Grp[0] = tog_Initialize;	Toggle_Group_Linked_List.Toggle_Btn_Grp[1] = tog_Update;	Toggle_Group_Linked_List.Toggle_Btn_Grp[2] = tog_Search;
 
-	Toggle_Group_Linked_List.n = 5;
+	Toggle_Group_Linked_List.n = 3;
 
 	// make TextBox&btn for INITIALIZE;
 	{
@@ -31,40 +28,6 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 		Toggle_Group_Init.Toggle_Btn_Grp[0] = tog_init_empty;	Toggle_Group_Init.Toggle_Btn_Grp[1] = tog_init_random;	Toggle_Group_Init.Toggle_Btn_Grp[2] = tog_init_fixed;
 		Toggle_Group_Init.Toggle_Btn_Grp[3] = tog_init_read;	Toggle_Group_Init.Toggle_Btn_Grp[4] = tog_init_load;
 		Toggle_Group_Init.n = 5;
-	}
-
-	// make TextBox&btn for ADD;
-	{
-		Toggle_Group_Add.tog_Grp_Head = new ToggleButton(tog_Add->pos_x + tog_Add->size_x + 20, tog_Add->pos_y, 150, 0, 2, "Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-
-		this->box_add_pos = new TextBox(tog_Add->pos_x + tog_Add->size_x + 20, tog_Add->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Add.tog_Grp_Head->size_x * 2 + 20 + 4, 0, 9, Color::Black);
-		this->box_add_val = new TextBox(box_add_pos->pos_x + box_add_pos->size_x + 4, tog_Add->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Add.tog_Grp_Head->size_x + 20, 0, 9, Color::Black);
-
-		this->tog_add_head = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y + 10, box_add_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-		this->tog_add_tail = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y * 2 + 10, box_add_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-		this->tog_add_pos = new ToggleButton(box_add_pos->pos_x, box_add_pos->pos_y + box_add_pos->size_y * 3 + 10, box_add_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-
-		Toggle_Group_Add.Toggle_Btn_Grp[0] = tog_add_head;	Toggle_Group_Add.Toggle_Btn_Grp[1] = tog_add_pos;	Toggle_Group_Add.Toggle_Btn_Grp[2] = tog_add_tail;
-		Toggle_Group_Add.n = 3;
-
-		Toggle_Group_Add.Box_text_Grp[1] = box_add_pos;
-	}
-
-	// make TextBox&btn for DEL;
-	{
-		Toggle_Group_Del.tog_Grp_Head = new ToggleButton(tog_Delete->pos_x + tog_Delete->size_x + 20, tog_Delete->pos_y, 150, 0, 2, "Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-
-		this->box_del_pos = new TextBox(tog_Delete->pos_x + tog_Delete->size_x + 20, tog_Delete->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Del.tog_Grp_Head->size_x + 20, 0, 9, Color::Black);
-		this->btn_del_confirm = new Button(box_del_pos->pos_x + box_del_pos->size_x + 20, tog_Delete->pos_y, 0, 0, "CONFIRM", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
-
-		this->tog_del_head = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y + 10, box_del_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-		this->tog_del_tail = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y * 2 + 10, box_del_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-		this->tog_del_pos = new ToggleButton(box_del_pos->pos_x, box_del_pos->pos_y + box_del_pos->size_y * 3 + 10, box_del_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-
-		Toggle_Group_Del.Toggle_Btn_Grp[0] = tog_del_head;	Toggle_Group_Del.Toggle_Btn_Grp[1] = tog_del_pos;	Toggle_Group_Del.Toggle_Btn_Grp[2] = tog_del_tail;
-		Toggle_Group_Del.n = 3;
-
-		Toggle_Group_Del.Box_text_Grp[1] = box_del_pos;
 	}
 
 	// make TextBox&btn for UPDATE;
@@ -107,8 +70,6 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 	//set default
 	this->window = window;
 	stat = off;
-	add_data_val = nothing;
-	add_data_pos = nothing;
 
 	this->event = event;
 
@@ -120,19 +81,12 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 Dynamic_Array_Menu::~Dynamic_Array_Menu()
 {
 	//Button
-	delete tog_Initialize; delete tog_Add;
-	delete tog_Delete; delete tog_Update;
+	delete tog_Initialize; delete tog_Update;
 	delete tog_Search; delete btn_back;
 
 	delete tog_init_empty; delete tog_init_fixed;
 	delete tog_init_load; delete tog_init_random;
 	delete tog_init_read;
-
-	delete tog_add_head; delete tog_add_tail;
-	delete tog_add_pos;
-
-	delete tog_del_head; delete tog_del_tail;
-	delete tog_del_pos; delete btn_del_confirm;
 
 	delete tog_upd_head; delete tog_upd_tail;
 	delete tog_upd_pos;
@@ -143,10 +97,6 @@ Dynamic_Array_Menu::~Dynamic_Array_Menu()
 	//Box
 
 	delete box_init_fixed; delete box_init_read;
-
-	delete box_add_val; delete box_add_pos;
-
-	delete box_del_pos;
 
 	delete box_upd_pos; delete box_upd_val;
 
@@ -215,8 +165,6 @@ void Dynamic_Array_Menu::Render()
 	window->clear(Color::Black);
 	window->draw(sprite);
 	this->tog_Initialize->render(window);
-	this->tog_Add->render(window);
-	this->tog_Delete->render(window);
 	this->tog_Update->render(window);
 	this->tog_Search->render(window);
 	this->btn_back->render(window);
@@ -234,25 +182,6 @@ void Dynamic_Array_Menu::Render()
 
 		box_init_read->render(window);
 		box_init_fixed->render(window);
-	}
-
-	if (tog_Add->Toggled())
-	{
-
-		Toggle_Group_Add.render(window);
-
-		if (Toggle_Group_Add.tog_Grp_Head != nullptr && Toggle_Group_Add.isOn == 1) this->box_add_pos->render(window);
-
-		this->box_add_val->render(window);
-	}
-
-	if (tog_Delete->Toggled())
-	{
-		Toggle_Group_Del.render(window);
-
-		if (Toggle_Group_Del.tog_Grp_Head != nullptr && Toggle_Group_Del.isOn == 1) this->box_del_pos->render(window);
-
-		this->btn_del_confirm->render(window);
 	}
 
 	if (tog_Update->Toggled())
@@ -350,84 +279,6 @@ void Dynamic_Array_Menu::update_init()
 			}cout << endl;
 		}
 
-	}
-}
-
-void Dynamic_Array_Menu::update_add()
-{
-	if (tog_add_head->Toggled()) add_data_pos = 0;
-	if (tog_add_tail->Toggled()) add_data_pos = 11;
-	if (tog_add_pos->Toggled()) add_data_pos = nothing;
-
-	if (box_add_val->data != nothing && add_data_val == nothing) add_data_val = box_add_val->data, box_add_val->data = nothing;
-	if (box_add_pos->data != nothing && add_data_pos == nothing) add_data_pos = box_add_pos->data, box_add_pos->data = nothing;
-
-	if (add_data_val != nothing && add_data_pos != nothing && l.Size < 10)
-	{
-		tog_Add->disable();
-
-		anime->clearAll();
-
-		if (l.Size)
-		{
-			if (tog_add_tail->Toggled()) anime->MakeChoosenUpTo(l.Size - 1, l.Size - 1); else
-				anime->MakeChoosenUpTo(0, min(add_data_pos, l.Size - 1));
-		}
-
-		l.addKth(New(add_data_val), add_data_pos);
-
-		anime->Add_pos(add_data_pos, add_data_val);
-
-		// Delete later
-		{
-			Node* tmp = l.Head;
-			while (tmp != nullptr)
-			{
-				cout << tmp->data << " ";
-				tmp = tmp->Next;
-			}cout << endl;
-		}
-
-		add_data_val = add_data_pos = nothing;
-		drawFrom(0);
-	}
-	else if (l.Size == 10) add_data_val = add_data_pos = nothing;
-}
-
-void Dynamic_Array_Menu::update_del()
-{
-	if (tog_del_head->Toggled()) del_data_pos = 0;
-	if (tog_del_tail->Toggled()) del_data_pos = 11;
-	if (tog_del_pos->Toggled()) del_data_pos = nothing;
-
-	if (box_del_pos->data != nothing && del_data_pos == nothing) del_data_pos = box_del_pos->data, box_del_pos->data = nothing;;
-
-	if (del_data_pos != nothing && btn_del_confirm->isPressed())
-	{
-		tog_Delete->disable();
-
-		anime->clearAll();
-
-		if (l.Size)
-		{
-			anime->MakeChoosenUpTo(0, min(del_data_pos, l.Size - 1));
-			anime->Del_pos(del_data_pos);
-			drawFrom(0);
-		}
-
-		l.delKth(del_data_pos);
-
-		// Delete later
-		{
-			Node* tmp = l.Head;
-			while (tmp != nullptr)
-			{
-				cout << tmp->data << " ";
-				tmp = tmp->Next;
-			}cout << endl;
-		}
-
-		del_data_pos = nothing;
 	}
 }
 
@@ -556,30 +407,6 @@ void Dynamic_Array_Menu::update(const Vector2f mousePos)
 		this->box_init_fixed->update(mousePosWindowf, event);
 
 		update_init();
-	}
-
-	// ADD
-
-	if (tog_Add->Toggled())
-	{
-		Toggle_Group_Add.filter(mousePos, event);
-
-		this->box_add_val->update(mousePosWindowf, event);
-		if (Toggle_Group_Add.isOn == 1) this->box_add_pos->update(mousePosWindowf, event);
-
-		update_add();
-	}
-
-	// DELETE
-
-	if (tog_Delete->Toggled())
-	{
-		Toggle_Group_Del.filter(mousePos, event);
-
-		this->btn_del_confirm->update(mousePosWindowf, event);
-		if (Toggle_Group_Del.isOn == 1) this->box_del_pos->update(mousePosWindowf, event);
-
-		update_del();
 	}
 
 	// UPDATE

@@ -24,8 +24,6 @@ public:
 	// update for stuff
 
 	void update_init();
-	void update_add();
-	void update_del();
 	void update_upd();
 	void update_search();
 
@@ -58,8 +56,7 @@ private:
 	enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation = 2 };
 	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
-	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
-	ToggleButton* tog_Delete; ToggleButton* tog_Update;
+	ToggleButton* tog_Initialize;  ToggleButton* tog_Update;
 	ToggleButton* tog_Search; Button* btn_back;
 
 	Toggle_Group Toggle_Group_Linked_List;
@@ -78,30 +75,6 @@ private:
 	Toggle_Group Toggle_Group_Init;
 
 	string init_data_val = ""; int init_data_size = nothing;
-
-	//TEXT BOX & BTN for ADD
-
-	TextBox* box_add_val;
-	TextBox* box_add_pos;
-	ToggleButton* tog_add_head;
-	ToggleButton* tog_add_tail;
-	ToggleButton* tog_add_pos;
-
-	Toggle_Group Toggle_Group_Add;
-
-	int add_data_val = nothing, add_data_pos = nothing;
-
-	//TEXT BOX & BTN for DELETE
-
-	Button* btn_del_confirm;
-	TextBox* box_del_pos;
-	ToggleButton* tog_del_head;
-	ToggleButton* tog_del_tail;
-	ToggleButton* tog_del_pos;
-
-	Toggle_Group Toggle_Group_Del;
-
-	int  del_data_pos = nothing;
 
 	//TEXT BOX & BTN for UPDATE
 

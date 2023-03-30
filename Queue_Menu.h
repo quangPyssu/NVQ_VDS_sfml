@@ -26,7 +26,6 @@ public:
 	void update_init();
 	void update_add();
 	void update_del();
-	void update_upd();
 	void update_search();
 
 	//menu stat
@@ -59,8 +58,8 @@ private:
 	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
-	ToggleButton* tog_Delete; ToggleButton* tog_Update;
-	ToggleButton* tog_Search; Button* btn_back;
+	ToggleButton* tog_Delete; ToggleButton* tog_Search; 
+	Button* btn_back;
 
 	Toggle_Group Toggle_Group_Linked_List;
 
@@ -102,18 +101,6 @@ private:
 	Toggle_Group Toggle_Group_Del;
 
 	int  del_data_pos = nothing;
-
-	//TEXT BOX & BTN for UPDATE
-
-	TextBox* box_upd_val;
-	TextBox* box_upd_pos;
-	ToggleButton* tog_upd_head;
-	ToggleButton* tog_upd_tail;
-	ToggleButton* tog_upd_pos;
-
-	Toggle_Group Toggle_Group_Upd;
-
-	int upd_data_val = nothing, upd_data_pos = nothing;
 
 	//TEXT BOX & BTN for SEARCH
 

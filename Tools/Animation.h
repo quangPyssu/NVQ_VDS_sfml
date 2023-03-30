@@ -72,6 +72,8 @@ public:
 
 	void Del_pos(int v);
 	void Add_pos(int v,int data);
+	void Upd_pos(int v, int data);
+	void Ser_pos(int v);
 
 	// render
 
@@ -98,6 +100,13 @@ private:
 	string s_Add_Head[3];
 	string s_Add_Tail[3];
 	string s_Add_Middle[7];
+
+	string s_Del_Middle[7];
+	string s_Del_Tail[7];
+
+	string s_Upd[4];
+
+	string s_Search[6];
 
 	// transition
 	void Link(int cur);

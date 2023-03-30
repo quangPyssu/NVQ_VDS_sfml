@@ -7,14 +7,13 @@ Queue_Menu::Queue_Menu(Event* event, RenderWindow* window)
 	this->tog_Initialize = new ToggleButton(50, 50, 0, 0, 2, "Initialize", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 	this->tog_Add = new ToggleButton(50, tog_Initialize->pos_y + tog_Initialize->size_y + 10, 0, 0, 2, "Add", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 	this->tog_Delete = new ToggleButton(50, tog_Add->pos_y + tog_Add->size_y + 10, 0, 0, 2, "Delete", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->tog_Update = new ToggleButton(50, tog_Delete->pos_y + tog_Delete->size_y + 10, 0, 0, 2, "Update", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-	this->tog_Search = new ToggleButton(50, tog_Update->pos_y + tog_Update->size_y + 10, 0, 0, 2, "Search", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+	this->tog_Search = new ToggleButton(50, tog_Delete->pos_y + tog_Delete->size_y + 10, 0, 0, 2, "Search", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 	this->btn_back = new Button(50, tog_Search->pos_y + tog_Search->size_y + 10, 0, 0, "Back", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
 	Toggle_Group_Linked_List.Toggle_Btn_Grp[0] = tog_Initialize;	Toggle_Group_Linked_List.Toggle_Btn_Grp[1] = tog_Add;	Toggle_Group_Linked_List.Toggle_Btn_Grp[2] = tog_Delete;
-	Toggle_Group_Linked_List.Toggle_Btn_Grp[3] = tog_Update;	Toggle_Group_Linked_List.Toggle_Btn_Grp[4] = tog_Search;
+	Toggle_Group_Linked_List.Toggle_Btn_Grp[3] = tog_Search;
 
-	Toggle_Group_Linked_List.n = 5;
+	Toggle_Group_Linked_List.n = 4;
 
 	// make TextBox&btn for INITIALIZE;
 	{
@@ -67,23 +66,6 @@ Queue_Menu::Queue_Menu(Event* event, RenderWindow* window)
 		Toggle_Group_Del.Box_text_Grp[1] = box_del_pos;
 	}
 
-	// make TextBox&btn for UPDATE;
-	{
-		Toggle_Group_Upd.tog_Grp_Head = new ToggleButton(tog_Update->pos_x + tog_Update->size_x + 20, tog_Update->pos_y, 150, 0, 2, "Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
-
-		this->box_upd_pos = new TextBox(tog_Update->pos_x + tog_Update->size_x + 20, tog_Update->pos_y, 0, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Upd.tog_Grp_Head->size_x * 2 + 20 + 4, 0, 9, Color::Black);
-		this->box_upd_val = new TextBox(box_upd_pos->pos_x + box_upd_pos->size_x + 4, tog_Update->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Toggle_Group_Upd.tog_Grp_Head->size_x + 20, 0, 9, Color::Black);
-
-		this->tog_upd_head = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + box_upd_pos->size_y + 10, box_upd_pos->size_x, 0, 0, "Head", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-		this->tog_upd_tail = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + box_upd_pos->size_y * 2 + 10, box_upd_pos->size_x, 0, 0, "Tail", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-		this->tog_upd_pos = new ToggleButton(box_upd_pos->pos_x, box_upd_pos->pos_y + box_upd_pos->size_y * 3 + 10, box_upd_pos->size_x, 0, 0, "Input Position", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), false, Color::Black);
-
-		Toggle_Group_Upd.Toggle_Btn_Grp[0] = tog_upd_head;	Toggle_Group_Upd.Toggle_Btn_Grp[1] = tog_upd_pos;	Toggle_Group_Upd.Toggle_Btn_Grp[2] = tog_upd_tail;
-		Toggle_Group_Upd.n = 3;
-
-		Toggle_Group_Upd.Box_text_Grp[1] = box_upd_pos;
-	}
-
 	// make TextBox&btn for SEARCH;
 	{
 		this->box_ser_val = new TextBox(tog_Search->pos_x + tog_Search->size_x + 20, tog_Search->pos_y, 0, 0, 2, "Input Value", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), 150 + 20, 0, 9, Color::Black);
@@ -121,8 +103,8 @@ Queue_Menu::~Queue_Menu()
 {
 	//Button
 	delete tog_Initialize; delete tog_Add;
-	delete tog_Delete; delete tog_Update;
-	delete tog_Search; delete btn_back;
+	delete tog_Delete; delete tog_Search; 
+	delete btn_back;
 
 	delete tog_init_empty; delete tog_init_fixed;
 	delete tog_init_load; delete tog_init_random;
@@ -134,9 +116,6 @@ Queue_Menu::~Queue_Menu()
 	delete tog_del_head; delete tog_del_tail;
 	delete tog_del_pos; delete btn_del_confirm;
 
-	delete tog_upd_head; delete tog_upd_tail;
-	delete tog_upd_pos;
-
 	delete btn_step_next; delete btn_step_prev;
 	delete tog_speed; delete tog_play;
 
@@ -147,8 +126,6 @@ Queue_Menu::~Queue_Menu()
 	delete box_add_val; delete box_add_pos;
 
 	delete box_del_pos;
-
-	delete box_upd_pos; delete box_upd_val;
 
 	delete box_ser_val;
 
@@ -217,7 +194,6 @@ void Queue_Menu::Render()
 	this->tog_Initialize->render(window);
 	this->tog_Add->render(window);
 	this->tog_Delete->render(window);
-	this->tog_Update->render(window);
 	this->tog_Search->render(window);
 	this->btn_back->render(window);
 
@@ -253,15 +229,6 @@ void Queue_Menu::Render()
 		if (Toggle_Group_Del.tog_Grp_Head != nullptr && Toggle_Group_Del.isOn == 1) this->box_del_pos->render(window);
 
 		this->btn_del_confirm->render(window);
-	}
-
-	if (tog_Update->Toggled())
-	{
-		Toggle_Group_Upd.render(window);
-
-		if (Toggle_Group_Upd.tog_Grp_Head != nullptr && Toggle_Group_Upd.isOn == 1) this->box_upd_pos->render(window);
-
-		this->box_upd_val->render(window);
 	}
 
 	if (tog_Search->Toggled())
@@ -431,48 +398,6 @@ void Queue_Menu::update_del()
 	}
 }
 
-void Queue_Menu::update_upd()
-{
-	if (tog_upd_head->Toggled()) upd_data_pos = 0;
-	if (tog_upd_tail->Toggled()) upd_data_pos = 10;
-	if (tog_upd_pos->Toggled()) upd_data_pos = nothing;
-
-	if (box_upd_val->data != nothing && upd_data_val == nothing) upd_data_val = box_upd_val->data, box_upd_val->data = nothing;
-	if (box_upd_pos->data != nothing && upd_data_pos == nothing) upd_data_pos = box_upd_pos->data, box_upd_pos->data = nothing;
-
-	if (upd_data_val != nothing && upd_data_pos != nothing)
-	{
-		tog_Update->disable();
-
-		anime->clearAll();
-
-		if (l.Size)
-		{
-			anime->MakeChoosenUpTo(0, min(upd_data_pos, l.Size - 1));
-			anime->MakeFillIndex(min(upd_data_pos, l.Size - 1), Color::Yellow);
-			drawFrom(0);
-		}
-
-		l.UpdateKth(upd_data_pos, upd_data_val);
-
-		// Delete later
-		{
-			Node* tmp = l.Head;
-			while (tmp != nullptr)
-			{
-				cout << tmp->data << " ";
-				tmp = tmp->Next;
-			}cout << endl;
-		}
-
-		upd_data_val = upd_data_pos = nothing;
-
-		//draw
-
-
-	}
-}
-
 void Queue_Menu::update_search()
 {
 	if (box_ser_val->data != nothing && ser_data_val == nothing) ser_data_val = box_ser_val->data, box_ser_val->data = nothing;
@@ -580,19 +505,6 @@ void Queue_Menu::update(const Vector2f mousePos)
 		if (Toggle_Group_Del.isOn == 1) this->box_del_pos->update(mousePosWindowf, event);
 
 		update_del();
-	}
-
-	// UPDATE
-
-	if (tog_Update->Toggled())
-	{
-		Toggle_Group_Upd.filter(mousePos, event);
-
-		this->box_upd_val->update(mousePosWindowf, event);
-
-		if (Toggle_Group_Upd.isOn == 1) this->box_upd_pos->update(mousePosWindowf, event);
-
-		update_upd();
 	}
 
 	// SEARCH

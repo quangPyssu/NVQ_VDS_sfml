@@ -9,7 +9,7 @@ Node* New(int data)
 
     //display part
 
-    node->body.setRadius(25);
+    node->body.setRadius(40);
     node->body.setOrigin(node->body.getRadius(), node->body.getRadius());
 
     node->line.setSize(Vector2f(1,5));

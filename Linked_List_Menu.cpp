@@ -449,7 +449,7 @@ void Linked_List_Menu::update_upd()
 		if (l.Size)
 		{
 			anime->MakeChoosenUpTo(0, min(upd_data_pos, l.Size - 1));
-			anime->MakeFillIndex(min(upd_data_pos, l.Size - 1), Color::Yellow);
+			anime->Upd_pos(min(upd_data_pos, l.Size - 1), upd_data_val);
 			drawFrom(0);
 		}
 
@@ -492,10 +492,12 @@ void Linked_List_Menu::update_search()
 			{
 				anime->MakeChoosenUpTo(0, Search_Result);
 				anime->MakeFillIndex(Search_Result, Color::Cyan);
+				anime->Ser_pos(Search_Result);
 			}
 			else
 			{
 				anime->MakeChoosenUpTo(0, l.Size-1);
+				anime->Ser_pos(-1);
 			}
 
 			drawFrom(0);

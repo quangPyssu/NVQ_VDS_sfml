@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation(Event* event, LinkedList* l,RenderWindow* window)
+Animation::Animation(Event* event, LinkedList* l, RenderWindow* window)
 {
 	this->l = l;
 	this->event = event;
@@ -9,6 +9,62 @@ Animation::Animation(Event* event, LinkedList* l,RenderWindow* window)
 	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
+
+	// fake Code for Add
+	{
+		s_Add_Head[0] = "Vertex vtx = new Vertex(v)";
+		s_Add_Head[1] = "vtx.next = head";
+		s_Add_Head[2] = "head = vtxt";
+
+		s_Add_Middle[0] = "Vertex pre = head";
+		s_Add_Middle[1] = "for (k = 0; k < i - 1; k++)";
+		s_Add_Middle[2] = "	   pre = pre.next";
+		s_Add_Middle[3] = "Vertex aft = pre.next";
+		s_Add_Middle[4] = "Vertex vtx = new Vertex(v)";
+		s_Add_Middle[5] = "vtx.next = aft";
+		s_Add_Middle[6] = "pre.next = vtx";
+
+		s_Add_Tail[0] = "Vertex vtx = new Vertex(v)";
+		s_Add_Tail[1] = "tail.next = vtx";
+		s_Add_Tail[2] = "tail = vtx";
+	}
+
+	// fake Code for Delete
+	{
+		s_Del_Middle[0] = "if empty, do nothing";
+		s_Del_Middle[1] = "Vertex pre = head";
+		s_Del_Middle[2] = "for (k = 0; k < i - 1; k++)";
+		s_Del_Middle[3] = "	   pre = pre.next";
+		s_Del_Middle[4] = "Vertex del = pre.next, aft = del.next";
+		s_Del_Middle[5] = "pre.next = aft";
+		s_Del_Middle[6] = "delete del";
+
+		s_Del_Tail[0] = "if empty, do nothing";
+		s_Del_Tail[1] = "Vertex pre = head";
+		s_Del_Tail[2] = "temp = head.next";
+		s_Del_Tail[3] = "while (temp.next != null)";
+		s_Del_Tail[4] = "	pre = pre.next";
+		s_Del_Tail[5] = "pre.next = null";
+		s_Del_Tail[6] = "delete temp, tail = pre";
+	}
+
+	// fake Code for Update
+	{
+		s_Upd[0] = "Vertex temp = head";
+		s_Upd[1] = "for (k = 0; k < i ; k++)";
+		s_Upd[2] = "	   temp = temp.next";
+		s_Upd[3] = "temp->data=new data";
+	}
+
+	// fake Code for Search
+	{
+		s_Search[0] = "if empty, return NOT_FOUND";
+		s_Search[1] = "index = 0, temp = head";
+		s_Search[2] = "while (temp.item != v)";
+		s_Search[3] = "index++, temp = temp.next";
+		s_Search[4] = "if temp == null   return NOT_FOUND";
+		s_Search[5] = "return index";
+	}
 }
 
 Animation::~Animation()
@@ -64,7 +120,7 @@ void Animation::cloneState() //copy display linked list
 void DisplayNode::CalculateLine(DisplayNode* next)
 {
 	text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
-	PosText.setPosition(text.getPosition() - Vector2f(25, -30));
+	PosText.setPosition(Vector2f(text.getPosition().x - body.getRadius(), text.getPosition().y + body.getRadius() + 5));
 
 	if (next == nullptr)
 	{
@@ -102,7 +158,6 @@ void Animation::CalculatePos(int pos)
 		cur->CalculateLine(cur->NextPos);
 	}
 
-	AdditionalNode[pos].PosText.setString(""); 
 	AdditionalNode[pos].CalculateLine(AdditionalNode[pos].NextPos);
 	if (AdditionPos[pos] == -1)
 	{
@@ -150,19 +205,21 @@ void Animation::Del_pos(int v)
 
 	if (v<l->Size-1)  //not Tail
 	{
-		cloneState();
+		cloneState();  // dissolve
 		DisplayRecord[step][v].Dissolve();
 		DisplayRecord[step][v].body.setPosition(DisplayRecord[step][v+1].body.getPosition());
+		if (l->Size > 1) DisplayRecord[step][1].PosText.setString("Head");
 
 		CalculatePos(step);
 		step++;
 
 
-		cloneState();
+		cloneState(); 
 
 		for (int i=v;i<DisplayRecordSize[step];i++) DisplayRecord[step][i].body.setPosition(DisplayRecord[step][i].body.getPosition() - Vector2f(l->Distance, 0));
 
 		DisplayRecord[step][v].Dissolve();
+		if (l->Size > 1) DisplayRecord[step][1].PosText.setString("Head");
 
 		CalculatePos(step);
 
@@ -173,6 +230,7 @@ void Animation::Del_pos(int v)
 		cloneState();
 		DisplayRecord[step][v].Dissolve();
 		if (v) DisplayRecord[step][v].body.setPosition(DisplayRecord[step][v-1].body.getPosition());
+		if (l->Size > 1) DisplayRecord[step][v-1].PosText.setString("Tail");
 
 		CalculatePos(step);
 		step++;
@@ -199,10 +257,11 @@ void Animation::Add_pos(int v,int data)
 
 		DisplayNode DisplayCur = DisplayRecord[step][v];
 
-		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance, -120));
+		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance, -150));
 		DisplayCur.body.setFillColor(Color::Magenta);
 		DisplayCur.NextPos = &DisplayCur;
 		DisplayCur.text.setString(s);
+		DisplayCur.PosText.setString("");
 
 		AdditionalNode[step]=DisplayCur;
 		CalculatePos(step);
@@ -228,6 +287,16 @@ void Animation::Add_pos(int v,int data)
 		CalculatePos(step);
 
 		step++;
+
+		cloneState();
+
+		DisplayRecord[step][v].NextPos = &AdditionalNode[step];
+		if (l->Size>2) DisplayRecord[step][v].PosText.setString("");
+		AdditionalNode[step].PosText.setString("Tail");
+
+		CalculatePos(step);
+
+		step++;
 	} else if (v>0)
 	{
 		v = min(v, l->Size - 2);
@@ -239,7 +308,7 @@ void Animation::Add_pos(int v,int data)
 
 		DisplayNode DisplayCur=DisplayRecord[step][v];
 
-		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(0, -120));
+		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(0, -150));
 		DisplayCur.body.setFillColor(Color::Magenta);
 		DisplayCur.NextPos = &DisplayCur;
 		DisplayCur.text.setString(s);
@@ -266,7 +335,7 @@ void Animation::Add_pos(int v,int data)
 		AdditionPos[step] = v;
 
 		for (int i = v; i < DisplayRecordSize[step]; i++) DisplayRecord[step][i].body.setPosition(DisplayRecord[step][i].body.getPosition() - Vector2f(-l->Distance, 0));
-		AdditionalNode[step].body.setPosition(AdditionalNode[step].body.getPosition() - Vector2f(0, +120));
+		AdditionalNode[step].body.setPosition(AdditionalNode[step].body.getPosition() - Vector2f(0, 150));
 
 		DisplayRecord[step][v - 1].NextPos = &AdditionalNode[step];
 		AdditionalNode[step].NextPos = &DisplayRecord[step][v];
@@ -285,7 +354,7 @@ void Animation::Add_pos(int v,int data)
 		DisplayNode DisplayCur;
 
 		DisplayCur.NodeCovert(l->Head);
-		DisplayCur.body.setPosition(DisplayRecord[step - 1][0].body.getPosition() - Vector2f(l->Distance, -120));
+		DisplayCur.body.setPosition(DisplayRecord[step - 1][0].body.getPosition() - Vector2f(l->Distance, -150));
 		DisplayCur.body.setFillColor(Color::Magenta);
 
 		AdditionalNode[step]=DisplayCur;
@@ -309,10 +378,39 @@ void Animation::Add_pos(int v,int data)
 		CalculatePos(step);
 
 		step++;		
+
+		cloneState();
+		AdditionalNode[step].PosText.setString("Head");
+		AdditionalNode[step].NextPos = &DisplayRecord[step][0];
+
+		if (l->Size > 1)
+		{
+			DisplayRecord[step][0].PosText.setString("");
+			if (l->Size == 2) DisplayRecord[step][0].PosText.setString("Tail");
+		}
+
+		AdditionPos[step] = 0;
+		CalculatePos(step);
+
+		step++;
 	}
-	
 }
 
+void Animation::Upd_pos(int v, int data)
+{
+	MakeFillIndex(v, Color::Yellow);
+
+	cloneState();
+	string s = to_string(data);
+	DisplayRecord[step][v].text.setString(s);
+
+	step++;
+}
+
+void Animation::Ser_pos(int v)
+{
+
+}
 
 void Animation::drawSmoothTransition(int start, int end, float progress) 
 {
@@ -426,7 +524,7 @@ DisplayNode DisplayNode::interpolate(DisplayNode* a, DisplayNode* b, float t)   
 
 	// Interpolate the position and color of the text
 	result.text.setPosition(result.body.getPosition().x - result.text.getGlobalBounds().width / 2.f, result.body.getPosition().y - result.text.getGlobalBounds().height / 3 * 2);
-	result.PosText.setPosition(result.text.getPosition() - Vector2f(25, -30));
+	result.PosText.setPosition(Vector2f(result.text.getPosition().x - body.getRadius(), result.text.getPosition().y + body.getRadius() + 5));
 
 	// Return the interpolated DisplayNode
 	return result;
