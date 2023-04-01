@@ -9,7 +9,7 @@ using namespace sf;
 
 #define PI 3.14159265
 
-enum pos { isHead = 0, isMiddle = 1, isTail = 2 };
+enum pos { isHead = 0, isMiddle = 1, isTail = 2, isSingle = 0, isDouble = 1, isCircle = 3};
 
 struct Node {
     int data = 0;
@@ -75,6 +75,8 @@ struct LinkedList
     void render(RenderWindow* window);
 
     void choose(int n);
+
+    short unsigned Type = 0;
 };
 
 Node* New(int data);

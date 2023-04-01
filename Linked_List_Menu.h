@@ -12,7 +12,7 @@
 
 using namespace sf;
 
-enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation= 2 };
+enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation = 2 };
 enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 class Linked_List_Menu
@@ -42,7 +42,7 @@ public:
 	LinkedList l;
 	int n = 0;
 	StringProccess init_get;
-	int Search_Result=-1;
+	int Search_Result = -1;
 
 	//Stat for render
 	Animation* anime;
@@ -52,7 +52,10 @@ public:
 
 	void TimeTravel();
 
-	void drawFrom(int step);
+	void drawFrom(int step,bool hasHead);
+
+	void drawTrans(int start,int end,short CodeStatus);
+
 	short unsigned isDrawing = DrawNormal;
 
 private:

@@ -173,7 +173,7 @@ void Stack_Menu::drawFrom(int Current)
 				for (int j = 0; j < 10; j++)
 				{
 					Render();
-					anime->drawSmoothTransition(i, i + 1, j * 0.1);
+					anime->drawSmoothTransition(i, i + 1, j * 0.1,2);
 					stop(FrameTime);
 				}
 				isDrawing = DrawStep;
