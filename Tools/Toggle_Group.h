@@ -24,5 +24,7 @@ public:
 	void render(RenderTarget* window);
 
 	void clearAll();
+
+	bool checkEmpty();
 };
 

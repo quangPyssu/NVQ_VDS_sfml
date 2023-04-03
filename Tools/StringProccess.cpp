@@ -24,7 +24,7 @@ void StringProccess::StringFilter(string& S)
         }
     }
     
-    init_data.push_back(temp);
+    if (S[S.size() - 1]!=' ') init_data.push_back(temp);
     while (init_data.size() > 10) init_data.pop_back();
 
     S = "";

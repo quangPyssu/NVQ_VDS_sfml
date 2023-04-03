@@ -1,5 +1,3 @@
-#pragma once
-
 #include <SFML/Graphics.hpp>
 #include <windows.h>
 #include <iostream>
@@ -12,7 +10,7 @@ using namespace sf;
 
 //event type
 
-struct DisplayNode {
+struct DisplayNode_Queue {
 
 	RectangleShape line;
 	CircleShape arrow_head;
@@ -41,27 +39,27 @@ struct DisplayNode {
 	void Dissolve();
 
 	// Interpolate
-	DisplayNode interpolate(DisplayNode* a, DisplayNode* b, float t);
+	DisplayNode_Queue interpolate(DisplayNode_Queue* a, DisplayNode_Queue* b, float t);
 
 	//next Point
-	DisplayNode* NextPos = nullptr;
-	void CalculateLine(DisplayNode* next);
+	DisplayNode_Queue* NextPos = nullptr;
+	void CalculateLine(DisplayNode_Queue* next);
 };
 
 
-class Animation
+class Animation_Queue
 {
 public:
-	Animation(Event* event, LinkedList* l, RenderWindow* window);
+	Animation_Queue(Event* event, LinkedList* l, RenderWindow* window);
 
 	enum FakeCodeStatus { Appear = 1, Disappear=-1,Display=0 };
 
-	virtual ~Animation();
+	virtual ~Animation_Queue();
 
 	int step = 0;
 	int curStep = 0;
-	vector <DisplayNode> DisplayRecord[30];
-	DisplayNode AdditionalNode[30];
+	vector <DisplayNode_Queue> DisplayRecord[30];
+	DisplayNode_Queue AdditionalNode[30];
 
 	int AdditionPos[30]{ 0 };
 
@@ -80,7 +78,6 @@ public:
 
 	void Del_pos(int v);
 	void Add_pos(int v, int data);
-	void Upd_pos(int v, int data);
 	void Ser_pos(int v);
 
 	// render
@@ -110,7 +107,7 @@ public:
 
 private:
 
-	enum evType { E_DelHead = 0, E_DelMiddle = 1, E_DelTail = 2, E_AddHead = 3, E_AddMiddle = 4, E_AddTail = 5, E_Update = 6, E_Search = 7 };
+	enum evType { E_DelHead = 0, E_AddTail = 1, E_Search_Head = 2, E_Search_Tail= 3	};
 
 	Event* event;
 	LinkedList* l;
@@ -125,12 +122,11 @@ private:
 
 	//fake codes
 
-	int fakeId[8] = {3,6,5,3,6,3,5,6};
+	int fakeId[4] = {3,3,2,2};
 
-	string Code[8][7];
+	string Code[4][3];
 
 	// transition
 	void Link(int cur);
 
 };
-

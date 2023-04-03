@@ -21,58 +21,59 @@ Animation::Animation(Event* event, LinkedList* l, RenderWindow* window)
 
 	// fake Code for Delete
 	{
-		Code[0][0] = "if empty, do nothing";
-		Code[0][1] = "temp = head ";
-		Code[0][2] = "head = head.next,     delete temp";
+		Code[0][0] = "if (head==null) return";
+		Code[0][1] = "Node* temp = head";
+		Code[0][2] = "head = head->next,     delete temp";
 
-		Code[1][0] = "if empty, do nothing";
-		Code[1][1] = "Vertex pre = head";
+		Code[1][0] = "if (head==null) return";
+		Code[1][1] = "Node* pre = head";
 		Code[1][2] = "for (k = 0; k < i - 1; k++)";
-		Code[1][3] = "	     pre = pre.next";
-		Code[1][4] = "Vertex del = pre.next ";
-		Code[1][5] = "aft = del.next, pre.next = aft, delete del";
+		Code[1][3] = "	     pre = pre->next";
+		Code[1][4] = "Node* del = pre->next ";
+		Code[1][5] = "aft = del->next, pre->next = aft, delete del";
 
-		Code[2][0] = "if empty, do nothing";
-		Code[2][1] = "Vertex pre = head, temp = head.next";
-		Code[2][2] = "while (temp.next != null)";
-		Code[2][3] = "	     pre = pre.next";
-		Code[2][4] = "pre.next = null, delete temp, tail = pre";
+		Code[2][0] = "if (head==null) return";
+		Code[2][1] = "Node* pre = head, temp = head->next";
+		Code[2][2] = "while (temp->next != null)";
+		Code[2][3] = "	     pre = pre->next";
+		Code[2][4] = "pre->next = null, delete temp, tail = pre";
 
 	}
 
 	// fake Code for Add
 	{
-		Code[3][0] = "Vertex vtx = new Vertex(v)";
-		Code[3][1] = "vtx.next = head";
+		Code[3][0] = "Node* vtx = new Node(v)";
+		Code[3][1] = "vtx->next = head";
 		Code[3][2] = "head = vtxt";
 
-		Code[4][0] = "Vertex pre = head";
+		Code[4][0] = "Node* pre = head";
 		Code[4][1] = "for (k = 0; k < i - 1; k++)";
-		Code[4][2] = "	   pre = pre.next";
-		Code[4][3] = "Vertex aft = pre.next";
-		Code[4][4] = "Vertex vtx = new Vertex(v)";
-		Code[4][5] = "vtx.next = aft,  pre.next = vtx";
+		Code[4][2] = "	   pre = pre->next";
+		Code[4][3] = "Node* aft = pre->next";
+		Code[4][4] = "Node* vtx = new Node(v)";
+		Code[4][5] = "vtx->next = aft,  pre->next = vtx";
 
-		Code[5][0] = "Vertex vtx = new Vertex(v)";
-		Code[5][1] = "tail.next = vtx";
+		Code[5][0] = "Node* vtx = new Node(v)";
+		Code[5][1] = "tail->next = vtx";
 		Code[5][2] = "tail = vtx";
 	}
 
 	// fake Code for Update
 	{
-		Code[6][0] = "Vertex temp = head";
-		Code[6][1] = "for (k = 0; k < i ; k++)";
-		Code[6][2] = "	   temp = temp.next";
-		Code[6][3] = "temp->data=new data";
+		Code[6][0] = "if (head == null) return";
+		Code[6][1] = "Node* temp = head";
+		Code[6][2] = "for (k = 0; k < i ; k++)";
+		Code[6][3] = "	   temp = temp->next";
+		Code[6][4] = "temp->data=new data";
 	}
 
 	// fake Code for Search
 	{
-		Code[7][0] = "if empty, return NOT_FOUND";
-		Code[7][1] = "index = 0, temp = head";
+		Code[7][0] = "if (head == null) return NOT_FOUND";
+		Code[7][1] = "index = 0, Node* temp = head";
 		Code[7][2] = "while (temp.item != v)";
-		Code[7][3] = "index++, temp = temp.next";
-		Code[7][4] = "if temp == null   return NOT_FOUND";
+		Code[7][3] = "index++, temp = temp->next";
+		Code[7][4] = "if (temp == null) return NOT_FOUND";
 		Code[7][5] = "return index";
 	}
 }
@@ -491,17 +492,17 @@ void Animation::Upd_pos(int v, int data)
 	eventType = E_Update;
 
 	MakeChoosenUpTo(0, v); DisplayRecordStringId[0] = -1;
-	DisplayRecordStringId[1] = 0;
+	DisplayRecordStringId[1] = 1;
 
-	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 2; else DisplayRecordStringId[i] = 1;
+	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
-	MakeFillIndex(v, Color::Yellow); DisplayRecordStringId[step-1] = 2;
+	MakeFillIndex(v, Color::Yellow); DisplayRecordStringId[step-1] = 3;
 
 	cloneState();
 	string s = to_string(data);
 	DisplayRecord[step][v].text.setString(s);
 
-	step++; DisplayRecordStringId[step - 1] = 3;
+	step++; DisplayRecordStringId[step - 1] = 4;
 }
 
 void Animation::Ser_pos(int v)
@@ -512,10 +513,10 @@ void Animation::Ser_pos(int v)
 	{
 		cout << "Dont exist" << endl;
 
-		MakeChoosenUpTo(0, l->Size);
+		MakeChoosenUpTo(0, l->Size-1);
 
 		DisplayRecordStringId[0] = -1;
-		DisplayRecordStringId[1] = 2;
+		DisplayRecordStringId[1] = 1;
 
 		for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 

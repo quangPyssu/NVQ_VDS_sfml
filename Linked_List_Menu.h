@@ -24,6 +24,7 @@ public:
 	void Render();
 	void update(const Vector2f mousePos);
 
+
 	// update for stuff
 
 	void update_init();
@@ -57,6 +58,10 @@ public:
 	void drawTrans(int start,int end,short CodeStatus);
 
 	short unsigned isDrawing = DrawNormal;
+
+	int sizeId = 3; bool theme = 0;
+
+	Color BGColor[2] = { Color::Color(230, 208, 159), Color::Color(91, 101, 101, 255) };
 
 private:
 	//BTN
@@ -131,12 +136,17 @@ private:
 	Button* btn_step_next;
 	ToggleButton* tog_play;
 
+	Button* btn_change_size;
+	ToggleButton* tog_change_color;
+
 	//Drawzie
 	RenderWindow* window;
 	Event* event;
 
 	Texture tet;
 	Sprite sprite;
+
+	RectangleShape shape;
 
 	// Mouse pos
 	Vector2f mousePosWindowf;
@@ -146,5 +156,21 @@ private:
 	//timer
 	Clock clock;
 	void stop(float i);
+
+	float StepTime = 0.1;
+	float frame = 20;
+	float FrameTime = StepTime / frame;
+	float frameStep = 1 / frame;
+
+	//intruc tion text;
+
+	void loadInstruction();
+
+	string Instruction[16];
+	int curInsId = 15;
+
+	Text text;
+
+	Font font;
 };
 

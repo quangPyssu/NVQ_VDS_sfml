@@ -65,22 +65,30 @@ void ToggleButton::press()
 
 const bool ToggleButton::Toggled() const
 {
-	if (this->buttonState == TOGGLE_ON) 
-	{ 
-		//Sleep(5); 
-		return 1; 
-	}
+	if (this->buttonState == TOGGLE_ON) return 1; 
 	return 0;
 }
 
 const bool ToggleButton::isPressed(Vector2f mousePos,Event* event) const
 {
-	if (this->shape.getGlobalBounds().contains(mousePos) && buttonState==TOGGLE_ON)
+	if (this->shape.getGlobalBounds().contains(mousePos) && buttonState== TOGGLE_ON)
 		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
 		{
 			//Sleep(5);
 			return 1;
 		}
+	return 0;
+}
+
+const bool ToggleButton::isPressedBoth(Vector2f mousePos, Event* event) const
+{
+	if (this->shape.getGlobalBounds().contains(mousePos))
+		if (event->type == Event::MouseButtonPressed && event->mouseButton.button == Mouse::Left)
+		{
+			//Sleep(5);
+			return 1;
+		}
+	return 0;
 }
 
 void ToggleButton::update(const Vector2f mousePos, Event* event)
@@ -101,12 +109,14 @@ void ToggleButton::update(const Vector2f mousePos, Event* event)
 	switch (buttonState)
 	{
 	case TOGGLE_OFF:
+		if (s2 != "") text.setString(s);
 		shape.setFillColor(idleColor);
 		text.setFillColor(activeColor);
-		if (isHover) shape.setFillColor(hoverColor);
+		if (isHover) shape.setFillColor(hoverColor),text.setFillColor(idleColor);
 		break;
 
 	case TOGGLE_ON:
+		if (s2!="") text.setString(s2);
 		shape.setFillColor(activeColor);
 		text.setFillColor(idleColor); 
 		break;

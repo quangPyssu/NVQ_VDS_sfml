@@ -26,9 +26,17 @@ struct Node {
     //attributes
     
     float angle=0;
-    Color BodyColor;
-    Color ChosenColor;
-    Color IdleColor;
+    Color BodyColor = Color::White;
+    Color OutlineColor = Color::Black;
+    Color ChosenColor = Color::Green;
+    Color LineColor = Color::Color(91, 91, 91, 255);
+    
+    Color BodyColor_D = Color::Color(91, 91, 91, 255);
+    Color OutlineColor_D = Color::Color(240, 240, 240, 255);
+    Color ChosenColor_D = Color::Green;
+    Color LineColor_D = Color::Color(211, 211, 211, 255);
+
+    float size=40;
 
     short unsigned isPos = isMiddle;
 
@@ -38,6 +46,8 @@ struct Node {
     //draw one node;
 
     void renderNode(RenderTarget* window);
+
+    void change(int sizeId, bool theme);
 };
 
 struct LinkedList
@@ -77,6 +87,8 @@ struct LinkedList
     void choose(int n);
 
     short unsigned Type = 0;
+
+    void change(int sizeId, bool theme);
 };
 
 Node* New(int data);

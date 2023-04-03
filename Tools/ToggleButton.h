@@ -50,6 +50,7 @@ public:
 
     //Accessors
     const bool isPressed(Vector2f mousePos,Event* event) const;
+    const bool isPressedBoth(Vector2f mousePos, Event* event) const;
     const bool Toggled() const;
 
     Event* event;

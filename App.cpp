@@ -9,7 +9,7 @@ App::App()
 
 	AppState = app_main;
 
-	window->clear(Color::Black);
+	window->clear(Color::Color(230,208,159));
 	tet.loadFromFile("asset/texture/cream.jpg");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
@@ -45,6 +45,10 @@ App::App()
 	window->setFramerateLimit(30);
 	Render();
 	window->display();
+
+	shape.setFillColor(BGColor[0]+Color::Color(25,25,25));
+	shape.setPosition(Vector2f(0,0));
+	shape.setSize(Vector2f(btn_Static_Array->pos_x*2 + btn_Static_Array->size_x , window->getSize().y));
 }
 
 //Destructor
@@ -97,8 +101,10 @@ void App::initWindow()
 {
 	videoMode.height = 1080;
 	videoMode.width = 1920;
+	ContextSettings settings;
+	settings.antialiasingLevel = 5.0;
 
-	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar | Style::Close);;
+	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar | Style::Close,settings);;
 }
 
 // Update & Draw
@@ -122,10 +128,27 @@ void App::update()
 			if (this->btn_Static_Array->isPressed()) AppState = app_static_array, Mn_Static_Array->stat=on; else
 			if (this->btn_Dynamic_Array->isPressed()) AppState = app_dynamic_array, Mn_Dynamic_Array->stat = on; else
 			if (this->btn_Linked_List_Singly->isPressed()) AppState = app_linked_list, Mn_Linked_List->stat = on; else
-			if (this->btn_Linked_List_Doubly->isPressed()) AppState = app_linked_list_D, Mn_Linked_List_Doubly->stat = on; else
+				if (this->btn_Linked_List_Doubly->isPressed())
+				{
+					AppState = app_linked_list_D, Mn_Linked_List_Doubly->stat = on; 
+					Mn_Linked_List->theme = this->theme;
+					Mn_Linked_List->sizeId = this->sizeId;
+				}else
 			if (this->btn_Linked_List_Cirly->isPressed()) AppState = app_linked_list_C, Mn_Linked_List_Cirly->stat = on; else
-			if (this->btn_Queue->isPressed()) AppState = app_queue, Mn_Queue->stat=on; else
-			if (this->btn_Stack->isPressed()) AppState = app_stack,Mn_Stack->stat=on; else
+				if (this->btn_Queue->isPressed())
+				{
+					AppState = app_queue, Mn_Queue->stat = on; 
+					Mn_Queue->theme = this->theme;
+					Mn_Queue->sizeId = this->sizeId;
+				}
+			else
+					if (this->btn_Stack->isPressed())
+					{
+						AppState = app_stack, Mn_Stack->stat = on;
+						Mn_Stack->theme = this->theme;
+						Mn_Stack->sizeId = this->sizeId;
+					}
+					else
 			if (this->btn_Quit->isPressed()) AppState = app_quit;
 
 			break;
@@ -133,6 +156,7 @@ void App::update()
 		case app_static_array:
 			Mn_Static_Array->update(mousePosWindowf);
 			if (!Mn_Static_Array->stat) AppState = app_main;
+
 			break;
 
 		case app_dynamic_array:
@@ -143,6 +167,8 @@ void App::update()
 		case app_linked_list:
 			Mn_Linked_List->update(mousePosWindowf);
 			if (!Mn_Linked_List->stat) AppState = app_main;
+			this->theme = Mn_Linked_List->theme;
+			this->sizeId = Mn_Linked_List->theme;
 			break;
 
 		case app_linked_list_D:
@@ -158,24 +184,30 @@ void App::update()
 		case app_queue:
 			Mn_Queue->update(mousePosWindowf);
 			if (!Mn_Queue->stat) AppState = app_main;
+			this->theme = Mn_Queue->theme;
+			this->sizeId = Mn_Queue->theme;
 			break;
 
 		case app_stack:
 			Mn_Stack->update(mousePosWindowf);
 			if (!Mn_Stack->stat) AppState = app_main;
+			this->theme = Mn_Stack->theme;
+			this->sizeId = Mn_Stack->theme;
 			break;
 
 		default:
 		break;
 	}
 	
+	shape.setFillColor(BGColor[theme] + Color::Color(25, 25, 25));
 }
 
 void App::Render()
 {
-	window->clear(Color::Black);
+	window->clear(BGColor[theme]);
+	window->draw(shape);
 
-	window->draw(sprite);
+	//window->draw(sprite);
 
 	this->btn_Static_Array->render(window);
 	this->btn_Dynamic_Array->render(window);
@@ -186,6 +218,8 @@ void App::Render()
 	this->btn_Queue->render(window);
 
 	this->btn_Quit->render(window);
+
+	
 }
 
 

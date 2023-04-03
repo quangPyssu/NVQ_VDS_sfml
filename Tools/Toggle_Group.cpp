@@ -60,7 +60,7 @@ void Toggle_Group::render(RenderTarget* window)
 {
 	if (tog_Grp_Head != nullptr)
 	{
-		tog_Grp_Head->render(window);
+		if (Box_text_Grp[isOn] == nullptr) tog_Grp_Head->render(window);
 
 		if (tog_Grp_Head->Toggled())
 			for (int i = 0; i < n; i++)
@@ -75,6 +75,14 @@ void Toggle_Group::render(RenderTarget* window)
 
 void Toggle_Group::clearAll()
 {
-	for (short i = 0; i < n; i++)
-		Toggle_Btn_Grp[i]->disable();
+	for (short i = 0; i < n; i++) Toggle_Btn_Grp[i]->disable();
+
+	if (tog_Grp_Head != nullptr) tog_Grp_Head->disable();
+}
+
+bool Toggle_Group::checkEmpty()
+{
+	for (short i = 0; i < n; i++) if (Toggle_Btn_Grp[i]->Toggled()) return 0;
+
+	return 1;
 }

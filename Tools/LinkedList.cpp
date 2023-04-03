@@ -35,10 +35,55 @@ Node* New(int data)
     string s = to_string(data);
     node->text.setString(s);
 
-    node->ChosenColor = Color::Green;
-    node->IdleColor = Color::Black;
-
     return node;
+}
+
+void Node::change(int sizeId, bool theme)
+{
+    //display part
+    switch (sizeId)
+    {
+        case 0: size = 40;  break;
+        case 1: size = 49;  break;
+        case 2: size = 30;  break;
+        default: size = 40; break;
+    }
+
+    body.setRadius(size);
+    body.setOrigin(size, size);
+
+    line.setSize(Vector2f(1, size/8));
+    line.setOrigin(Vector2f(0, size / 16));
+
+    arrow_head.setRadius(size / 3);
+    arrow_head.setOrigin(arrow_head.getRadius(), arrow_head.getRadius());
+
+    text.setCharacterSize(size);
+    PosText.setCharacterSize(size);
+
+    body.setOutlineThickness(size/8);
+
+
+    if (!theme)
+    {
+        body.setOutlineColor(OutlineColor);
+        body.setFillColor(BodyColor);
+        line.setFillColor(LineColor);
+        arrow_head.setFillColor(LineColor);
+
+        text.setFillColor(OutlineColor);  
+        PosText.setFillColor(OutlineColor);
+    }
+    else
+    {
+        body.setOutlineColor(OutlineColor_D);
+        body.setFillColor(BodyColor_D);
+        line.setFillColor(LineColor_D);
+        arrow_head.setFillColor(LineColor_D);
+
+        text.setFillColor(OutlineColor_D);
+        PosText.setFillColor(OutlineColor_D);
+    }
 }
 
 void Node::renderNode(RenderTarget* window)
@@ -279,4 +324,15 @@ void LinkedList::choose(int n)
         node = node->Next;
 
     node->body.setOutlineColor(node->ChosenColor);
+}
+
+void LinkedList::change(int sizeId, bool theme)
+{
+    Node* cur=Head;
+
+    while (cur != nullptr)
+    {
+        cur->change(sizeId,theme);
+        cur = cur->Next;
+    }
 }

@@ -8,7 +8,7 @@
 #include "Tools/TextBox.h"
 #include "Tools/LinkedList.h"
 #include "Tools/StringProccess.h"
-#include "Tools/Animation.h"
+#include "Tools/Animation_Queue.h"
 
 using namespace sf;
 
@@ -41,15 +41,22 @@ public:
 	int Search_Result = -1;
 
 	//Stat for render
-	Animation* anime;
+	Animation_Queue* anime;
 	short unsigned render_Speed = slow;
 
 	// animation
 
 	void TimeTravel();
 
-	void drawFrom(int step);
+	void drawFrom(int step, bool hasHead);
+
+	void drawTrans(int start, int end, short CodeStatus);
+
 	short unsigned isDrawing = DrawNormal;
+
+	int sizeId = 3; bool theme = 0;
+
+	Color BGColor[2] = { Color::Color(230, 208, 159), Color::Color(91, 101, 101, 255) };;
 
 private:
 	//BTN
@@ -58,10 +65,10 @@ private:
 	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
 
 	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
-	ToggleButton* tog_Delete; ToggleButton* tog_Search; 
+	ToggleButton* tog_Delete; ToggleButton* tog_Search;
 	Button* btn_back;
 
-	Toggle_Group Toggle_Group_Linked_List;
+	Toggle_Group Toggle_Group_Queue;
 
 	//TEXT BOX & BTN for INITIALIZE
 
@@ -81,32 +88,23 @@ private:
 	//TEXT BOX & BTN for ADD
 
 	TextBox* box_add_val;
-	TextBox* box_add_pos;
-	ToggleButton* tog_add_head;
-	ToggleButton* tog_add_tail;
-	ToggleButton* tog_add_pos;
 
-	Toggle_Group Toggle_Group_Add;
-
-	int add_data_val = nothing, add_data_pos = nothing;
+	int add_data_val = nothing;
 
 	//TEXT BOX & BTN for DELETE
 
 	Button* btn_del_confirm;
-	TextBox* box_del_pos;
-	ToggleButton* tog_del_head;
-	ToggleButton* tog_del_tail;
-	ToggleButton* tog_del_pos;
-
-	Toggle_Group Toggle_Group_Del;
-
-	int  del_data_pos = nothing;
 
 	//TEXT BOX & BTN for SEARCH
 
-	TextBox* box_ser_val;
+	ToggleButton* tog_ser_head;
+	ToggleButton* tog_ser_tail;
 
-	int ser_data_val = nothing;
+	Toggle_Group Toggle_Group_ser;
+
+	int ser_data=nothing;
+
+	Button* btn_ser_confirm;
 
 	// BTN for TIME TRAVEl
 
@@ -115,12 +113,17 @@ private:
 	Button* btn_step_next;
 	ToggleButton* tog_play;
 
+	Button* btn_change_size;
+	ToggleButton* tog_change_color;
+
 	//Drawzie
 	RenderWindow* window;
 	Event* event;
 
 	Texture tet;
 	Sprite sprite;
+
+	RectangleShape shape;
 
 	// Mouse pos
 	Vector2f mousePosWindowf;
@@ -130,5 +133,21 @@ private:
 	//timer
 	Clock clock;
 	void stop(float i);
+
+	float StepTime = 0.1;
+	float frame = 20;
+	float FrameTime = StepTime / frame;
+	float frameStep = 1 / frame;
+
+	//intruc tion text;
+
+	void loadInstruction();
+
+	string Instruction[10];
+	int curInsId = 9;
+
+	Text text;
+
+	Font font;
 };
 

@@ -164,8 +164,8 @@ void Static_Array_Menu::drawFrom(int Current)
 
 void Static_Array_Menu::Render()
 {
-	window->clear(Color::Black);
-	window->draw(sprite);
+	window->clear(Color::Color(230,208,159));
+	//window->draw(sprite);
 	this->tog_Initialize->render(window);
 	this->tog_Update->render(window);
 	this->tog_Search->render(window);

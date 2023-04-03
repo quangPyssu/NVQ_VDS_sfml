@@ -52,11 +52,15 @@ public:
 	//display
 	Sprite sprite;
 	Texture tet;
+	RectangleShape shape;
+
+	int sizeId = 3; bool theme = 0;
+
+	Color BGColor[2] = { Color::Color(230, 208, 159), Color::Color(91, 101, 101, 255) };
 
 private:
 	//States
 	short unsigned AppState;
-
 
 	Button* btn_Static_Array;		Button* btn_Dynamic_Array; 
 
