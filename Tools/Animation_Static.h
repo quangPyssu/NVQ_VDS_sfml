@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <windows.h>
 #include <iostream>
@@ -10,11 +12,9 @@ using namespace sf;
 
 //event type
 
-struct DisplayNode_Queue {
+struct DisplayNode_Static {
 
-	RectangleShape line;
-	CircleShape arrow_head;
-	CircleShape body;
+	RectangleShape body;
 
 	shared_ptr<Font> font = make_shared<Font>();;
 
@@ -23,8 +23,6 @@ struct DisplayNode_Queue {
 
 	//attributes
 
-	float angle = 0;
-	float rad = 0;
 	Color BodyColor;
 	Color ChosenColor = Color::Green;
 	Color IdleColor = Color::Black;
@@ -34,32 +32,32 @@ struct DisplayNode_Queue {
 	void renderNode(RenderTarget* window);
 
 	// copy stat;
-	void NodeCovert(Round_Display_Node* node);
+	void NodeCovert(Square_Display_Node* node);
 
 	void Dissolve();
 
 	// Interpolate
-	DisplayNode_Queue interpolate(DisplayNode_Queue* a, DisplayNode_Queue* b, float t);
+	DisplayNode_Static interpolate(DisplayNode_Static* a, DisplayNode_Static* b, float t);
 
 	//next Point
-	DisplayNode_Queue* NextPos = nullptr;
-	void CalculateLine(DisplayNode_Queue* next);
+	DisplayNode_Static* NextPos = nullptr;
+	void CalculateLine(DisplayNode_Static* next);
 };
 
 
-class Animation_Queue
+class Animation_Static
 {
 public:
-	Animation_Queue(Event* event, LinkedList* l, RenderWindow* window);
+	Animation_Static(Event* event, LinkedList* l, RenderWindow* window);
 
 	enum FakeCodeStatus { Appear = 1, Disappear=-1,Display=0 };
 
-	virtual ~Animation_Queue();
+	virtual ~Animation_Static();
 
 	int step = 0;
 	int curStep = 0;
-	vector <DisplayNode_Queue> DisplayRecord[30];
-	DisplayNode_Queue AdditionalNode[30];
+	vector <DisplayNode_Static> DisplayRecord[30];
+	DisplayNode_Static AdditionalNode[30];
 
 	int AdditionPos[30]{ 0 };
 
@@ -76,8 +74,7 @@ public:
 
 	// uses
 
-	void Del_pos(int v);
-	void Add_pos(int v, int data);
+	void Upd_pos(int v, int data);
 	void Ser_pos(int v);
 
 	// render
@@ -107,7 +104,7 @@ public:
 
 private:
 
-	enum evType { E_DelHead = 0, E_AddTail = 1, E_Search_Head = 2, E_Search_Tail= 3	};
+	enum evType { E_Update =0, E_Search = 1 };
 
 	Event* event;
 	LinkedList* l;
@@ -122,11 +119,12 @@ private:
 
 	//fake codes
 
-	int fakeId[4] = {3,3,2,2};
+	int fakeId[8] = {2,6};
 
-	string Code[4][3];
+	string Code[8][7];
 
 	// transition
 	void Link(int cur);
 
 };
+

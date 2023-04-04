@@ -7,7 +7,7 @@ Animation_Queue::Animation_Queue(Event* event, LinkedList* l, RenderWindow* wind
 	this->window = window;
 
 	tet.loadFromFile("asset/texture/cream.jpg");
-	Fonte.loadFromFile("asset/fonts/ArialTh.ttf");
+	Fonte.loadFromFile("asset/fonts/cour.ttf");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
 
@@ -62,19 +62,15 @@ void Animation_Queue::Link(int cur)	// point one to another
 
 void Animation_Queue::cloneList()   //copy linked list
 {
-	Node* Cur = l->Head;
-
 	for (int j = 0; j < l->Size; j++)
 	{
 		DisplayNode_Queue DisplayCur;
 
-		DisplayCur.NodeCovert(Cur);
+		DisplayCur.NodeCovert(&l->Round_Node[j]);
 
 		if (j != 0 && j != l->Size - 1) DisplayCur.PosText.setString("");
 
 		DisplayRecord[step].push_back(DisplayCur);
-
-		Cur = Cur->Next;
 	}
 
 	DisplayRecordSize[step] = l->Size;
@@ -390,7 +386,7 @@ void DisplayNode_Queue::renderNode(RenderTarget* window)
 	window->draw(PosText);
 }
 
-void DisplayNode_Queue::NodeCovert(Node* node)
+void DisplayNode_Queue::NodeCovert(Round_Display_Node* node)
 {
 	body = node->body;
 	line = node->line;

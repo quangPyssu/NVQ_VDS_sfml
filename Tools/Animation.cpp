@@ -7,7 +7,7 @@ Animation::Animation(Event* event, LinkedList* l, RenderWindow* window)
 	this->window = window;
 
 	tet.loadFromFile("asset/texture/cream.jpg");
-	Fonte.loadFromFile("asset/fonts/ArialTh.ttf");
+	Fonte.loadFromFile("asset/fonts/cour.ttf");
 	sprite.setTexture(tet);
 	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
 
@@ -98,19 +98,15 @@ void Animation::Link(int cur)	// point one to another
 
 void Animation::cloneList()   //copy linked list
 {
-	Node* Cur = l->Head;
-
 	for (int j = 0; j < l->Size; j++)
 	{
 		DisplayNode DisplayCur;
 
-		DisplayCur.NodeCovert(Cur);
+		DisplayCur.NodeCovert(&l->Round_Node[j]);
 
 		if (j != 0 && j != l->Size - 1) DisplayCur.PosText.setString("");
 
 		DisplayRecord[step].push_back(DisplayCur);
-
-		Cur = Cur->Next;
 	}
 
 	DisplayRecordSize[step] = l->Size;
@@ -441,7 +437,7 @@ void Animation::Add_pos(int v, int data)
 
 		DisplayNode DisplayCur;
 
-		DisplayCur.NodeCovert(l->Head);
+		DisplayCur=DisplayRecord[step-1][0];
 		DisplayCur.text.setString(s);
 		DisplayCur.body.setPosition(DisplayRecord[step - 1][0].body.getPosition() - Vector2f(l->Distance, -150));
 		DisplayCur.PosText.setString("");
@@ -614,7 +610,7 @@ void DisplayNode::renderNode(RenderTarget* window)
 	window->draw(PosText);
 }
 
-void DisplayNode::NodeCovert(Node* node)
+void DisplayNode::NodeCovert(Round_Display_Node* node)
 {
 	body = node->body;
 	line = node->line;

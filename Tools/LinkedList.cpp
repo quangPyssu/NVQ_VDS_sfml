@@ -7,38 +7,126 @@ Node* New(int data)
     node->data = data;
     node->Next = node->Prev = nullptr;
 
-    //display part
-
-    node->body.setRadius(40);
-    node->body.setOrigin(node->body.getRadius(), node->body.getRadius());
-
-    node->line.setSize(Vector2f(1, 5));
-    node->line.setOrigin(Vector2f(0, 2.5));
-
-    node->arrow_head = CircleShape(12, 3);
-    node->arrow_head.setOrigin(node->arrow_head.getRadius(), node->arrow_head.getRadius());
-
-    node->body.setFillColor(Color::White);
-    node->body.setOutlineThickness(5);
-    node->body.setOutlineColor(Color::Black);
-    node->line.setFillColor(Color::Color(91, 91, 91, 255));
-    node->arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
-
-    // Font font;
-    node->font->loadFromFile("asset/fonts/ArialTh.ttf");
-
-    node->text = Text("", *node->font);
-    node->text.setFillColor(Color::Black);
-    node->text.setCharacterSize(node->body.getRadius());
-    node->PosText = node->text;
-
-    string s = to_string(data);
-    node->text.setString(s);
-
     return node;
 }
 
-void Node::change(int sizeId, bool theme)
+void Round_Display_Node::New(int data)
+{
+    this->data = data;
+
+    nextPos = Vector2f(0, 0);
+
+    body.setRadius(40);
+    body.setOrigin(body.getRadius(), body.getRadius());
+
+    line.setSize(Vector2f(1, 5));
+    line.setOrigin(Vector2f(0, 2.5));
+
+    arrow_head = CircleShape(12, 3);
+    arrow_head.setOrigin(arrow_head.getRadius(), arrow_head.getRadius());
+
+    body.setFillColor(Color::White);
+    body.setOutlineThickness(5);
+    body.setOutlineColor(Color::Black);
+    line.setFillColor(Color::Color(91, 91, 91, 255));
+    arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
+
+    // Font font;
+    font->loadFromFile("asset/fonts/ArialTh.ttf");
+
+    text = Text("", *font);
+    text.setFillColor(Color::Black);
+    text.setCharacterSize((int) body.getRadius());
+    PosText = text;
+
+    string s = to_string(data);
+    text.setString(s);
+}
+
+void Round_Display_Node::renderNode(RenderTarget* window)
+{
+    string s = to_string(data);
+    text.setString(s);
+    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
+
+    line.setPosition(body.getPosition());
+
+    if (nextPos == body.getPosition())
+    {
+        line.setScale(Vector2f(0, 0));
+        arrow_head.setScale(Vector2f(0, 0));
+    }
+    else
+    {
+        float dx = -body.getPosition().x + nextPos.x;
+        float dy = -body.getPosition().y + nextPos.y;
+
+        float distance = sqrt(dx * dx + dy * dy);
+
+        line.setScale(Vector2f(distance, 1));
+        arrow_head.setScale(Vector2f(1, 1));
+
+        line.setPosition(body.getPosition());
+        arrow_head.setPosition(Vector2f(nextPos.x - body.getRadius() - arrow_head.getRadius(), body.getPosition().y + dy / 2));
+
+        if (dx) angle = (float)atan(dy / dx) * 180 / PI; else angle = 0;
+
+        line.setRotation(angle);
+        arrow_head.setRotation(angle + 90);
+    }
+
+    window->draw(line);
+    window->draw(body);
+    window->draw(arrow_head);
+    window->draw(text);
+
+    if (isPos != isMiddle)
+    {
+        PosText.setPosition(Vector2f(text.getPosition().x - body.getRadius(), text.getPosition().y + body.getRadius() + 5));
+        if (isPos == isHead) PosText.setString("Head"); else PosText.setString("Tail");
+        window->draw(PosText);
+    }
+}
+
+void Square_Display_Node::New(int data)
+{
+    this->data = data;
+
+    body.setSize(Vector2f(80,80));
+    body.setOrigin(40,40);
+
+    body.setFillColor(Color::White);
+    body.setOutlineThickness(5);
+    body.setOutlineColor(Color::Black);
+
+    // Font font;
+    font->loadFromFile("asset/fonts/ArialTh.ttf");
+
+    text = Text("", *font);
+    text.setFillColor(Color::Black);
+    text.setCharacterSize((int)body.getSize().x/2);
+
+    string s = to_string(data);
+    text.setString(s);
+}
+
+void Square_Display_Node::renderNode(RenderTarget* window)
+{
+    string s = to_string(data);
+    text.setString(s);
+    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
+
+
+    float dx = -body.getPosition().x + nextPos.x;
+    float dy = -body.getPosition().y + nextPos.y;
+
+    float distance = sqrt(dx * dx + dy * dy);
+
+    window->draw(body);
+    window->draw(text);
+}
+
+void Round_Display_Node::change(int sizeId, bool theme)
 {
     //display part
     switch (sizeId)
@@ -86,55 +174,58 @@ void Node::change(int sizeId, bool theme)
     }
 }
 
-void Node::renderNode(RenderTarget* window)
+void LinkedList::AddDisplay(int v, int data)
 {
-    string s = to_string(data);
-    text.setString(s);
-    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
-
-    line.setPosition(body.getPosition());
-    if (Next == nullptr)
+    switch (type)
     {
-        line.setScale(Vector2f(0, 0));
-        arrow_head.setScale(Vector2f(0, 0));
-    }
-    else
-    {
-        Node* next = Next;
+        case isRound:
+        {
+            Round_Display_Node newRound;
+            newRound.New(data);
 
-        float dx = -body.getPosition().x + next->body.getPosition().x;
-        float dy = -body.getPosition().y + next->body.getPosition().y;
+            if (v >= Round_Node.size())
+            {
+                Round_Node.push_back(newRound);
+                return;
+            }
 
-        float distance = sqrt(dx * dx + dy * dy);
+            Round_Node.push_back(newRound);
 
-        line.setScale(Vector2f(distance, 1));
-        arrow_head.setScale(Vector2f(1, 1));
+            for (int i = v; i < Round_Node.size() - 1; i++) Round_Node[i + 1] = Round_Node[i];
 
-        line.setPosition(body.getPosition());
-        arrow_head.setPosition(Vector2f(Next->body.getPosition().x - Next->body.getRadius() - arrow_head.getRadius(),
-            body.getPosition().y + dy / 2));
+            Round_Node[v] = newRound;
 
-        if (dx) angle = (float)atan(dy / dx) * 180 / PI; else angle = 0;
+            break;
+        }
 
-        line.setRotation(angle);
-        arrow_head.setRotation(angle + 90);
-    }
 
-    window->draw(line);
-    window->draw(body);
-    window->draw(arrow_head);
-    window->draw(text);
+        case isSquare:
+        {
+            Square_Display_Node newRound;
+            newRound.New(data);
 
-    if (isPos != isMiddle)
-    {
-        PosText.setPosition(Vector2f(text.getPosition().x - body.getRadius(), text.getPosition().y + body.getRadius() + 5));
-        if (isPos == isHead) PosText.setString("Head"); else PosText.setString("Tail");
-        window->draw(PosText);
+            if (v >= Square_Node.size())
+            {
+                Square_Node.push_back(newRound);
+                return;
+            }
+
+            Square_Node.push_back(newRound);
+
+            for (int i = v; i < Square_Node.size() - 1; i++) Square_Node[i + 1] = Square_Node[i];
+
+            Square_Node[v] = newRound;
+
+            break;
+        }
+
     }
 }
 
 void LinkedList::addTail(Node* node)
 {
+    AddDisplay(15, node->data);
+
     Size++;
     if (Tail == nullptr)
     {
@@ -150,6 +241,7 @@ void LinkedList::addTail(Node* node)
 
 void LinkedList::addHead(Node* node)
 {
+    AddDisplay(0, node->data);
     add(Head, node);
 }
 
@@ -162,6 +254,7 @@ void LinkedList::addKth(Node* node, int k)
     {
         if (i++ >= k)
         {
+            AddDisplay(k, node->data);
             add(tmp, node);
             return;
         }
@@ -188,10 +281,44 @@ void LinkedList::add(Node* cur, Node* node)
     cur->Prev = node;
 }
 
+void LinkedList::DelDisplay(int v)
+{
+    switch (type)
+    {
+    case isRound:
+
+        if (v >= Round_Node.size())
+        {
+            Round_Node.pop_back();
+            return;
+        }
+
+        for (int i = v; i < Round_Node.size() - 1; i++) Round_Node[i] = Round_Node[i+1];
+
+        Round_Node.pop_back();
+
+        break;
+
+    case isSquare:
+
+        if (v >= Square_Node.size())
+        {
+            Square_Node.pop_back();
+            return;
+        }
+
+        for (int i = v; i < Square_Node.size() - 1; i++) Square_Node[i] = Square_Node[i + 1];
+
+        Square_Node.pop_back();
+
+        break;
+    }
+}
+
 void LinkedList::delTail()
 {
     if (Tail == nullptr) return;
-
+    DelDisplay(15);
     del(Tail);
 }
 
@@ -211,6 +338,7 @@ void LinkedList::delKth(int k)
     {
         if (i++ == k)
         {
+            DelDisplay(k);
             del(tmp);
             return;
         }
@@ -236,6 +364,19 @@ void LinkedList::del(Node* Cur) // Delete specific node on List
 
 void LinkedList::delAll()
 {
+    switch (type)
+    {
+    case isRound:
+
+        Round_Node.clear();
+        break;
+
+    case isSquare:
+
+        Square_Node.clear();
+        break;
+    }
+
     while (Head != nullptr)
     {
         Node* tmp = Head;
@@ -287,52 +428,68 @@ short LinkedList::find(int data)
 void LinkedList::render(RenderWindow* window)
 {
     if (Head == nullptr) return;
-    Node* cur = Head;
+    
     //repostion
 
-    float between = Distance;
+    float between = (float) Distance;
     float original = window->getSize().x / 2 - between * 10 / 2;
 
     float cnt = 0.5;
-    while (cur != nullptr)
-    {
-        cur->body.setPosition(Vector2f(original + between * cnt, 600));
+    Node* Cur = Head;
 
-        cnt++; cur = cur->Next;
+    switch (type)
+    {
+        case isRound:
+        {
+
+            for (int i = 0; i < Round_Node.size(); i++) Round_Node[i].body.setPosition(Vector2f(original + between * i, 600));
+
+            for (int i = 0; i < Round_Node.size(); i++)
+            {
+                Round_Node[i].data = Cur->data;
+
+                if (Cur == Head) Round_Node[i].isPos = isHead; else if (Cur == Tail) Round_Node[i].isPos = isTail; else Round_Node[i].isPos = isMiddle;
+
+                if (i < Round_Node.size() - 1) Round_Node[i].nextPos = Round_Node[i + 1].body.getPosition(); else Round_Node[i].nextPos = Round_Node[i].body.getPosition();
+
+                Round_Node[i].renderNode(window);
+
+                Cur = Cur->Next;
+            }
+            break;
+        }   
+
+        case isSquare:
+        {
+
+            for (int i = 0; i < Square_Node.size(); i++) Square_Node[i].body.setPosition(Vector2f(original+200 + Square_Node[i].body.getSize().x*i+i*14, 600));
+
+            for (int i = 0; i < Square_Node.size(); i++)
+            {
+                Square_Node[i].data = Cur->data;
+
+                if (Cur == Head) Square_Node[i].isPos = isHead; else if (Cur == Tail) Square_Node[i].isPos = isTail; else Square_Node[i].isPos = isMiddle;
+
+                if (i < Square_Node.size() - 1) Square_Node[i].nextPos = Square_Node[i + 1].body.getPosition(); else Square_Node[i].nextPos = Square_Node[i].body.getPosition();
+
+                Square_Node[i].renderNode(window);
+
+                Cur = Cur->Next;
+            }
+            break;
+        }
     }
 
-    //draw
-    cur = Head;
-    while (cur != nullptr)
-    {
-        if (cur == Head) cur->isPos = isHead; else
-            if (cur == Tail) cur->isPos = isTail; else
-                cur->isPos = isMiddle;
-
-
-        cur->renderNode(window);
-        cur = cur->Next;
-    }
-
-    //window->display();
-}
-
-void LinkedList::choose(int n)
-{
-    Node* node = Head;
-    for (int i = 0; i < n - 1; i++)
-        node = node->Next;
-
-    node->body.setOutlineColor(node->ChosenColor);
+    window->display();
 }
 
 void LinkedList::change(int sizeId, bool theme)
 {
-    Node* cur=Head;
-
-    while (cur != nullptr)
+    switch (type)
     {
-        cur->change(sizeId,theme);
-        cur = cur->Next;
+    case isRound:
+        for (int i = 0; i < Round_Node.size(); i++)
+            Round_Node[i].change(sizeId, theme);
+        break;
     }
 }

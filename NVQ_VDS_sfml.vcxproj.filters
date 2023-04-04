@@ -22,6 +22,12 @@
     <Filter Include="Tools">
       <UniqueIdentifier>{aa218220-2e1d-4e5d-b144-5c8b4141078d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\Header">
+      <UniqueIdentifier>{cb0396ae-4098-48b4-8b59-e820e84864cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\Source">
+      <UniqueIdentifier>{e3b67fce-8f57-434a-ba3f-7cef720c8141}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NVQ_VDS_sfml.cpp">
@@ -35,27 +41,6 @@
     </ClCompile>
     <ClCompile Include="Linked_List_Menu.cpp">
       <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\Animation.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\Button.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\LinkedList.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\StringProccess.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\TextBox.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\Toggle_Group.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\ToggleButton.cpp">
-      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="Dynamic_Array_Menu.cpp">
       <Filter>Source Files\Classes</Filter>
@@ -72,35 +57,38 @@
     <ClCompile Include="Queue_Menu.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Tools\Animation_Stack.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="Tools\Animation.cpp">
+      <Filter>Tools\Source</Filter>
     </ClCompile>
     <ClCompile Include="Tools\Animation_Queue.cpp">
-      <Filter>Tools</Filter>
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Animation_Stack.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Button.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\LinkedList.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\StringProccess.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\TextBox.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Toggle_Group.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\ToggleButton.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Animation_Static.cpp">
+      <Filter>Tools\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tools\Animation.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\Button.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\LinkedList.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\StringProccess.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\TextBox.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\Toggle_Group.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\ToggleButton.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Static_Array_Menu.h">
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
@@ -125,11 +113,35 @@
     <ClInclude Include="Queue_Menu.h">
       <Filter>Header Files\Classes_h</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\Animation_Stack.h">
-      <Filter>Tools</Filter>
+    <ClInclude Include="Tools\Animation.h">
+      <Filter>Tools\Header</Filter>
     </ClInclude>
     <ClInclude Include="Tools\Animation_Queue.h">
-      <Filter>Tools</Filter>
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Animation_Stack.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Button.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\LinkedList.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\StringProccess.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\TextBox.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Toggle_Group.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\ToggleButton.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Animation_Static.h">
+      <Filter>Tools\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,7 +36,7 @@ struct DisplayNode {
 	void renderNode(RenderTarget* window);
 
 	// copy stat;
-	void NodeCovert(Node* node);
+	void NodeCovert(Round_Display_Node* node);
 
 	void Dissolve();
 
@@ -105,8 +105,8 @@ public:
 
 	Color CodeBoxColor = Color(252, 142, 172);
 
-	Vector2f FakeCodeSize = Vector2f(500, 50);
-	Vector2f FakeCodePos = Vector2f(700, 150);
+	Vector2f FakeCodeSize = Vector2f(600, 50);
+	Vector2f FakeCodePos = Vector2f(800, 150);
 
 private:
 

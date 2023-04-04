@@ -98,7 +98,7 @@ Stack_Menu::Stack_Menu(Event* event, RenderWindow* window)
 
 	this->event = event;
 
-	l.Type = isSingle;
+	l.type = isRound;
 
 	anime = new Animation_Stack(event, &l, window);
 
@@ -444,6 +444,8 @@ void Stack_Menu::update(const Vector2f mousePos)
 	this->tog_speed->update(mousePosWindowf, event);
 	this->btn_change_size->update(mousePosWindowf, event);
 	this->tog_change_color->update(mousePosWindowf, event);
+
+	if (theme) tog_change_color->TurnOn(); else tog_change_color->disable();
 
 	if (btn_change_size->isPressed()) { sizeId = (sizeId + 1) % 3; l.change(sizeId, theme); }
 	if (tog_change_color->isPressedBoth(mousePosWindowf, event)) { theme = (theme + 1) % 2; l.change(sizeId, theme); }

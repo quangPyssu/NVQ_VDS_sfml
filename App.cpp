@@ -104,7 +104,7 @@ void App::initWindow()
 	ContextSettings settings;
 	settings.antialiasingLevel = 5.0;
 
-	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar | Style::Close,settings);;
+	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar  | Style::Close, settings);;
 }
 
 // Update & Draw
@@ -125,8 +125,18 @@ void App::update()
 			this->btn_Queue->update(mousePosWindowf, &event);
 			this->btn_Quit->update(mousePosWindowf, &event);
 
-			if (this->btn_Static_Array->isPressed()) AppState = app_static_array, Mn_Static_Array->stat=on; else
-			if (this->btn_Dynamic_Array->isPressed()) AppState = app_dynamic_array, Mn_Dynamic_Array->stat = on; else
+			if (this->btn_Static_Array->isPressed())
+			{
+				AppState = app_static_array, Mn_Static_Array->stat = on;
+				Mn_Static_Array->theme = this->theme;
+				Mn_Static_Array->sizeId = this->sizeId;
+			}
+			else
+				if (this->btn_Dynamic_Array->isPressed())
+				{
+					AppState = app_dynamic_array, Mn_Dynamic_Array->stat = on;
+				}
+				else
 			if (this->btn_Linked_List_Singly->isPressed()) AppState = app_linked_list, Mn_Linked_List->stat = on; else
 				if (this->btn_Linked_List_Doubly->isPressed())
 				{
