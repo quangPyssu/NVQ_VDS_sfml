@@ -8,7 +8,7 @@
 #include "Tools/TextBox.h"
 #include "Tools/LinkedList.h"
 #include "Tools/StringProccess.h"
-#include "Tools/Animation.h"
+#include "Tools/Animation_Two.h"
 
 using namespace sf;
 
@@ -20,6 +20,7 @@ public:
 
 	void Render();
 	void update(const Vector2f mousePos);
+
 
 	// update for stuff
 
@@ -42,27 +43,34 @@ public:
 	int Search_Result = -1;
 
 	//Stat for render
-	Animation* anime;
+	Animation_Two* anime;
 	short unsigned render_Speed = slow;
 
 	// animation
 
 	void TimeTravel();
 
-	void drawFrom(int step);
+	void drawFrom(int step, bool hasHead);
+
+	void drawTrans(int start, int end, short CodeStatus);
+
 	short unsigned isDrawing = DrawNormal;
 
-private:
-	//BTN
+	int sizeId = 3; bool theme = 0;
 
+	Color BGColor[2] = { Color::Color(230, 208, 159), Color::Color(91, 101, 101, 255) };
+
+private:
 	enum dras { DrawNormal = 0, DrawStep = 1, DrawAnimation = 2 };
 	enum Menu_stat { off = 0, on = 1, init_empty = 0, init_random = 1, init_fixed = 2, init_read = 3, init_load = 4, fast = 1, slow = 0 };
+
+	//BTN
 
 	ToggleButton* tog_Initialize; ToggleButton* tog_Add;
 	ToggleButton* tog_Delete; ToggleButton* tog_Update;
 	ToggleButton* tog_Search; Button* btn_back;
 
-	Toggle_Group Toggle_Group_Linked_List;
+	Toggle_Group Toggle_Group_Doubly_List;
 
 	//TEXT BOX & BTN for INITIALIZE
 
@@ -128,12 +136,17 @@ private:
 	Button* btn_step_next;
 	ToggleButton* tog_play;
 
+	Button* btn_change_size;
+	ToggleButton* tog_change_color;
+
 	//Drawzie
 	RenderWindow* window;
 	Event* event;
 
 	Texture tet;
 	Sprite sprite;
+
+	RectangleShape shape;
 
 	// Mouse pos
 	Vector2f mousePosWindowf;
@@ -143,5 +156,21 @@ private:
 	//timer
 	Clock clock;
 	void stop(float i);
+
+	float StepTime = 0.01;
+	float frame = 20;
+	float FrameTime = StepTime / frame;
+	float frameStep = 1 / frame;
+
+	//intruc tion text;
+
+	void loadInstruction();
+
+	string Instruction[16];
+	int curInsId = 15;
+
+	Text text;
+
+	Font font;
 };
 

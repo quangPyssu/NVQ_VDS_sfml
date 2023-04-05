@@ -87,6 +87,12 @@
     <ClCompile Include="Tools\Animation_Static.cpp">
       <Filter>Tools\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\Animation_Dynamic.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Animation_Two.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Static_Array_Menu.h">
@@ -141,6 +147,12 @@
       <Filter>Tools\Header</Filter>
     </ClInclude>
     <ClInclude Include="Tools\Animation_Static.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Animation_Dynamic.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Animation_Two.h">
       <Filter>Tools\Header</Filter>
     </ClInclude>
   </ItemGroup>

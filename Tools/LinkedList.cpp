@@ -10,6 +10,8 @@ Node* New(int data)
     return node;
 }
 
+//Round Node
+
 void Round_Display_Node::New(int data)
 {
     this->data = data;
@@ -88,44 +90,6 @@ void Round_Display_Node::renderNode(RenderTarget* window)
     }
 }
 
-void Square_Display_Node::New(int data)
-{
-    this->data = data;
-
-    body.setSize(Vector2f(80,80));
-    body.setOrigin(40,40);
-
-    body.setFillColor(Color::White);
-    body.setOutlineThickness(5);
-    body.setOutlineColor(Color::Black);
-
-    // Font font;
-    font->loadFromFile("asset/fonts/ArialTh.ttf");
-
-    text = Text("", *font);
-    text.setFillColor(Color::Black);
-    text.setCharacterSize((int)body.getSize().x/2);
-
-    string s = to_string(data);
-    text.setString(s);
-}
-
-void Square_Display_Node::renderNode(RenderTarget* window)
-{
-    string s = to_string(data);
-    text.setString(s);
-    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
-
-
-    float dx = -body.getPosition().x + nextPos.x;
-    float dy = -body.getPosition().y + nextPos.y;
-
-    float distance = sqrt(dx * dx + dy * dy);
-
-    window->draw(body);
-    window->draw(text);
-}
-
 void Round_Display_Node::change(int sizeId, bool theme)
 {
     //display part
@@ -174,6 +138,252 @@ void Round_Display_Node::change(int sizeId, bool theme)
     }
 }
 
+//Square Node
+
+void Square_Display_Node::New(int data)
+{
+    this->data = data;
+
+    body.setSize(Vector2f(80,80));
+    body.setOrigin(40,40);
+
+    body.setFillColor(Color::White);
+    body.setOutlineThickness(5);
+    body.setOutlineColor(Color::Black);
+
+    // Font font;
+    font->loadFromFile("asset/fonts/ArialTh.ttf");
+
+    text = Text("", *font);
+    text.setFillColor(Color::Black);
+    text.setCharacterSize((int)body.getSize().x/2);
+
+    string s = to_string(data);
+    text.setString(s);
+}
+
+void Square_Display_Node::renderNode(RenderTarget* window)
+{
+    string s = to_string(data);
+    text.setString(s);
+    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
+
+
+    float dx = -body.getPosition().x + nextPos.x;
+    float dy = -body.getPosition().y + nextPos.y;
+
+    float distance = sqrt(dx * dx + dy * dy);
+
+    window->draw(body);
+    window->draw(text);
+}
+
+void Square_Display_Node::change(int sizeId, bool theme)
+{
+    //display part
+    switch (sizeId)
+    {
+    case 0: size = 40;  break;
+    case 1: size = 49;  break;
+    case 2: size = 30;  break;
+    default: size = 40; break;
+    }
+
+    body.setSize(Vector2f(size*2,size*2));
+    body.setOrigin(size, size);
+
+    text.setCharacterSize(size);
+    PosText.setCharacterSize(size);
+
+    body.setOutlineThickness(size / 8);
+
+    if (!theme)
+    {
+        body.setOutlineColor(OutlineColor);
+        body.setFillColor(BodyColor);
+
+        text.setFillColor(OutlineColor);
+        PosText.setFillColor(OutlineColor);
+    }
+    else
+    {
+        body.setOutlineColor(OutlineColor_D);
+        body.setFillColor(BodyColor_D);
+
+        text.setFillColor(OutlineColor_D);
+        PosText.setFillColor(OutlineColor_D);
+    }
+}
+
+//Round Node Two
+
+void Two_Display_Node::New(int data)
+{
+    this->data = data;
+
+    nextPos = prevPos = Vector2f(0, 0);
+
+    body.setRadius(40);
+    body.setOrigin(body.getRadius(), body.getRadius());
+
+    line.setSize(Vector2f(1, 5));
+    line.setOrigin(Vector2f(0, 2.5));
+
+    arrow_head = CircleShape(12, 3);
+    arrow_head.setOrigin(arrow_head.getRadius(), arrow_head.getRadius());
+
+    body.setFillColor(Color::White);
+    body.setOutlineThickness(5);
+    body.setOutlineColor(Color::Black);
+    line.setFillColor(Color::Color(91, 91, 91, 255));
+    arrow_head.setFillColor(Color::Color(91, 91, 91, 255));
+
+    back = line;
+    arrow_back = arrow_head;
+
+    // Font font;
+    font->loadFromFile("asset/fonts/ArialTh.ttf");
+
+    text = Text("", *font);
+    text.setFillColor(Color::Black);
+    text.setCharacterSize((int)body.getRadius());
+    PosText = text;
+
+    string s = to_string(data);
+    text.setString(s);
+}
+
+void Two_Display_Node::renderNode(RenderTarget* window)
+{
+    string s = to_string(data);
+    text.setString(s);
+    text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
+
+    line.setPosition(body.getPosition());
+    back.setPosition(body.getPosition());
+
+    if (nextPos == body.getPosition())
+    {
+        line.setScale(Vector2f(0, 0));
+        arrow_head.setScale(Vector2f(0, 0));
+    }
+    else
+    {
+        float dx = -body.getPosition().x + nextPos.x;
+        float dy = -body.getPosition().y + nextPos.y;
+
+        float distance = sqrt(dx * dx + dy * dy);
+
+        line.setScale(Vector2f(distance - body.getRadius() - body.getOutlineThickness(), 1));
+        arrow_head.setScale(Vector2f(1, 1));
+
+        line.setPosition(body.getPosition() - Vector2f(0, 10));
+        arrow_head.setPosition(Vector2f(nextPos.x - body.getRadius() - arrow_head.getRadius(), body.getPosition().y + dy / 2 - 10));
+
+        if (dx) angle = (float)atan(dy / dx) * 180 / PI; else angle = 0;
+
+        line.setRotation(angle);
+        arrow_head.setRotation(angle + 90);
+    }
+
+    if (prevPos == body.getPosition())
+    {
+        back.setScale(Vector2f(0, 0));
+        arrow_back.setScale(Vector2f(0, 0));
+    }
+    else
+    {
+        float dx = -body.getPosition().x + prevPos.x;
+        float dy = -body.getPosition().y + prevPos.y;
+
+        float distance = sqrt(dx * dx + dy * dy);
+        
+        back.setScale(Vector2f(distance - body.getRadius()- body.getOutlineThickness(), 1));
+        arrow_back.setScale(Vector2f(1, 1));      
+
+        back.setPosition(body.getPosition() + Vector2f(0, 10));
+        arrow_back.setPosition(Vector2f(prevPos.x + body.getRadius() + arrow_head.getRadius(), prevPos.y + dy / 2 + 10));
+            
+        if (dx) angle = (float)atan(dy / dx) * 180 / PI; else angle = 0;
+
+        back.setRotation(angle+180);
+        arrow_back.setRotation(angle - 90);
+    }
+
+    window->draw(line);
+    window->draw(back);
+    window->draw(arrow_head);
+    window->draw(arrow_back);
+    window->draw(body);
+    window->draw(text);
+
+    if (isPos != isMiddle)
+    {
+        PosText.setPosition(Vector2f(text.getPosition().x - body.getRadius(), text.getPosition().y + body.getRadius() + 5));
+        if (isPos == isHead) PosText.setString("Head"); else PosText.setString("Tail");
+        window->draw(PosText);
+    }
+}
+
+void Two_Display_Node::change(int sizeId, bool theme)
+{
+    //display part
+    switch (sizeId)
+    {
+    case 0: size = 40;  break;
+    case 1: size = 49;  break;
+    case 2: size = 30;  break;
+    default: size = 40; break;
+    }
+
+    body.setRadius(size);
+    body.setOrigin(size, size);
+
+    line.setSize(Vector2f(1, size / 8));
+    line.setOrigin(Vector2f(0, size / 16));
+
+    back.setSize(Vector2f(1, size / 8));
+    back.setOrigin(Vector2f(0, size / 16));
+
+    arrow_head.setRadius(size / 3);
+    arrow_head.setOrigin(arrow_head.getRadius(), arrow_head.getRadius());
+    arrow_back.setRadius(size / 3);
+    arrow_back.setOrigin(arrow_head.getRadius(), arrow_head.getRadius());
+
+    text.setCharacterSize(size);
+    PosText.setCharacterSize(size);
+
+    body.setOutlineThickness(size / 8);
+
+
+    if (!theme)
+    {
+        body.setOutlineColor(OutlineColor);
+        body.setFillColor(BodyColor);
+        line.setFillColor(LineColor);
+        back.setFillColor(LineColor);
+        arrow_head.setFillColor(LineColor);
+        arrow_back.setFillColor(LineColor);
+
+        text.setFillColor(OutlineColor);
+        PosText.setFillColor(OutlineColor);
+    }
+    else
+    {
+        body.setOutlineColor(OutlineColor_D);
+        body.setFillColor(BodyColor_D);
+        line.setFillColor(LineColor_D);
+        back.setFillColor(LineColor_D);
+        arrow_head.setFillColor(LineColor_D);
+        arrow_back.setFillColor(LineColor_D);
+
+        text.setFillColor(OutlineColor_D);
+        PosText.setFillColor(OutlineColor_D);
+    }
+}
+
+// Linked List Funtion
+
 void LinkedList::AddDisplay(int v, int data)
 {
     switch (type)
@@ -215,6 +425,26 @@ void LinkedList::AddDisplay(int v, int data)
             for (int i = v; i < Square_Node.size() - 1; i++) Square_Node[i + 1] = Square_Node[i];
 
             Square_Node[v] = newRound;
+
+            break;
+        }
+
+        case isTwo:
+        {
+            Two_Display_Node newTwo;
+            newTwo.New(data);
+
+            if (v >= Two_Node.size())
+            {
+                Two_Node.push_back(newTwo);
+                return;
+            }
+
+            Two_Node.push_back(newTwo);
+
+            for (int i = v; i < Two_Node.size() - 1; i++) Two_Node[i + 1] = Two_Node[i];
+
+            Two_Node[v] = newTwo;
 
             break;
         }
@@ -312,6 +542,20 @@ void LinkedList::DelDisplay(int v)
         Square_Node.pop_back();
 
         break;
+    
+    case isTwo:
+
+        if (v >= Two_Node.size())
+        {
+            Two_Node.pop_back();
+            return;
+        }
+
+        for (int i = v; i < Two_Node.size() - 1; i++) Two_Node[i] = Two_Node[i + 1];
+
+        Two_Node.pop_back();
+
+        break;
     }
 }
 
@@ -374,6 +618,10 @@ void LinkedList::delAll()
     case isSquare:
 
         Square_Node.clear();
+        break;
+
+    case isTwo:
+        Two_Node.clear();
         break;
     }
 
@@ -478,9 +726,28 @@ void LinkedList::render(RenderWindow* window)
             }
             break;
         }
-    }
 
-    window->display();
+        case isTwo:
+        {
+            for (int i = 0; i < Two_Node.size(); i++) Two_Node[i].body.setPosition(Vector2f(original + between * i, 600));
+
+            for (int i = 0; i < Two_Node.size(); i++)
+            {
+                Two_Node[i].data = Cur->data;
+
+                if (Cur == Head) Two_Node[i].isPos = isHead; else if (Cur == Tail) Two_Node[i].isPos = isTail; else Two_Node[i].isPos = isMiddle;
+
+                if (i < Two_Node.size() - 1) Two_Node[i].nextPos = Two_Node[i + 1].body.getPosition(); else Two_Node[i].nextPos = Two_Node[i].body.getPosition();
+
+                if (i > 0)  Two_Node[i].prevPos = Two_Node[i - 1].body.getPosition(); else Two_Node[i].prevPos = Two_Node[i].body.getPosition();
+
+                Two_Node[i].renderNode(window);
+
+                Cur = Cur->Next;
+            }
+            break;
+        }
+    }
 }
 
 void LinkedList::change(int sizeId, bool theme)
@@ -490,6 +757,14 @@ void LinkedList::change(int sizeId, bool theme)
     case isRound:
         for (int i = 0; i < Round_Node.size(); i++)
             Round_Node[i].change(sizeId, theme);
+        break;
+    case isSquare:
+        for (int i = 0; i < Square_Node.size(); i++)
+            Square_Node[i].change(sizeId, theme);
+        break;
+    case isTwo:
+        for (int i = 0; i < Two_Node.size(); i++)
+            Two_Node[i].change(sizeId, theme);
         break;
     }
 }

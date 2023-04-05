@@ -135,7 +135,7 @@ private:
 	void loadInstruction();
 
 	string Instruction[8];
-	int curInsId = 8;
+	int curInsId = 7;
 
 	Text text;
 

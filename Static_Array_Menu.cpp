@@ -80,7 +80,7 @@ Static_Array_Menu::Static_Array_Menu(Event* event, RenderWindow* window)
 		Instruction[3] = "Make an Static Array with inputed values (for creating a LinkedList with size 1 please use ADD function)";
 		Instruction[4] = "Make an Static Array with size and value imported from data file";
 
-		Instruction[5] = "Update the Node at the inputed position at inputed value";
+		Instruction[5] = "Update the Node at the inputed position at inputed value (position larger than size will be understood as max size)";
 
 		Instruction[6] = "Search for a Node with inputed value and highlight it";
 
