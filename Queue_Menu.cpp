@@ -454,6 +454,10 @@ void Queue_Menu::update(const Vector2f mousePos)
 		Toggle_Group_Queue.clearAll();
 
 		l.delAll();
+
+		anime->clearAll();
+
+		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Queue.filter(mousePos, event);
 

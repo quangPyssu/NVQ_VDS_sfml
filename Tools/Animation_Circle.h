@@ -12,14 +12,10 @@ using namespace sf;
 
 //event type
 
-struct DisplayNode_Two {
+struct DisplayNode_Circle {
 
 	RectangleShape line;
 	CircleShape arrow_head;
-
-	RectangleShape back;
-	CircleShape arrow_back;
-
 	CircleShape body;
 
 	shared_ptr<Font> font = make_shared<Font>();;
@@ -31,10 +27,6 @@ struct DisplayNode_Two {
 
 	float angle = 0;
 	float rad = 0;
-
-	float angle_back = 0;
-	float rad_back = 0;
-
 	Color BodyColor;
 	Color ChosenColor = Color::Green;
 	Color IdleColor = Color::Black;
@@ -44,40 +36,43 @@ struct DisplayNode_Two {
 	void renderNode(RenderTarget* window);
 
 	// copy stat;
-	void NodeCovert(Two_Display_Node* node);
+	void NodeCovert(Round_Display_Node* node);
 
 	void Dissolve();
 
 	// Interpolate
-	DisplayNode_Two interpolate(DisplayNode_Two* a, DisplayNode_Two* b, float t);
+	DisplayNode_Circle interpolate(DisplayNode_Circle* a, DisplayNode_Circle* b, float t);
 
 	//next Point
-	DisplayNode_Two* NextPos = nullptr;
-	DisplayNode_Two* PrevPos = nullptr;
-
-	short prevId=-1;
-	short nextId=-1;
-
-	void CalculateLine(DisplayNode_Two* next, DisplayNode_Two* prev);
+	DisplayNode_Circle* NextPos = nullptr;
+	void CalculateLine(DisplayNode_Circle* next);
 };
 
 
-class Animation_Two
+class Animation_Circle
 {
 public:
-	Animation_Two(Event* event, LinkedList* l, RenderWindow* window);
+	Animation_Circle(Event* event, LinkedList* l, RenderWindow* window);
 
 	enum FakeCodeStatus { Appear = 1, Disappear=-1,Display=0 };
 
-	virtual ~Animation_Two();
+	virtual ~Animation_Circle();
 
 	int step = 0;
 	int curStep = 0;
-	vector <DisplayNode_Two> DisplayRecord[30];
-	DisplayNode_Two AdditionalNode[30];
+	vector <DisplayNode_Circle> DisplayRecord[30];
+	DisplayNode_Circle AdditionalNode[30];
+
+	short HeadPos[30]{ 0 };
+	short TailPos[30];
 
 	int AdditionPos[30]{ 0 };
 
+	RectangleShape line1, line2, line3, line4;
+
+	CircleShape arrow;
+
+	int tailPos[30],headPos[30];
 	int DisplayRecordSize[30]{ 0 };
 	int DisplayRecordStringId[30]{ 0 };
 
@@ -104,6 +99,8 @@ public:
 	void render();
 	void drawOneStep(int i);
 
+	void calBack(Vector2f PosHead,Vector2f PosTail);
+
 	void drawFakeCode(int cur,float posX);
 
 	void drawSmoothTransition(int start, int end, float progress,short CodeStatus);
@@ -118,7 +115,7 @@ public:
 
 	Color CodeBoxColor = Color(252, 142, 172);
 
-	Vector2f FakeCodeSize = Vector2f(800, 50);
+	Vector2f FakeCodeSize = Vector2f(600, 50);
 	Vector2f FakeCodePos = Vector2f(800, 150);
 
 private:

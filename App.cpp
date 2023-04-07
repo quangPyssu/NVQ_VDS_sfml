@@ -104,7 +104,7 @@ void App::initWindow()
 	ContextSettings settings;
 	settings.antialiasingLevel = 5.0;
 
-	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar  | Style::Close, settings);;
+	window = new RenderWindow(videoMode, "data Visual", Style::Titlebar | Style::Close, settings);
 }
 
 // Update & Draw

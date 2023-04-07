@@ -438,6 +438,9 @@ void Dynamic_Array_Menu::update(const Vector2f mousePos)
 		Toggle_Group_Dynamic_Array.clearAll();
 
 		l.delAll();
+		anime->clearAll();
+
+		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Dynamic_Array.filter(mousePos, event);
 

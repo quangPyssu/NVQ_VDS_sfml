@@ -9,8 +9,8 @@ using namespace sf;
 
 #define PI 3.14159265
 
-enum pos { isHead = 0, isMiddle = 1, isTail = 2, isSingle = 0, isDouble = 1, isCircle = 3};
-enum LLtype { isRound = 0, isSquare = 1, isTwo=2 };
+enum pos { isHead = 0, isMiddle = 1, isTail = 2};
+enum LLtype { isRound = 0, isSquare = 1, isTwo=2, isCircle=3 };
 
 struct Node {
     int data = 0;
@@ -185,6 +185,14 @@ struct LinkedList
     void render(RenderWindow* window);
 
     void change(int sizeId, bool theme);
+
+    // for Circular back
+
+    RectangleShape line1, line2, line3, line4;
+
+    CircleShape arrow;
+
+    void CalBack(Vector2f HeasPos, Vector2f TailPos);
 };
 
 Node* New(int data);

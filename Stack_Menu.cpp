@@ -436,6 +436,10 @@ void Stack_Menu::update(const Vector2f mousePos)
 		Toggle_Group_Stack.clearAll();
 
 		l.delAll();
+
+		anime->clearAll();
+
+		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Stack.filter(mousePos, event);
 

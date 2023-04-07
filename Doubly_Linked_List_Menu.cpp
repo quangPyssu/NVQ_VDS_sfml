@@ -128,10 +128,10 @@ Doubly_Linked_List_Menu::Doubly_Linked_List_Menu(Event* event, RenderWindow* win
 		text.setCharacterSize(30);
 
 		Instruction[0] = "Make an Empty Doubly_Linked List";
-		Instruction[1] = "Make an Doubly_Linked List with random size and values";
-		Instruction[2] = "Make an Doubly_Linked List with inputed size and values";
-		Instruction[3] = "Make an Doubly_Linked List with inputed values (for creating a LinkedList with size 1 please use ADD function)";
-		Instruction[4] = "Make an Doubly_Linked List with size and value imported from data file";
+		Instruction[1] = "Make an Doubly Linked List with random size and values";
+		Instruction[2] = "Make an Doubly Linked List with inputed size and values";
+		Instruction[3] = "Make an Doubly Linked List with inputed values (for creating a LinkedList with size 1 please use ADD function)";
+		Instruction[4] = "Make an Doubly Linked List with size and value imported from data file";
 
 		Instruction[5] = "Add a Node to the Head of the Linked List";
 		Instruction[6] = "Add a Node to the Tail of the Linked List";
@@ -580,6 +580,9 @@ void Doubly_Linked_List_Menu::update(const Vector2f mousePos)
 		Toggle_Group_Doubly_List.clearAll();
 
 		l.delAll();
+		anime->clearAll();
+
+		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Doubly_List.filter(mousePos, event);
 

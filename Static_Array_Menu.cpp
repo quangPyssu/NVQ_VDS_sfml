@@ -400,6 +400,10 @@ void Static_Array_Menu::update(const Vector2f mousePos)
 		Toggle_Group_Static_Array.clearAll();
 
 		l.delAll();
+
+		anime->clearAll();
+
+		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Static_Array.filter(mousePos, event);
 

@@ -69,9 +69,33 @@ void Round_Display_Node::renderNode(RenderTarget* window)
         arrow_head.setScale(Vector2f(1, 1));
 
         line.setPosition(body.getPosition());
-        arrow_head.setPosition(Vector2f(nextPos.x - body.getRadius() - arrow_head.getRadius(), body.getPosition().y + dy / 2));
+        arrow_head.setPosition(Vector2f(nextPos.x - (body.getRadius()+arrow_head.getRadius()), body.getPosition().y + dy / 2));
 
-        if (dx) angle = (float)atan(dy / dx) * 180 / PI; else angle = 0;
+        if (dx) angle = (float)atan(dy / dx) * 180 / PI; else
+        {
+            if (dy < 0)
+            {
+                angle = 270;
+                arrow_head.setPosition(Vector2f(nextPos.x , body.getPosition().y + dy / 2 - (body.getRadius() + arrow_head.getRadius())/2));
+            }
+            else
+            {
+                angle = 90;
+                arrow_head.setPosition(Vector2f(nextPos.x, body.getPosition().y + dy / 2 - (body.getRadius() + arrow_head.getRadius())/2));
+            }
+        }
+
+        if (dy == 0)
+        {
+            if (dx < 0)
+            {
+                angle = 180;
+                arrow_head.setPosition(Vector2f(nextPos.x-dx/2, body.getPosition().y + dy / 2));
+            }
+            else angle = 0;
+        }
+
+
 
         line.setRotation(angle);
         arrow_head.setRotation(angle + 90);
@@ -449,6 +473,26 @@ void LinkedList::AddDisplay(int v, int data)
             break;
         }
 
+
+        case isCircle:
+        {
+            Round_Display_Node newRound;
+            newRound.New(data);
+
+            if (v >= Round_Node.size())
+            {
+                Round_Node.push_back(newRound);
+                return;
+            }
+
+            Round_Node.push_back(newRound);
+
+            for (int i = v; i < Round_Node.size() - 1; i++) Round_Node[i + 1] = Round_Node[i];
+
+            Round_Node[v] = newRound;
+
+            break;
+        }
     }
 }
 
@@ -556,6 +600,20 @@ void LinkedList::DelDisplay(int v)
         Two_Node.pop_back();
 
         break;
+
+    case isCircle:
+
+        if (v >= Round_Node.size())
+        {
+            Round_Node.pop_back();
+            return;
+        }
+
+        for (int i = v; i < Round_Node.size() - 1; i++) Round_Node[i] = Round_Node[i + 1];
+
+        Round_Node.pop_back();
+
+        break;
     }
 }
 
@@ -621,7 +679,13 @@ void LinkedList::delAll()
         break;
 
     case isTwo:
+     
         Two_Node.clear();
+        break;
+
+    case isCircle:
+
+        Round_Node.clear();
         break;
     }
 
@@ -747,6 +811,32 @@ void LinkedList::render(RenderWindow* window)
             }
             break;
         }
+
+        case isCircle:
+        {
+
+            for (int i = 0; i < Round_Node.size(); i++) Round_Node[i].body.setPosition(Vector2f(original + between * i, 600));
+            
+            CalBack(Round_Node[0].body.getPosition(), Round_Node.back().body.getPosition());
+
+            window->draw(line1);	window->draw(line2);   window->draw(line3);	window->draw(line4); window->draw(arrow);
+
+            for (int i = 0; i < Round_Node.size(); i++)
+            {
+                Round_Node[i].data = Cur->data;
+
+                if (Cur == Head) Round_Node[i].isPos = isHead; else Round_Node[i].isPos = isMiddle;
+
+                if (i < Round_Node.size() - 1) Round_Node[i].nextPos = Round_Node[i + 1].body.getPosition();
+                else Round_Node[i].nextPos = Round_Node[i].body.getPosition();
+
+                Round_Node[i].renderNode(window);
+
+                Cur = Cur->Next;
+            }
+
+            break;
+        }
     }
 }
 
@@ -766,5 +856,52 @@ void LinkedList::change(int sizeId, bool theme)
         for (int i = 0; i < Two_Node.size(); i++)
             Two_Node[i].change(sizeId, theme);
         break;
+    case isCircle:
+        for (int i = 0; i < Round_Node.size(); i++)
+            Round_Node[i].change(sizeId, theme);
+        break;
+    }
+}
+
+void LinkedList::CalBack(Vector2f PosHead, Vector2f PosTail)
+{
+    if (PosHead == Vector2f(-1000, -1000) || PosTail == Vector2f(-1000, -1000))
+    {
+        line1.setPosition(PosHead + Vector2f(2000, 0));
+        line2.setPosition(Vector2f(2000, 525));
+        line3.setPosition(PosHead + Vector2f(2000, -75));
+        line4.setPosition(PosHead + Vector2f(2000,0));
+
+        arrow.setPosition(Vector2f(PosHead.x + 2000, 525));
+        return;
+    }
+
+    if (PosHead == PosTail)
+    {
+        line1.setScale(Vector2f(PosHead.y - 525, 1));
+        line2.setScale(Vector2f(PosHead.y - 525, 1));
+        line3.setScale(Vector2f(Distance, 1));
+        line4.setScale(Vector2f(Distance, 1));
+
+        line1.setPosition(PosHead + Vector2f(Distance, 0));
+        line2.setPosition(Vector2f(PosHead.x, 525));
+        line3.setPosition(PosHead + Vector2f(Distance, -75));
+        line4.setPosition(PosHead);
+
+        arrow.setPosition(Vector2f(PosHead.x + 75, 525));
+    }
+    else
+    {
+        line1.setScale(Vector2f(PosTail.y - 525, 1));
+        line2.setScale(Vector2f(PosHead.y - 525, 1));
+        line3.setScale(Vector2f(-PosHead.x + PosTail.x, 1));
+        line4.setScale(Vector2f(0, 1));
+
+        line1.setPosition(PosTail);
+        line2.setPosition(Vector2f(PosHead.x, 525));
+        line3.setPosition(Vector2f(PosTail.x, 525));
+        line4.setPosition(PosHead);
+
+        arrow.setPosition(Vector2f(PosHead.x + (PosTail.x - PosHead.x) / 2, 525));
     }
 }

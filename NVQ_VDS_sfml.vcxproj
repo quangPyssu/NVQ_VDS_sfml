@@ -151,6 +151,7 @@
     <ClCompile Include="Stack_Menu.cpp" />
     <ClCompile Include="Static_Array_Menu.cpp" />
     <ClCompile Include="Tools\Animation.cpp" />
+    <ClCompile Include="Tools\Animation_Circle.cpp" />
     <ClCompile Include="Tools\Animation_Dynamic.cpp" />
     <ClCompile Include="Tools\Animation_Queue.cpp" />
     <ClCompile Include="Tools\Animation_Stack.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Stack_Menu.h" />
     <ClInclude Include="Static_Array_Menu.h" />
     <ClInclude Include="Tools\Animation.h" />
+    <ClInclude Include="Tools\Animation_Circle.h" />
     <ClInclude Include="Tools\Animation_Dynamic.h" />
     <ClInclude Include="Tools\Animation_Queue.h" />
     <ClInclude Include="Tools\Animation_Stack.h" />

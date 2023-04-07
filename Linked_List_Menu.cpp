@@ -580,6 +580,9 @@ void Linked_List_Menu::update(const Vector2f mousePos)
 		Toggle_Group_Linked_List.clearAll();
 		
 		l.delAll();
+		anime->clearAll();
+
+		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Linked_List.filter(mousePos, event);
 
