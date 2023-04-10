@@ -13,68 +13,81 @@ Animation_Circle::Animation_Circle(Event* event, LinkedList* l, RenderWindow* wi
 
 	CodeBox.setFillColor(CodeBoxColor);
 	CodeBox.setSize(FakeCodeSize);
-	FakeCodePos = Vector2f(window->getSize().x - FakeCodeSize.x, 150);
+	FakeCodePos = Vector2f(window->getSize().x - FakeCodeSize.x, 80);
 	CodeBox.setPosition(FakeCodePos);
 	FakeCode.setFillColor(Color::White);
-	FakeCode.setCharacterSize(FakeCodeSize.y / 2);
+	FakeCode.setCharacterSize(FakeCodeSize.y / 2+1);
+	FakeCode.setOutlineThickness(1);
+	FakeCode.setOutlineColor(Color::Black);
 	FakeCode.setFont(Fonte);
 
 	// fake Code for Delete
 	{
-		Code[0][0] = "if (head==null) return";
-		Code[0][1] = "Node* temp = head";
-		Code[0][2] = "head = head->next,     delete temp";
+		Code[0][0] = "if (head == null) return";
+		Code[0][1] = "if (head==head->next) delete head,head=nullptr;";
+		Code[0][2] = "else ";
+		Code[0][3] = "{";
+		Code[0][4] = "	Node* last = head, Node* tmp=head";
+		Code[0][5] = "	while (last->next != head)";
+		Code[0][6] = "		last = last->next";
+		Code[0][7] = "	delete tmp";
+		Code[0][8] = "	head=head->next, last->next = head";
+		Code[0][9] = "}";
 
 		Code[1][0] = "if (head==null) return";
-		Code[1][1] = "Node* pre = head";
-		Code[1][2] = "for (k = 0; k < i - 1; k++)";
-		Code[1][3] = "	     pre = pre->next";
-		Code[1][4] = "Node* del = pre->next ";
-		Code[1][5] = "aft = del->next, pre->next = aft, delete del";
-
-		Code[2][0] = "if (head==null) return";
-		Code[2][1] = "Node* pre = head, temp = head->next";
-		Code[2][2] = "while (temp->next != null)";
-		Code[2][3] = "	     pre = pre->next";
-		Code[2][4] = "pre->next = null, delete temp, tail = pre";
-
+		Code[1][1] = "if (head==head->next) delete head,head=nullptr;";
+		Code[1][2] = "else";
+		Code[1][3] = "{";
+		Code[1][4] = "	Node* pre = head";
+		Code[1][5] = "	for (k = 0; k < i - 1; k++)";
+		Code[1][6] = "	     pre = pre->next";
+		Code[1][7] = "	Node* del = pre->next ";
+		Code[1][8] = "	aft = del->next, pre->next = aft, delete del";
+		Code[1][9] = "}";
 	}
 
 	// fake Code for Add
 	{
-		Code[3][0] = "Node* vtx = new Node(v)";
-		Code[3][1] = "vtx->next = head";
-		Code[3][2] = "head = vtxt";
+		Code[2][0] = "Node* vtx = new Node(v)";
+		Code[2][1] = "if (head == null)";
+		Code[2][2] = "	vtx->next = vtx, head = vtx";
+		Code[2][3] = "else ";
+		Code[2][4] = "{";
+		Code[2][5] = "	Node* last = head";
+		Code[2][6] = "	while (last->next != head)";
+		Code[2][7] = "		last = last->next";
+		Code[2][8] = "	last->next = vtx, vtx->next = head, head = vtx";
+		Code[2][9] = "}";
 
-		Code[4][0] = "Node* pre = head";
-		Code[4][1] = "for (k = 0; k < i - 1; k++)";
-		Code[4][2] = "	   pre = pre->next";
-		Code[4][3] = "Node* aft = pre->next";
-		Code[4][4] = "Node* vtx = new Node(v)";
-		Code[4][5] = "vtx->next = aft,  pre->next = vtx";
-
-		Code[5][0] = "Node* vtx = new Node(v)";
-		Code[5][1] = "tail->next = vtx";
-		Code[5][2] = "tail = vtx";
+		Code[3][0] = "if (head == null)";
+		Code[3][1] = "Node* vtx = new Node(v), vtx->next = vtx, head = vtx";
+		Code[3][2] = "else ";
+		Code[3][3] = "{";
+		Code[3][4] = "	Node* pre = head";
+		Code[3][5] = "	for (k = 0; k < i - 1; k++)";
+		Code[3][6] = "	   pre = pre->next";
+		Code[3][7] = "	Node* aft = pre->next, Node* vtx = new Node(v)";
+		Code[3][8] = "	vtx->next = aft,  pre->next = vtx";
+		Code[3][9] = "}";
 	}
 
 	// fake Code for Update
 	{
-		Code[6][0] = "if (head == null) return";
-		Code[6][1] = "Node* temp = head";
-		Code[6][2] = "for (k = 0; k < i ; k++)";
-		Code[6][3] = "	   temp = temp->next";
-		Code[6][4] = "temp->data=new data";
+		Code[4][0] = "if (head == null) return";
+		Code[4][1] = "Node* temp = head";
+		Code[4][2] = "for (k = 0; k < i ; k++)";
+		Code[4][3] = "	   temp = temp->next";
+		Code[4][4] = "temp->data=new data";
 	}
 
 	// fake Code for Search
 	{
-		Code[7][0] = "if (head == null) return NOT_FOUND";
-		Code[7][1] = "index = 0, Node* temp = head";
-		Code[7][2] = "while (temp.item != v)";
-		Code[7][3] = "index++, temp = temp->next";
-		Code[7][4] = "if (temp == null) return NOT_FOUND";
-		Code[7][5] = "return index";
+		Code[5][0] = "if empty, return NOT_FOUND";
+		Code[5][1] = "index = 0, Node* temp = head";
+		Code[5][2] = "while (temp.item != v)";
+		Code[5][3] = "index++, temp = temp->next";
+		Code[5][4] = "if (temp == head) return NOT_FOUND";
+		Code[5][5] = "return index";
 	}
 }
 
@@ -104,7 +117,7 @@ void Animation_Circle::cloneList()   //copy linked list
 
 		DisplayCur.NodeCovert(&l->Round_Node[j]);
 
-		if (j != 0 && j != l->Size - 1) DisplayCur.PosText.setString("");
+		if (j != 0) DisplayCur.PosText.setString("");
 
 		DisplayRecord[step].push_back(DisplayCur);
 	}
@@ -192,8 +205,6 @@ void Animation_Circle::MakeFillIndex(int n, Color color)   // n<l.Size
 
 void Animation_Circle::MakeChoosenUpTo(int u, int v)  //	u<=v<l.Size
 {
-	cloneList();
-
 	if (v < 0 || u < 0) return;
 
 	for (int i = u; i <= v; i++)
@@ -212,6 +223,8 @@ void Animation_Circle::MakeChoosenUpTo(int u, int v)  //	u<=v<l.Size
 			step++;
 		}
 
+
+
 	}
 }
 
@@ -219,38 +232,59 @@ void Animation_Circle::Del_pos(int v)
 {
 	v = min(v, l->Size - 1);
 
+	cloneList();
+
 	if (!v) // Head
 	{
 		eventType = E_DelHead;
 
-		MakeChoosenUpTo(0, v - 1);
+		MakeChoosenUpTo(0, l->Size - 1);
 
-		DisplayRecordStringId[step - 1] = -1;
+		DisplayRecordStringId[0] = -1;
 
 		MakeFillIndex(v, Color::Red);
-
-		DisplayRecordStringId[step - 1] = 1;
+		if (l->Size == 1) DisplayRecordStringId[1] = 1;
+		else
+		{
+			DisplayRecordStringId[1] = 4;
+			for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 6; else DisplayRecordStringId[i] = 5;
+		}
+		
+		if (l->Size == 1) DisplayRecordStringId[step-1] = 1;
+		else DisplayRecordStringId[step - 1] = 7;
 
 		cloneState();  // dissolve
 		DisplayRecord[step][v].Dissolve();
 		if (v + 1 < l->Size) DisplayRecord[step][v].body.setPosition(DisplayRecord[step][v + 1].body.getPosition());
-		if (l->Size > 1) DisplayRecord[step][1].PosText.setString("Head");
-
-		HeadPos[step] = 1;	TailPos[step] = l->Size - 1;
+		if (l->Size > 1)
+		{
+			DisplayRecord[step][1].PosText.setString("Head");
+			HeadPos[step] = 1;	TailPos[step] = l->Size - 1;
+		} else HeadPos[step] = TailPos[step] = - 1;
 
 		CalculatePos(step);
-		step++; DisplayRecordStringId[step - 1] = 2;
+		step++; 
+
+		if (l->Size == 1) DisplayRecordStringId[step-1] = 1;
+		else DisplayRecordStringId[step-1] = 7;
 
 		cloneState();
 
 		for (int i = v + 1; i < DisplayRecordSize[step]; i++) DisplayRecord[step][i].body.setPosition(DisplayRecord[step][i].body.getPosition() - Vector2f(l->Distance, 0));
 
 		DisplayRecord[step][v].Dissolve();
-		if (l->Size > 1) DisplayRecord[step][1].PosText.setString("Head");
+		if (l->Size > 1)
+		{
+			DisplayRecord[step][1].PosText.setString("Head");
+			HeadPos[step] = 1;	TailPos[step] = l->Size - 1;
+		} else HeadPos[step] = TailPos[step] = -1;
 
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 2;
+		step++;
+		
+		if (l->Size == 1) DisplayRecordStringId[step - 1] = 1;
+		else DisplayRecordStringId[step - 1] = 8;
 	}
 	else
 		if (v < l->Size - 1)  //Middle
@@ -260,19 +294,23 @@ void Animation_Circle::Del_pos(int v)
 			MakeChoosenUpTo(0, v - 1);
 
 			DisplayRecordStringId[0] = -1;
-			DisplayRecordStringId[1] = 1;
 
-			for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
+			if (l->Size == 1) DisplayRecordStringId[1] = 1;
+			else
+			{
+				DisplayRecordStringId[1] = 4;
+				for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 6; else DisplayRecordStringId[i] = 5;
+			}
 
 			MakeFillIndex(v, Color::Red);
-			DisplayRecordStringId[step - 1] = 4;
+			DisplayRecordStringId[step - 1] = 7;
 
 			cloneState();  // dissolve
 			DisplayRecord[step][v].Dissolve();
 			if (v + 1 < l->Size) DisplayRecord[step][v].body.setPosition(DisplayRecord[step][v + 1].body.getPosition());
 
 			CalculatePos(step);
-			step++; DisplayRecordStringId[step - 1] = 5;
+			step++; DisplayRecordStringId[step - 1] = 8;
 
 
 			cloneState();
@@ -283,27 +321,7 @@ void Animation_Circle::Del_pos(int v)
 
 			CalculatePos(step);
 
-			step++; DisplayRecordStringId[step - 1] = 5;
-		}
-		else  //Tail
-		{
-			eventType = E_DelTail;
-			MakeChoosenUpTo(0, v - 1);
-			DisplayRecordStringId[0] = -1;
-			DisplayRecordStringId[1] = 1;
-
-			for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
-
-			MakeFillIndex(v, Color::Red);
-
-			cloneState();
-			DisplayRecord[step][v].Dissolve();
-			if (v) DisplayRecord[step][v].body.setPosition(DisplayRecord[step][v - 1].body.getPosition());
-
-			HeadPos[step] = 0;	TailPos[step] = l->Size - 2;
-
-			CalculatePos(step);
-			step++; DisplayRecordStringId[step - 1] = 4;
+			step++; DisplayRecordStringId[step - 1] = 8;
 		}
 }
 
@@ -313,64 +331,9 @@ void Animation_Circle::Add_pos(int v, int data)
 
 	string s = to_string(data);
 
-	if (v > l->Size - 1)
-	{	//tail
-		eventType = E_AddTail;
+	cloneList();
 
-		v = min(v, l->Size - 1);
-		MakeChoosenUpTo(-1, -1);
-		DisplayRecordStringId[0] = -1;
-
-		//make node appear
-
-		AdditionPos[step] = -1;
-
-		MakeFillIndex(v, Color::Green); step--;
-
-		DisplayNode_Circle DisplayCur = DisplayRecord[step][v];
-
-		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance, -150));
-		DisplayCur.body.setFillColor(Color::Magenta);
-		DisplayCur.NextPos = &DisplayCur;
-		DisplayCur.text.setString(s);
-		DisplayCur.PosText.setString("");
-
-		AdditionalNode[step] = DisplayCur;
-		CalculatePos(step);
-
-		step++; DisplayRecordStringId[step - 1] = 0;
-
-		//make node point
-		cloneState();
-
-		DisplayRecord[step][v].NextPos = &AdditionalNode[step];
-		DisplayRecord[step][v].line.setFillColor(DisplayRecord[step][v].ChosenColor);
-		DisplayRecord[step][v].arrow_head.setFillColor(DisplayRecord[step][v].ChosenColor);
-		CalculatePos(step);
-
-		step++; DisplayRecordStringId[step - 1] = 1;
-
-		cloneState();
-
-		HeadPos[step] = 0;	TailPos[step] = l->Size + 1;
-
-		AdditionalNode[step].body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance, 0));
-
-		DisplayRecord[step][v].NextPos = &AdditionalNode[step];
-
-		CalculatePos(step);
-
-		step++; DisplayRecordStringId[step - 1] = 1;
-
-		cloneState();
-
-		DisplayRecord[step][v].NextPos = &AdditionalNode[step];
-
-		CalculatePos(step);
-
-		step++; DisplayRecordStringId[step - 1] = 2;
-	}
-	else if (v > 0)
+	if (v > 0)
 	{
 		//middle
 
@@ -379,11 +342,13 @@ void Animation_Circle::Add_pos(int v, int data)
 
 		MakeChoosenUpTo(0, v - 1);
 		DisplayRecordStringId[0] = -1;
-		DisplayRecordStringId[1] = 0;
 
-		for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 2; else DisplayRecordStringId[i] = 1;
+		DisplayRecordStringId[1] = 4;
+		for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 5; else DisplayRecordStringId[i] = 6;
 
-		MakeFillIndex(v, Color::Green);		DisplayRecordStringId[step - 1] = 3;
+		MakeFillIndex(v, Color::Green);		
+
+		DisplayRecordStringId[step - 1] = 7;
 
 		//make node appear
 
@@ -400,7 +365,7 @@ void Animation_Circle::Add_pos(int v, int data)
 		AdditionalNode[step] = DisplayCur;
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 4;
+		step++; DisplayRecordStringId[step - 1] = 7;
 
 		//make node point
 		cloneState();
@@ -412,7 +377,7 @@ void Animation_Circle::Add_pos(int v, int data)
 
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 5;
+		step++; DisplayRecordStringId[step - 1] = 8;
 
 		//move
 		cloneState();
@@ -425,7 +390,7 @@ void Animation_Circle::Add_pos(int v, int data)
 		AdditionalNode[step].NextPos = &DisplayRecord[step][v];
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 5;
+		step++; DisplayRecordStringId[step - 1] = 8;
 	}
 	else
 	{
@@ -455,13 +420,20 @@ void Animation_Circle::Add_pos(int v, int data)
 		step++; DisplayRecordStringId[step - 1] = 0;
 
 		//make node point to head
+		MakeChoosenUpTo(0, l->Size-1);
+			
+		DisplayRecordStringId[2] = 5;
+		for (int i = 3; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 6; else DisplayRecordStringId[i] = 7;
+
 		MakeFillIndex(v, Color::Green); step--;
 
 		AdditionalNode[step].NextPos = &DisplayRecord[step][0]; AdditionPos[step] = 0;
 
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 1;
+		step++; 
+
+		DisplayRecordStringId[step - 1] = 8;
 
 		cloneState();
 
@@ -472,28 +444,31 @@ void Animation_Circle::Add_pos(int v, int data)
 		
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 1;
+		step++; 
+		
+		DisplayRecordStringId[step - 1] = 8;
 
 		cloneState();
 		HeadPos[step] = l->Size + 1;	TailPos[step] = l->Size - 1;
 		AdditionalNode[step].PosText.setString("Head");
 		AdditionalNode[step].NextPos = &DisplayRecord[step][0];
 
-		if (l->Size)
-		{
-			DisplayRecord[step][0].PosText.setString("");
-		}
+		if (l->Size) DisplayRecord[step][0].PosText.setString("");
 
 		AdditionPos[step] = 0;
 		CalculatePos(step);
 
-		step++; DisplayRecordStringId[step - 1] = 2;
+		step++; 
+		
+		DisplayRecordStringId[step - 1] = 8;
 	}
 }
 
 void Animation_Circle::Upd_pos(int v, int data)
 {
 	eventType = E_Update;
+
+	cloneList();
 
 	MakeChoosenUpTo(0, v); DisplayRecordStringId[0] = -1;
 	DisplayRecordStringId[1] = 1;
@@ -512,6 +487,8 @@ void Animation_Circle::Upd_pos(int v, int data)
 void Animation_Circle::Ser_pos(int v)
 {
 	eventType = E_Search;
+
+	cloneList();
 
 	if (v == -1)
 	{
@@ -571,25 +548,28 @@ void Animation_Circle::drawSmoothTransition(int start, int end, float progress, 
 		interpolated_nodes.back().CalculateLine(&interpolated_nodes[AdditionPos[start]]);
 	}
 
+	int curSize = interpolated_nodes.size();
+
 	//line back
 	Vector2f pos1, pos2;
 	Vector2f start1, start2;
 
-	if (HeadPos[end] >= l->Size) pos1 = interpolated_nodes.back().body.getPosition(); else 
-		if (HeadPos[end]<0)  pos1 = Vector2f(-2000, -2000); else 
-			pos1 = interpolated_nodes[HeadPos[end]].body.getPosition();
+		if (HeadPos[end] >= curSize) pos1 = interpolated_nodes.back().body.getPosition(); else
+			if (HeadPos[end] < 0)  pos1 = Vector2f(-4000, -2000); else
+				pos1 = interpolated_nodes[HeadPos[end]].body.getPosition();
 
-	if (TailPos[end] >= l->Size) pos2 = interpolated_nodes.back().body.getPosition(); else 
-		if (TailPos[end] < 0)  pos2 = Vector2f(-2000, -2000); else
-			pos2 = interpolated_nodes[TailPos[end]].body.getPosition();
+		if (TailPos[end] >= curSize) pos2 = interpolated_nodes.back().body.getPosition(); else
+			if (TailPos[end] < 0)  pos2 = Vector2f(-4000, -2000); else
+				pos2 = interpolated_nodes[TailPos[end]].body.getPosition();
+	
 
-	if (HeadPos[start] >= l->Size) start1 = interpolated_nodes.back().body.getPosition(); else
-		if (HeadPos[start] < 0)  start1 = Vector2f(-2000, -2000); else
-			start1 = interpolated_nodes[HeadPos[start]].body.getPosition();
+		if (HeadPos[start] >= curSize) start1 = interpolated_nodes.back().body.getPosition(); else
+			if (HeadPos[start] < 0)  start1 = Vector2f(-4000, -2000); else
+				start1 = interpolated_nodes[HeadPos[start]].body.getPosition();
 
-	if (TailPos[start] >= l->Size) start2 = interpolated_nodes.back().body.getPosition(); else
-		if (TailPos[start] < 0)  start2 = Vector2f(-2000, -2000); else
-			start2 = interpolated_nodes[TailPos[start]].body.getPosition();
+		if (TailPos[start] >= curSize) start2 = interpolated_nodes.back().body.getPosition(); else
+			if (TailPos[start] < 0)  start2 = Vector2f(-4000, -2000); else
+				start2 = interpolated_nodes[TailPos[start]].body.getPosition();
 
 	float t = progress;
 

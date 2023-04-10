@@ -135,23 +135,39 @@ void App::update()
 				if (this->btn_Dynamic_Array->isPressed())
 				{
 					AppState = app_dynamic_array, Mn_Dynamic_Array->stat = on;
+					Mn_Dynamic_Array->theme = this->theme;
+					Mn_Dynamic_Array->sizeId = this->sizeId;
 				}
 				else
-			if (this->btn_Linked_List_Singly->isPressed()) AppState = app_linked_list, Mn_Linked_List->stat = on; else
+					if (this->btn_Linked_List_Singly->isPressed())
+					{
+						AppState = app_linked_list, Mn_Linked_List->stat = on;
+						Mn_Linked_List->theme = this->theme;
+						Mn_Linked_List->sizeId = this->sizeId;
+					}
+					else
 				if (this->btn_Linked_List_Doubly->isPressed())
 				{
 					AppState = app_linked_list_D, Mn_Linked_List_Doubly->stat = on; 
-					Mn_Linked_List->theme = this->theme;
-					Mn_Linked_List->sizeId = this->sizeId;
-				}else
-			if (this->btn_Linked_List_Cirly->isPressed()) AppState = app_linked_list_C, Mn_Linked_List_Cirly->stat = on; else
+					Mn_Linked_List_Doubly->theme = this->theme;
+					Mn_Linked_List_Doubly->sizeId = this->sizeId;
+				}
+				else
+					if (this->btn_Linked_List_Cirly->isPressed())
+					{
+						AppState = app_linked_list_C, Mn_Linked_List_Cirly->stat = on;
+						Mn_Linked_List_Cirly->theme = this->theme;
+						Mn_Linked_List_Cirly->sizeId = this->sizeId;
+					}
+					else
+
 				if (this->btn_Queue->isPressed())
 				{
 					AppState = app_queue, Mn_Queue->stat = on; 
 					Mn_Queue->theme = this->theme;
 					Mn_Queue->sizeId = this->sizeId;
 				}
-			else
+				else
 					if (this->btn_Stack->isPressed())
 					{
 						AppState = app_stack, Mn_Stack->stat = on;
@@ -166,12 +182,16 @@ void App::update()
 		case app_static_array:
 			Mn_Static_Array->update(mousePosWindowf);
 			if (!Mn_Static_Array->stat) AppState = app_main;
+			this->theme = Mn_Static_Array->theme;
+			this->sizeId = Mn_Static_Array->theme;
 
 			break;
 
 		case app_dynamic_array:
 			Mn_Dynamic_Array->update(mousePosWindowf);
 			if (!Mn_Dynamic_Array->stat) AppState = app_main;
+			this->theme = Mn_Dynamic_Array->theme;
+			this->sizeId = Mn_Dynamic_Array->theme;
 			break;
 
 		case app_linked_list:
@@ -184,11 +204,15 @@ void App::update()
 		case app_linked_list_D:
 			Mn_Linked_List_Doubly->update(mousePosWindowf);
 			if (!Mn_Linked_List_Doubly->stat) AppState = app_main;
+			this->theme = Mn_Linked_List_Doubly->theme;
+			this->sizeId = Mn_Linked_List_Doubly->theme;
 			break;
 
 		case app_linked_list_C:
 			Mn_Linked_List_Cirly->update(mousePosWindowf);
 			if (!Mn_Linked_List_Cirly->stat) AppState = app_main;
+			this->theme = Mn_Linked_List_Cirly->theme;
+			this->sizeId = Mn_Linked_List_Cirly->theme;
 			break;
 
 		case app_queue:

@@ -814,7 +814,6 @@ void LinkedList::render(RenderWindow* window)
 
         case isCircle:
         {
-
             for (int i = 0; i < Round_Node.size(); i++) Round_Node[i].body.setPosition(Vector2f(original + between * i, 600));
             
             CalBack(Round_Node[0].body.getPosition(), Round_Node.back().body.getPosition());
@@ -859,6 +858,27 @@ void LinkedList::change(int sizeId, bool theme)
     case isCircle:
         for (int i = 0; i < Round_Node.size(); i++)
             Round_Node[i].change(sizeId, theme);
+
+        if (Round_Node.size())
+        {
+            if (theme)
+            {
+                line1.setFillColor(Round_Node[0].LineColor_D);
+                line2.setFillColor(Round_Node[0].LineColor_D);
+                line3.setFillColor(Round_Node[0].LineColor_D);
+                line4.setFillColor(Round_Node[0].LineColor_D);
+                arrow.setFillColor(Round_Node[0].LineColor_D);
+            }
+            else
+            {
+                line1.setFillColor(Round_Node[0].LineColor);
+                line2.setFillColor(Round_Node[0].LineColor);
+                line3.setFillColor(Round_Node[0].LineColor);
+                line4.setFillColor(Round_Node[0].LineColor);
+                arrow.setFillColor(Round_Node[0].LineColor);
+            }
+        }
+
         break;
     }
 }

@@ -115,12 +115,12 @@ public:
 
 	Color CodeBoxColor = Color(252, 142, 172);
 
-	Vector2f FakeCodeSize = Vector2f(600, 50);
-	Vector2f FakeCodePos = Vector2f(800, 150);
+	Vector2f FakeCodeSize = Vector2f(650, 40);
+	Vector2f FakeCodePos;
 
 private:
 
-	enum evType { E_DelHead = 0, E_DelMiddle = 1, E_DelTail = 2, E_AddHead = 3, E_AddMiddle = 4, E_AddTail = 5, E_Update = 6, E_Search = 7 };
+	enum evType { E_DelHead = 0, E_DelMiddle = 1, E_AddHead = 2, E_AddMiddle = 3, E_Update = 4, E_Search = 5 };
 
 	Event* event;
 	LinkedList* l;
@@ -135,9 +135,9 @@ private:
 
 	//fake codes
 
-	int fakeId[8] = {3,6,5,3,6,3,5,6};
+	int fakeId[6] = {10,10,10,10,5,6};
 
-	string Code[8][7];
+	string Code[6][11];
 
 	// transition
 	void Link(int cur);

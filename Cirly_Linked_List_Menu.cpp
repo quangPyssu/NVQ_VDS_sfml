@@ -256,7 +256,6 @@ void Cirly_Linked_List_Menu::drawTrans(int start, int end, short CodeStatus)
 
 void Cirly_Linked_List_Menu::drawFrom(int Current, bool hasHead)
 {
-	cout << "Step " << anime->step << endl;
 	isDrawing = DrawStep;
 
 	if (!tog_speed->Toggled())
@@ -267,7 +266,7 @@ void Cirly_Linked_List_Menu::drawFrom(int Current, bool hasHead)
 			if (!i && !hasHead) CodeStatus = anime->Appear; else
 				if (i == anime->step - 1)  CodeStatus = anime->Disappear;
 
-			anime->curStep = i;
+			anime->curStep = i;			
 
 			if (i)
 			{
@@ -280,7 +279,7 @@ void Cirly_Linked_List_Menu::drawFrom(int Current, bool hasHead)
 
 			if (i == anime->step - 1) end = i;
 
-			drawTrans(start, end, CodeStatus);
+			drawTrans(start, end, CodeStatus); 
 		}
 	}
 
@@ -458,7 +457,11 @@ void Cirly_Linked_List_Menu::update_add()
 
 		anime->clearAll();
 
-		anime->Add_pos(add_data_pos, add_data_val);
+		if (l.Size)
+		{
+			add_data_pos = add_data_pos % l.Size;
+			anime->Add_pos(add_data_pos, add_data_val);
+		}
 
 		l.addKth(New(add_data_val), add_data_pos);
 
