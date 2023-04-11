@@ -99,8 +99,6 @@ public:
 	void render();
 	void drawOneStep(int i);
 
-	void calBack(Vector2f PosHead,Vector2f PosTail);
-
 	void drawFakeCode(int cur,float posX);
 
 	void drawSmoothTransition(int start, int end, float progress,short CodeStatus);

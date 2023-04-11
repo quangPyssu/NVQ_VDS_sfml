@@ -118,7 +118,7 @@ public:
 
 	Color CodeBoxColor = Color(252, 142, 172);
 
-	Vector2f FakeCodeSize = Vector2f(800, 50);
+	Vector2f FakeCodeSize = Vector2f(600, 50);
 	Vector2f FakeCodePos = Vector2f(800, 150);
 
 private:
@@ -138,7 +138,7 @@ private:
 
 	//fake codes
 
-	int fakeId[8] = {3,6,5,3,6,3,5,6};
+	int fakeId[8] = {4,6,3,3,6,3,5,6};
 
 	string Code[8][7];
 

@@ -17,8 +17,8 @@ Animation_Circle::Animation_Circle(Event* event, LinkedList* l, RenderWindow* wi
 	CodeBox.setPosition(FakeCodePos);
 	FakeCode.setFillColor(Color::White);
 	FakeCode.setCharacterSize(FakeCodeSize.y / 2+1);
-	FakeCode.setOutlineThickness(1);
-	FakeCode.setOutlineColor(Color::Black);
+	//FakeCode.setOutlineThickness(1);
+	//FakeCode.setOutlineColor(Color::Black);
 	FakeCode.setFont(Fonte);
 
 	// fake Code for Delete

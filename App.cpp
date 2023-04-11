@@ -42,7 +42,7 @@ App::App()
 	Mn_Stack = new Stack_Menu(&event, window);
 	Mn_Queue = new Queue_Menu(&event, window);
 
-	window->setFramerateLimit(30);
+	window->setFramerateLimit(60);
 	Render();
 	window->display();
 

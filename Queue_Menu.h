@@ -134,7 +134,7 @@ private:
 	Clock clock;
 	void stop(float i);
 
-	float StepTime = 0.1;
+	float StepTime = 0.5;
 	float frame = 20;
 	float FrameTime = StepTime / frame;
 	float frameStep = 1 / frame;

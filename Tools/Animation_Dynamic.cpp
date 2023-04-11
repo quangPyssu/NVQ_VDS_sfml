@@ -183,7 +183,8 @@ void Animation_Dynamic::Ser_pos(int v)
 	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
 	MakeFillIndex(v, Color::Cyan);
-	DisplayRecordStringId[step - 2] = 5;
+	DisplayRecordStringId[step - 2] = 2;
+	DisplayRecordStringId[step - 1] = 5;
 }
 
 void Animation_Dynamic::Grow_pos(int v)

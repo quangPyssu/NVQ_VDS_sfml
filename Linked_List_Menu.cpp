@@ -359,11 +359,16 @@ void Linked_List_Menu::update_init()
 		{
 		case init_empty:
 			l.delAll();
+			anime->clearAll();
+			isDrawing = DrawNormal;
 			
 			break;
 
 		case init_random:
 			l.delAll();
+			anime->clearAll();
+			isDrawing = DrawNormal;
+
 			n = 3+(rand() % 3);
 			for (int i = 0; i < n; i++) l.addHead((New(rand() % 100)));
 			break;
@@ -375,6 +380,9 @@ void Linked_List_Menu::update_init()
 				{
 					n = init_data_size;
 					l.delAll();
+					anime->clearAll();
+					isDrawing = DrawNormal;
+
 					for (int i = 0; i < n; i++) l.addHead((New(rand() % 100)));
 				}
 				init_data_size = nothing;
@@ -385,6 +393,8 @@ void Linked_List_Menu::update_init()
 		case init_read:
 			init_get.StringFilter(box_init_read->input_text);
 			l.delAll();
+			anime->clearAll();
+			isDrawing = DrawNormal;
 
 			for (int i : init_get.init_data) l.addTail(New(i));
 
@@ -396,6 +406,9 @@ void Linked_List_Menu::update_init()
 			if (Fin.is_open())
 			{
 				l.delAll();
+				anime->clearAll();
+				isDrawing = DrawNormal;
+
 				int n; Fin >> n;
 				for (int i = 0; i < n; i++)
 				{

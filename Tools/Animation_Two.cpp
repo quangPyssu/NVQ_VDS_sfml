@@ -35,9 +35,7 @@ Animation_Two::Animation_Two(Event* event, LinkedList* l, RenderWindow* window)
 
 		Code[2][0] = "if (head==null) return";
 		Code[2][1] = "Node* temp = tail";
-		Code[2][2] = "tail = tail.prev";
-		Code[2][3] = "tail->next = null, delete temp";
-
+		Code[2][2] = "tail = tail.prev, tail->next = null, delete temp";
 	}
 
 	// fake Code for Add
@@ -364,13 +362,11 @@ void Animation_Two::Del_pos(int v)
 		else  //Tail
 		{
 			eventType = E_DelTail;
-			MakeChoosenUpTo(0, v - 1);
+			MakeChoosenUpTo(0, -1);
 			DisplayRecordStringId[0] = -1;
-			DisplayRecordStringId[1] = 1;
-
-			for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
 			MakeFillIndex(v, Color::Red);
+			DisplayRecordStringId[step - 1] = 1;
 
 			cloneState();
 			DisplayRecord[step][v].Dissolve();
@@ -378,7 +374,7 @@ void Animation_Two::Del_pos(int v)
 			if (l->Size > 1) DisplayRecord[step][v - 1].PosText.setString("Tail");
 
 			CalculatePos(step);
-			step++; DisplayRecordStringId[step-1] = 4;
+			step++; DisplayRecordStringId[step-1] = 2;
 		}
 }
 
