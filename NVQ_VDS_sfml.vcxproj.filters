@@ -96,6 +96,9 @@
     <ClCompile Include="Tools\Animation_Circle.cpp">
       <Filter>Tools\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\Slider.cpp">
+      <Filter>Tools\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Static_Array_Menu.h">
@@ -159,6 +162,9 @@
       <Filter>Tools\Header</Filter>
     </ClInclude>
     <ClInclude Include="Tools\Animation_Circle.h">
+      <Filter>Tools\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Slider.h">
       <Filter>Tools\Header</Filter>
     </ClInclude>
   </ItemGroup>

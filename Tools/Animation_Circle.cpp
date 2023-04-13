@@ -287,7 +287,7 @@ void Animation_Circle::Del_pos(int v)
 		else DisplayRecordStringId[step - 1] = 8;
 	}
 	else
-		if (v < l->Size - 1)  //Middle
+		//if (v < l->Size - 1)  //Middle
 		{
 			eventType = E_DelMiddle;
 
@@ -468,9 +468,9 @@ void Animation_Circle::Upd_pos(int v, int data)
 {
 	eventType = E_Update;
 
-	cloneList();
+	cloneList(); 
 
-	MakeChoosenUpTo(0, v); DisplayRecordStringId[0] = -1;
+	MakeChoosenUpTo(0, v); DisplayRecordStringId[0] = -1;cout << "dfk " << endl;
 	DisplayRecordStringId[1] = 1;
 
 	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;

@@ -74,6 +74,11 @@ Queue_Menu::Queue_Menu(Event* event, RenderWindow* window)
 		this->tog_change_color->s2 = "Dark Mode";
 	}
 
+	// Slider speed;
+	{
+		Slide_Render_Speed = new Slider({ (float)tog_change_color->pos_x + tog_change_color->size_x + 10, (float)tog_change_color->pos_y + tog_change_color->size_y / 2 - 5 }, { 100,20 }, Color::Black, Color::Color(200, 120, 10), Color::Color(139, 64, 0), "Render Speed: x", 1, 5);
+	}
+
 	// Back display
 	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
 
@@ -145,6 +150,10 @@ Queue_Menu::~Queue_Menu()
 
 	delete box_add_val;
 
+	//Slider
+
+	delete Slide_Render_Speed;
+
 	// Linked list
 
 	l.delAll();
@@ -185,6 +194,7 @@ void Queue_Menu::drawFrom(int Current, bool hasHead)
 
 	if (!tog_speed->Toggled())
 	{
+		FrameTime = StepTime / frame;
 		for (int i = Current; i < anime->step; i++)
 		{
 
@@ -227,6 +237,8 @@ void Queue_Menu::Render()
 	this->btn_back->render(window);
 
 	this->tog_speed->render(window);
+
+	this->Slide_Render_Speed->render(window);
 
 	if (anime->step)
 	{
@@ -473,6 +485,9 @@ void Queue_Menu::update(const Vector2f mousePos)
 		isDrawing = DrawNormal;
 	}
 	else Toggle_Group_Queue.filter(mousePos, event);
+
+	Slide_Render_Speed->update(event, mousePos);
+	StepTime = (1 - Slide_Render_Speed->value) * baseTime;
 
 	//Time travel
 

@@ -9,6 +9,7 @@
 #include "Tools/LinkedList.h"
 #include "Tools/StringProccess.h"
 #include "Tools/Animation_Queue.h"
+#include "Tools/Slider.h"
 
 using namespace sf;
 
@@ -116,6 +117,10 @@ private:
 	Button* btn_change_size;
 	ToggleButton* tog_change_color;
 
+	//Slider
+
+	Slider* Slide_Render_Speed;
+
 	//Drawzie
 	RenderWindow* window;
 	Event* event;
@@ -134,6 +139,7 @@ private:
 	Clock clock;
 	void stop(float i);
 
+	float baseTime = 0.5;
 	float StepTime = 0.5;
 	float frame = 20;
 	float FrameTime = StepTime / frame;

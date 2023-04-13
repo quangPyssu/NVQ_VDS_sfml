@@ -99,7 +99,7 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 	// make btn for Time travel;
 
 	{
-		this->tog_speed = new ToggleButton(1250, 20, 0, 0, 2, "Slow Speed", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+		this->tog_speed = new ToggleButton(1250, 20, 0, 0, 2, "Step by Step", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 		this->btn_change_size = new Button(1250 + tog_speed->size_x + 5, tog_speed->pos_y, 0, 0, "Size Change", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 		this->tog_change_color = new ToggleButton(btn_change_size->pos_x + btn_change_size->size_x + 5, tog_speed->pos_y, 0, 0, 2, "Light Mode", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 
@@ -107,15 +107,21 @@ Linked_List_Menu::Linked_List_Menu(Event* event, RenderWindow* window)
 		this->tog_play = new ToggleButton(btn_step_prev->pos_x + btn_step_prev->size_x + 5, btn_step_prev->pos_y, 0, 0, 2, "Play", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 		this->btn_step_next = new Button(tog_play->pos_x + tog_play->size_x + 5, btn_step_prev->pos_y, 0, 0, "Step Forward", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
-		this->tog_speed->s2 = "Fast Speed";
+		this->tog_speed->s2 = "Instant speed";
 		this->tog_change_color->s2 = "Dark Mode";
 	}
 
-	// Back display
+	// Slider speed;
+	{
+		Slide_Render_Speed = new Slider({ (float)tog_change_color->pos_x + tog_change_color->size_x + 10, (float)tog_change_color->pos_y + tog_change_color->size_y / 2-5 }, { 100,20 }, Color::Black, Color::Color(200,120,10), Color::Color(139, 64, 0), "Render Speed: x", 1, 5);
+	}
 
-	tet.loadFromFile("asset/texture/cream.jpg");
-	sprite.setTexture(tet);
-	sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
+	// Back display
+	{
+		tet.loadFromFile("asset/texture/cream.jpg");
+		sprite.setTexture(tet);
+		sprite.setScale(Vector2f(1920.f / tet.getSize().x, 1080.f / tet.getSize().y));
+	}
 
 	// Instruction
 	{
@@ -202,6 +208,10 @@ Linked_List_Menu::~Linked_List_Menu()
 
 	delete box_ser_val;
 
+	//Slider
+
+	delete Slide_Render_Speed;
+
 	// Linked list
 
 	l.delAll();
@@ -242,6 +252,7 @@ void Linked_List_Menu::drawFrom(int Current,bool hasHead)
 
 	if (!tog_speed->Toggled())
 	{
+		FrameTime = StepTime / frame;
 		for (int i = Current; i < anime->step; i++)
 		{
 			short CodeStatus=0;
@@ -284,6 +295,8 @@ void Linked_List_Menu::Render()
 	this->btn_back->render(window);
 
 	this->tog_speed->render(window);
+
+	this->Slide_Render_Speed->render(window);
 
 	if (anime->step)
 	{
@@ -599,8 +612,11 @@ void Linked_List_Menu::update(const Vector2f mousePos)
 	}
 	else Toggle_Group_Linked_List.filter(mousePos, event);
 
-	//Time travel
+	Slide_Render_Speed->update(event, mousePos);
+	StepTime = (1-Slide_Render_Speed->value) * baseTime;
 
+	//Time travel
+	
 	this->tog_speed->update(mousePosWindowf, event);
 	this->btn_change_size->update(mousePosWindowf, event);
 	this->tog_change_color->update(mousePosWindowf, event);

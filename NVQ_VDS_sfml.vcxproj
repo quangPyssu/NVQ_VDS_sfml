@@ -159,6 +159,7 @@
     <ClCompile Include="Tools\Animation_Two.cpp" />
     <ClCompile Include="Tools\Button.cpp" />
     <ClCompile Include="Tools\LinkedList.cpp" />
+    <ClCompile Include="Tools\Slider.cpp" />
     <ClCompile Include="Tools\StringProccess.cpp" />
     <ClCompile Include="Tools\TextBox.cpp" />
     <ClCompile Include="Tools\ToggleButton.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Tools\Animation_Two.h" />
     <ClInclude Include="Tools\Button.h" />
     <ClInclude Include="Tools\LinkedList.h" />
+    <ClInclude Include="Tools\Slider.h" />
     <ClInclude Include="Tools\StringProccess.h" />
     <ClInclude Include="Tools\TextBox.h" />
     <ClInclude Include="Tools\ToggleButton.h" />
