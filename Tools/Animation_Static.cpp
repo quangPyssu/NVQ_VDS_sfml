@@ -176,7 +176,7 @@ void Animation_Static::Ser_pos(int v)
 	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
 	MakeFillIndex(v, Color::Cyan);
-	DisplayRecordStringId[step - 2] = 5;
+	DisplayRecordStringId[step - 1] = 5;
 }
 
 void Animation_Static::drawSmoothTransition(int start, int end, float progress,short CodeStatus)

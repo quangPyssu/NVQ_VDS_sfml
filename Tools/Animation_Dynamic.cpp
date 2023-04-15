@@ -183,7 +183,6 @@ void Animation_Dynamic::Ser_pos(int v)
 	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
 	MakeFillIndex(v, Color::Cyan);
-	DisplayRecordStringId[step - 2] = 2;
 	DisplayRecordStringId[step - 1] = 5;
 }
 
@@ -209,33 +208,16 @@ void Animation_Dynamic::Grow_pos(int v)
 
 	cloneState();
 
-	for (int i = 0; i < v * 2; i++)
-	{
-		DisplayRecord[step][i].body.setOutlineColor(DisplayRecord[step][i].ChosenColor);
-	}
+	for (int i = 0; i < v * 2; i++)	DisplayRecord[step][i].body.setOutlineColor(DisplayRecord[step][i].ChosenColor);
+	for (int i = 0; i < v; i++)	DisplayRecord[step][i + v].text.setString(DisplayRecord[step][i].text.getString());
 
 	step++; DisplayRecordStringId[step - 1] = 1;
 
 	cloneState();
 
-	for (int i = 0; i < v; i++)
-	{
-		DisplayRecord[step][i + v].text.setString(DisplayRecord[step][i].text.getString());
-	}
-
-	step++; DisplayRecordStringId[step - 1] = 1;
-
-	cloneState();
-	step++;
-
-	cloneState();
-
-	for (int i = 0; i < v; i++) DisplayRecord[step][i].Dissolve();
+	for (int i = 0; i < v; i++)	DisplayRecord[step][i].Dissolve();
 	
-	for (int i = v; i < v * 3; i++)
-	{
-		DisplayRecord[step][i].body.setPosition(DisplayRecord[step][i].body.getPosition()+Vector2f(0, -l->Distance));
-	}
+	for (int i = v; i < v * 3; i++)	DisplayRecord[step][i].body.setPosition(DisplayRecord[step][i].body.getPosition()+Vector2f(0, -l->Distance));
 
 	step++; DisplayRecordStringId[step - 1] = 2;
 

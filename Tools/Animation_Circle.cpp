@@ -30,19 +30,18 @@ Animation_Circle::Animation_Circle(Event* event, LinkedList* l, RenderWindow* wi
 		Code[0][4] = "	Node* last = head, Node* tmp=head";
 		Code[0][5] = "	while (last->next != head)";
 		Code[0][6] = "		last = last->next";
-		Code[0][7] = "	delete tmp";
-		Code[0][8] = "	head=head->next, last->next = head";
-		Code[0][9] = "}";
+		Code[0][7] = "	head=head->next, last->next=head ,delete tmp";
+		Code[0][8] = "}";
 
 		Code[1][0] = "if (head==null) return";
-		Code[1][1] = "if (head==head->next) delete head,head=nullptr;";
+		Code[1][1] = "if (head==head->next) delete head, head=nullptr;";
 		Code[1][2] = "else";
 		Code[1][3] = "{";
 		Code[1][4] = "	Node* pre = head";
 		Code[1][5] = "	for (k = 0; k < i - 1; k++)";
 		Code[1][6] = "	     pre = pre->next";
 		Code[1][7] = "	Node* del = pre->next ";
-		Code[1][8] = "	aft = del->next, pre->next = aft, delete del";
+		Code[1][8] = "	aft=del->next, pre->next=aft, delete del";
 		Code[1][9] = "}";
 	}
 
@@ -50,24 +49,24 @@ Animation_Circle::Animation_Circle(Event* event, LinkedList* l, RenderWindow* wi
 	{
 		Code[2][0] = "Node* vtx = new Node(v)";
 		Code[2][1] = "if (head == null)";
-		Code[2][2] = "	vtx->next = vtx, head = vtx";
+		Code[2][2] = "	vtx->next=vtx, head=vtx";
 		Code[2][3] = "else ";
 		Code[2][4] = "{";
 		Code[2][5] = "	Node* last = head";
 		Code[2][6] = "	while (last->next != head)";
 		Code[2][7] = "		last = last->next";
-		Code[2][8] = "	last->next = vtx, vtx->next = head, head = vtx";
+		Code[2][8] = "	last->next=vtx, vtx->next=head, head=vtx";
 		Code[2][9] = "}";
 
 		Code[3][0] = "if (head == null)";
-		Code[3][1] = "Node* vtx = new Node(v), vtx->next = vtx, head = vtx";
+		Code[3][1] = "Node* vtx=new Node(v), vtx->next=vtx, head=vtx";
 		Code[3][2] = "else ";
 		Code[3][3] = "{";
 		Code[3][4] = "	Node* pre = head";
 		Code[3][5] = "	for (k = 0; k < i - 1; k++)";
 		Code[3][6] = "	   pre = pre->next";
-		Code[3][7] = "	Node* aft = pre->next, Node* vtx = new Node(v)";
-		Code[3][8] = "	vtx->next = aft,  pre->next = vtx";
+		Code[3][7] = "	Node* aft=pre->next, Node* vtx=new Node(v)";
+		Code[3][8] = "	vtx->next=aft,  pre->next=vtx";
 		Code[3][9] = "}";
 	}
 
@@ -83,9 +82,9 @@ Animation_Circle::Animation_Circle(Event* event, LinkedList* l, RenderWindow* wi
 	// fake Code for Search
 	{
 		Code[5][0] = "if empty, return NOT_FOUND";
-		Code[5][1] = "index = 0, Node* temp = head";
+		Code[5][1] = "index=0, Node* temp=head";
 		Code[5][2] = "while (temp.item != v)";
-		Code[5][3] = "index++, temp = temp->next";
+		Code[5][3] = "   index++, temp=temp->next";
 		Code[5][4] = "if (temp == head) return NOT_FOUND";
 		Code[5][5] = "return index";
 	}
@@ -284,10 +283,9 @@ void Animation_Circle::Del_pos(int v)
 		step++;
 		
 		if (l->Size == 1) DisplayRecordStringId[step - 1] = 1;
-		else DisplayRecordStringId[step - 1] = 8;
+		else DisplayRecordStringId[step - 1] = 7;
 	}
-	else
-		//if (v < l->Size - 1)  //Middle
+	else //pos mid
 		{
 			eventType = E_DelMiddle;
 
@@ -515,7 +513,7 @@ void Animation_Circle::Ser_pos(int v)
 	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
 	MakeFillIndex(v, Color::Cyan);
-	DisplayRecordStringId[step - 2] = 5;
+	DisplayRecordStringId[step - 1] = 5;
 }
 
 void Animation_Circle::drawSmoothTransition(int start, int end, float progress, short CodeStatus)

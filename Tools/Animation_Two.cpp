@@ -70,7 +70,7 @@ Animation_Two::Animation_Two(Event* event, LinkedList* l, RenderWindow* window)
 		Code[7][0] = "if (head == null) return NOT_FOUND";
 		Code[7][1] = "index = 0, Node* temp = head";
 		Code[7][2] = "while (temp.item != v)";
-		Code[7][3] = "index++, temp = temp->next";
+		Code[7][3] = "   index++, temp = temp->next";
 		Code[7][4] = "if (temp == null) return NOT_FOUND";
 		Code[7][5] = "return index";
 	}
@@ -396,7 +396,7 @@ void Animation_Two::Add_pos(int v, int data)
 
 		AdditionPos[step] = -1;
 
-		MakeFillIndex(v, Color::Green); step--;
+		cloneState();
 
 		DisplayNode_Two DisplayCur = DisplayRecord[step][v];
 
@@ -413,7 +413,8 @@ void Animation_Two::Add_pos(int v, int data)
 		step++; DisplayRecordStringId[step-1] = 0;
 
 		//make node point
-		cloneState();
+
+		MakeFillIndex(v, Color::Green); step--;
 
 		AdditionalNode[step].PrevPos= &DisplayRecord[step][v];
 		AdditionalNode[step].prevId = v;

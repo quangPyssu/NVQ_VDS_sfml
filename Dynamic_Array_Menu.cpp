@@ -53,7 +53,7 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 	// make btn for Time travel;
 
 	{
-		this->tog_speed = new ToggleButton(1250, 20, 0, 0, 2, "Slow Speed", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
+		this->tog_speed = new ToggleButton(1250, 20, 0, 0, 2, "Step by Step", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 		this->btn_change_size = new Button(1250 + tog_speed->size_x + 5, tog_speed->pos_y, 0, 0, "Size Change", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 		this->tog_change_color = new ToggleButton(btn_change_size->pos_x + btn_change_size->size_x + 5, tog_speed->pos_y, 0, 0, 2, "Light Mode", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 
@@ -61,7 +61,7 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 		this->tog_play = new ToggleButton(btn_step_prev->pos_x + btn_step_prev->size_x + 5, btn_step_prev->pos_y, 0, 0, 2, "Play", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), true, Color::Black);
 		this->btn_step_next = new Button(tog_play->pos_x + tog_play->size_x + 5, btn_step_prev->pos_y, 0, 0, "Step Forward", Color::Black, Color::White, Color::Color(90, 90, 90, 155), Color::Color(90, 90, 90, 255), Color::Black);
 
-		this->tog_speed->s2 = "Fast Speed";
+		this->tog_speed->s2 = "Instant speed";
 		this->tog_change_color->s2 = "Dark Mode";
 	}
 
@@ -89,7 +89,7 @@ Dynamic_Array_Menu::Dynamic_Array_Menu(Event* event, RenderWindow* window)
 		Instruction[0] = "Make an Empty Dynamic Array";
 		Instruction[1] = "Make an Dynamic Array with random size and values";
 		Instruction[2] = "Make an Dynamic Array with inputed size and values";
-		Instruction[3] = "Make an Dynamic Array with inputed values (for creating a LinkedList with size 1 please use ADD function)";
+		Instruction[3] = "Make an Dynamic Array with inputed values (for creating a Array with size 1 please use ADD function)";
 		Instruction[4] = "Make an Dynamic Array with size and value imported from data file";
 
 		Instruction[5] = "Update the Node at the inputed position at inputed value (position larger than size will be understood as max size)";
@@ -440,6 +440,8 @@ void Dynamic_Array_Menu::update_bigger()
 		
 		if (l.Size && l.Size<6)
 		{
+			anime->clearAll();
+
 			anime->Grow_pos(l.Size);
 			drawFrom(0, 0);
 

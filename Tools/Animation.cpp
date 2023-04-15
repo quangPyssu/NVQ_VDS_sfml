@@ -23,20 +23,20 @@ Animation::Animation(Event* event, LinkedList* l, RenderWindow* window)
 	{
 		Code[0][0] = "if (head==null) return";
 		Code[0][1] = "Node* temp = head";
-		Code[0][2] = "head = head->next,     delete temp";
+		Code[0][2] = "head = head->next,delete temp";
 
 		Code[1][0] = "if (head==null) return";
 		Code[1][1] = "Node* pre = head";
 		Code[1][2] = "for (k = 0; k < i - 1; k++)";
-		Code[1][3] = "	     pre = pre->next";
+		Code[1][3] = "	  pre = pre->next";
 		Code[1][4] = "Node* del = pre->next ";
-		Code[1][5] = "aft = del->next, pre->next = aft, delete del";
+		Code[1][5] = "aft = del->next,pre->next = aft,delete del";
 
 		Code[2][0] = "if (head==null) return";
 		Code[2][1] = "Node* pre = head, temp = head->next";
 		Code[2][2] = "while (temp->next != null)";
-		Code[2][3] = "	     pre = pre->next";
-		Code[2][4] = "pre->next = null, delete temp, tail = pre";
+		Code[2][3] = "	   pre = pre->next, temp=temp->next";
+		Code[2][4] = "pre->next = null,delete temp,tail = pre";
 
 	}
 
@@ -44,14 +44,14 @@ Animation::Animation(Event* event, LinkedList* l, RenderWindow* window)
 	{
 		Code[3][0] = "Node* vtx = new Node(v)";
 		Code[3][1] = "vtx->next = head";
-		Code[3][2] = "head = vtxt";
+		Code[3][2] = "head = vtx";
 
 		Code[4][0] = "Node* pre = head";
 		Code[4][1] = "for (k = 0; k < i - 1; k++)";
 		Code[4][2] = "	   pre = pre->next";
 		Code[4][3] = "Node* aft = pre->next";
 		Code[4][4] = "Node* vtx = new Node(v)";
-		Code[4][5] = "vtx->next = aft,  pre->next = vtx";
+		Code[4][5] = "vtx->next = aft,pre->next = vtx";
 
 		Code[5][0] = "Node* vtx = new Node(v)";
 		Code[5][1] = "tail->next = vtx";
@@ -72,7 +72,7 @@ Animation::Animation(Event* event, LinkedList* l, RenderWindow* window)
 		Code[7][0] = "if (head == null) return NOT_FOUND";
 		Code[7][1] = "index = 0, Node* temp = head";
 		Code[7][2] = "while (temp.item != v)";
-		Code[7][3] = "index++, temp = temp->next";
+		Code[7][3] = "   index++, temp = temp->next";
 		Code[7][4] = "if (temp == null) return NOT_FOUND";
 		Code[7][5] = "return index";
 	}
@@ -289,7 +289,9 @@ void Animation::Del_pos(int v)
 
 			for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
-			//MakeFillIndex(v, Color::Red);
+			MakeFillIndex(v, Color::Red);
+
+			DisplayRecordStringId[step - 1] = 4;
 
 			cloneState();
 			DisplayRecord[step][v].Dissolve();
@@ -312,18 +314,17 @@ void Animation::Add_pos(int v, int data)
 		eventType = E_AddTail;
 
 		v = min(v, l->Size - 1);
-		MakeChoosenUpTo(-1, -1);
+		MakeChoosenUpTo(0, -1);
 		DisplayRecordStringId[0] = -1;
 		
 		//make node appear
+		cloneState();
 
-		AdditionPos[step] = -1;
+		AdditionPos[step-1] = -1;
 
-		MakeFillIndex(v, Color::Green); step--;
+		DisplayNode DisplayCur = DisplayRecord[step-1][v];
 
-		DisplayNode DisplayCur = DisplayRecord[step][v];
-
-		DisplayCur.body.setPosition(DisplayRecord[step][v].body.getPosition() - Vector2f(-l->Distance, -150));
+		DisplayCur.body.setPosition(DisplayRecord[step-1][v].body.getPosition() - Vector2f(-l->Distance, -150));
 		DisplayCur.body.setFillColor(Color::Magenta);
 		DisplayCur.NextPos = &DisplayCur;
 		DisplayCur.text.setString(s);
@@ -340,6 +341,7 @@ void Animation::Add_pos(int v, int data)
 		DisplayRecord[step][v].NextPos = &AdditionalNode[step];
 		DisplayRecord[step][v].line.setFillColor(DisplayRecord[step][v].ChosenColor);
 		DisplayRecord[step][v].arrow_head.setFillColor(DisplayRecord[step][v].ChosenColor);
+		DisplayRecord[step][v].body.setFillColor(DisplayRecord[step][v].ChosenColor);
 		CalculatePos(step);
 
 		step++; DisplayRecordStringId[step - 1] = 1;
@@ -530,7 +532,7 @@ void Animation::Ser_pos(int v)
 	for (int i = 2; i < step; i++) if (i & 1) DisplayRecordStringId[i] = 3; else DisplayRecordStringId[i] = 2;
 
 	MakeFillIndex(v, Color::Cyan);
-	DisplayRecordStringId[step - 2] = 5;
+	DisplayRecordStringId[step - 1] = 5;
 }
 
 void Animation::drawSmoothTransition(int start, int end, float progress,short CodeStatus)

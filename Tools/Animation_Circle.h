@@ -133,7 +133,7 @@ private:
 
 	//fake codes
 
-	int fakeId[6] = {10,10,10,10,5,6};
+	int fakeId[6] = {9,10,10,10,5,6};
 
 	string Code[6][11];
 
