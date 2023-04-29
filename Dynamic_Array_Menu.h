@@ -28,6 +28,8 @@ public:
 	void update_init();
 	void update_upd();
 	void update_search();
+	void update_add();
+	void update_del();
 	void update_bigger();
 
 	//menu stat
@@ -67,6 +69,7 @@ private:
 	//BTN
 
 	ToggleButton* tog_Initialize; ToggleButton* tog_Update;
+	ToggleButton* tog_Add; ToggleButton* tog_Delete;
 	ToggleButton* tog_Search; ToggleButton* tog_Bigger; 
 	Button* btn_back;
 
@@ -87,6 +90,30 @@ private:
 
 	string init_data_val = ""; int init_data_size = nothing;
 
+	//TEXT BOX & BTN for ADD
+
+	TextBox* box_add_val;
+	TextBox* box_add_pos;
+	ToggleButton* tog_add_head;
+	ToggleButton* tog_add_tail;
+	ToggleButton* tog_add_pos;
+
+	Toggle_Group Toggle_Group_Add;
+
+	int add_data_val = nothing, add_data_pos = nothing;
+
+	//TEXT BOX & BTN for DELETE
+
+	Button* btn_del_confirm;
+	TextBox* box_del_pos;
+	ToggleButton* tog_del_head;
+	ToggleButton* tog_del_tail;
+	ToggleButton* tog_del_pos;
+
+	Toggle_Group Toggle_Group_Del;
+
+	int del_data_pos = nothing;
+
 	//TEXT BOX & BTN for UPDATE
 
 	TextBox* box_upd_val;
@@ -103,6 +130,8 @@ private:
 	//TEXT BTN for Upscale
 
 	Button* btn_big_confirm;
+
+
 
 	// BTN for TIME TRAVEl
 
@@ -146,8 +175,8 @@ private:
 
 	void loadInstruction();
 
-	string Instruction[9];
-	int curInsId = 8;
+	string Instruction[15];
+	int curInsId = 14;
 
 	Text text;
 

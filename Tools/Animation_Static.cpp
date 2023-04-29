@@ -85,7 +85,6 @@ void Animation_Static::cloneState() //copy display linked list
 void DisplayNode_Static::CalculateLine(DisplayNode_Static* next)
 {
 	text.setPosition(body.getPosition().x - text.getGlobalBounds().width / 2.f, body.getPosition().y - text.getGlobalBounds().height / 3 * 2);
-	PosText.setPosition(Vector2f(text.getPosition().x - body.getSize().x/2, text.getPosition().y + body.getSize().x / 2 + 5));
 }
 
 void Animation_Static::CalculatePos(int pos)
@@ -129,6 +128,220 @@ void Animation_Static::MakeChoosenUpTo(int u, int v)  //	u<=v<l.Size
 			step++;
 		}
 		
+	}
+}
+
+void Animation_Static::MakeCopyNext(int n)  //	n<=l.Size
+{
+	for (int i = n; i < l->Size; i++)
+	{
+		cloneState();
+
+		DisplayRecord[step][i].body.setOutlineColor(DisplayRecord[step][i].ChosenColor);
+		CalculatePos(step);
+
+		step++;
+
+		cloneState();
+		if (i < l->Size - 1) DisplayRecord[step][i].text.setString(DisplayRecord[step][i + 1].text.getString());
+		CalculatePos(step);
+
+		step++;
+	}
+}
+
+void Animation_Static::MakeCopyPrev(int n)  //	n<=l.Size
+{
+	for (int i = l->Size - 1; i > n; i--)
+	{
+		cloneState();
+
+		DisplayRecord[step][i].body.setOutlineColor(DisplayRecord[step][i].ChosenColor);
+		CalculatePos(step);
+
+		step++;
+
+		cloneState();
+		DisplayRecord[step][i].text.setString(DisplayRecord[step][i - 1].text.getString());
+		CalculatePos(step);
+
+		step++;
+	}
+}
+
+void Animation_Static::Del_pos(int v)
+{
+	v = min(v, l->Size - 1);
+
+	if (!v) // Head
+	{
+		eventType = E_Nul;
+
+		MakeChoosenUpTo(-1, l->Size - 1);
+
+		cloneState();
+
+		MakeCopyNext(0);
+
+		cloneState();
+
+		DisplayRecord[step][l->Size - 1].text.setString("0");
+
+		CalculatePos(step);
+		step++;
+	}
+	else
+		if (v < l->Size - 1)  //Middle
+		{
+			eventType = E_Nul;
+
+			MakeChoosenUpTo(-1, l->Size - 1);
+
+			cloneState();
+
+			MakeCopyNext(v);
+
+			cloneState();
+
+			DisplayRecord[step][l->Size - 1].text.setString("0");
+
+			CalculatePos(step);
+			step++;
+		}
+		else  //Tail
+		{
+			eventType = E_Nul;
+			MakeChoosenUpTo(v + 1, l->Size - 1);
+
+			MakeFillIndex(v, Color::Red);
+
+			cloneState();
+
+			DisplayRecord[step][v].text.setString("0");
+
+			CalculatePos(step);
+			step++;
+		}
+}
+
+void Animation_Static::Add_pos(int v, int data)
+{
+	if (l->Size == 0) return;
+
+	string s = to_string(data);
+
+	if (v > l->Size - 1)
+	{	//tail
+		eventType = E_Nul;
+
+		v = min(v, l->Size - 1);
+		MakeChoosenUpTo(0, -1);
+
+		//make node appear
+		cloneState();
+
+		DisplayNode_Static DisplayCur = DisplayRecord[step - 1][v];
+
+		DisplayCur.body.setPosition(DisplayRecord[step - 1][l->Size - 1].body.getPosition() - Vector2f((float)-14 - DisplayRecord[step - 1][l->Size - 1].body.getSize().x, 0));
+		DisplayCur.NextPos = &DisplayCur;
+		DisplayCur.text.setString("0");
+
+		AdditionalNode[step] = DisplayCur;
+		CalculatePos(step);
+
+		step++;
+
+		cloneState();
+
+		AdditionalNode[step].text.setString(s);
+		AdditionalNode[step].body.setFillColor(Color::Magenta);
+
+		CalculatePos(step);
+		step++;
+	}
+	else if (v > 0)
+	{
+		//middle
+
+		eventType = E_Nul;
+		v = min(v, l->Size - 1);
+
+		MakeChoosenUpTo(-1, v - 1);
+
+		//make node appear
+		cloneState();
+
+		DisplayNode_Static DisplayCur = DisplayRecord[step - 1][v];
+
+		DisplayCur.body.setPosition(DisplayRecord[step - 1][l->Size - 1].body.getPosition() - Vector2f((float)-14 - DisplayRecord[step - 1][l->Size - 1].body.getSize().x, 0));
+		DisplayCur.NextPos = &DisplayCur;
+		DisplayCur.text.setString("0");
+
+		AdditionalNode[step] = DisplayCur;
+		CalculatePos(step);
+
+		step++;
+
+
+		cloneState();
+
+		AdditionalNode[step].text.setString(DisplayRecord[step][l->Size - 1].text.getString());
+		AdditionalNode[step].body.setOutlineColor(AdditionalNode[step].ChosenColor);
+
+		CalculatePos(step);
+		step++;
+
+		MakeCopyPrev(v);
+
+		cloneState();
+
+		DisplayRecord[step][v].text.setString(s);
+		DisplayRecord[step][v].body.setFillColor(Color::Magenta);
+
+		CalculatePos(step);
+		step++;
+	}
+	else
+	{
+		//head
+
+		eventType = E_Nul;
+		v = min(v, l->Size - 1);
+
+		MakeChoosenUpTo(-1, v - 1);
+
+		//make node appear
+		cloneState();
+
+		DisplayNode_Static DisplayCur = DisplayRecord[step - 1][v];
+
+		DisplayCur.body.setPosition(DisplayRecord[step - 1][l->Size - 1].body.getPosition() - Vector2f((float)-14 - DisplayRecord[step - 1][l->Size - 1].body.getSize().x, 0));
+		DisplayCur.NextPos = &DisplayCur;
+		DisplayCur.text.setString("0");
+
+		AdditionalNode[step] = DisplayCur;
+		CalculatePos(step);
+
+		step++;
+
+
+		cloneState();
+
+		AdditionalNode[step].text.setString(DisplayRecord[step][l->Size - 1].text.getString());
+		AdditionalNode[step].body.setOutlineColor(AdditionalNode[step].ChosenColor);
+
+		CalculatePos(step);
+		step++;
+
+		MakeCopyPrev(v);
+
+		cloneState();
+
+		DisplayRecord[step][v].text.setString(s);
+		DisplayRecord[step][v].body.setFillColor(Color::Magenta);
+
+		CalculatePos(step);
+		step++;
 	}
 }
 

@@ -68,12 +68,16 @@ public:
 	void clearAll();
 	void MakeChoosenUpTo(int u, int v);
 	void MakeFillIndex(int n, Color color);
+	void MakeCopyNext(int n);
+	void MakeCopyPrev(int n);
 
 	void CalculatePos(int pos);
 
 
 	// uses
 
+	void Add_pos(int v, int data);
+	void Del_pos(int v);
 	void Upd_pos(int v, int data);
 	void Ser_pos(int v);
 
@@ -104,7 +108,7 @@ public:
 
 private:
 
-	enum evType { E_Update =0, E_Search = 1 };
+	enum evType { E_Update = 0, E_Search = 1, E_Nul = 4 };
 
 	Event* event;
 	LinkedList* l;

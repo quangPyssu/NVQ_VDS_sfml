@@ -7,8 +7,8 @@
 class Toggle_Group
 {
 public:
-	ToggleButton* Toggle_Btn_Grp[5] = { nullptr };
-	TextBox* Box_text_Grp[5] = { nullptr };
+	ToggleButton* Toggle_Btn_Grp[6] = { nullptr };
+	TextBox* Box_text_Grp[6] = { nullptr };
 	ToggleButton* tog_Grp_Head=nullptr;
 
 	short isOn=0;
