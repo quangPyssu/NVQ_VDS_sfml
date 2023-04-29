@@ -49,6 +49,8 @@ App::App()
 	shape.setFillColor(BGColor[0]+Color::Color(25,25,25));
 	shape.setPosition(Vector2f(0,0));
 	shape.setSize(Vector2f(btn_Static_Array->pos_x*2 + btn_Static_Array->size_x , window->getSize().y));
+	
+	srand(time(NULL));
 }
 
 //Destructor
@@ -127,52 +129,115 @@ void App::update()
 
 			if (this->btn_Static_Array->isPressed())
 			{
+				Mn_Static_Array->l.delAll();
+				Mn_Static_Array->anime->clearAll();
+				Mn_Static_Array->isDrawing = DrawNormal;
+
+				Mn_Static_Array->n = 3 + (rand() % 3);
+				for (int i = 0; i < Mn_Static_Array->n; i++) Mn_Static_Array->l.addHead((New(rand() % 100)));
+
 				AppState = app_static_array, Mn_Static_Array->stat = on;
 				Mn_Static_Array->theme = this->theme;
 				Mn_Static_Array->sizeId = this->sizeId;
+
+				Mn_Static_Array->l.change(sizeId, theme);
 			}
 			else
 				if (this->btn_Dynamic_Array->isPressed())
 				{
+					Mn_Dynamic_Array->l.delAll();
+					Mn_Dynamic_Array->anime->clearAll();
+					Mn_Dynamic_Array->isDrawing = DrawNormal;
+
+					Mn_Dynamic_Array->n = 3 + (rand() % 3);
+					for (int i = 0; i < Mn_Dynamic_Array->n; i++) Mn_Dynamic_Array->l.addHead((New(rand() % 100)));
+
 					AppState = app_dynamic_array, Mn_Dynamic_Array->stat = on;
 					Mn_Dynamic_Array->theme = this->theme;
 					Mn_Dynamic_Array->sizeId = this->sizeId;
+
+					Mn_Dynamic_Array->l.change(sizeId, theme);
 				}
 				else
 					if (this->btn_Linked_List_Singly->isPressed())
 					{
+						Mn_Linked_List->l.delAll();
+						Mn_Linked_List->anime->clearAll();
+						Mn_Linked_List->isDrawing = DrawNormal;
+
+						Mn_Linked_List->n = 3 + (rand() % 3);
+						for (int i = 0; i < Mn_Linked_List->n; i++) Mn_Linked_List->l.addHead((New(rand() % 100)));
+
 						AppState = app_linked_list, Mn_Linked_List->stat = on;
 						Mn_Linked_List->theme = this->theme;
 						Mn_Linked_List->sizeId = this->sizeId;
+
+						Mn_Linked_List->l.change(sizeId, theme);
 					}
 					else
 				if (this->btn_Linked_List_Doubly->isPressed())
 				{
-					AppState = app_linked_list_D, Mn_Linked_List_Doubly->stat = on; 
+					Mn_Linked_List_Doubly->l.delAll();
+					Mn_Linked_List_Doubly->anime->clearAll();
+					Mn_Linked_List_Doubly->isDrawing = DrawNormal;
+
+					Mn_Linked_List_Doubly->n = 3 + (rand() % 3);
+					for (int i = 0; i < Mn_Linked_List_Doubly->n; i++) Mn_Linked_List_Doubly->l.addHead((New(rand() % 100)));
+
+					AppState = app_linked_list_D, Mn_Linked_List_Doubly->stat = on;
 					Mn_Linked_List_Doubly->theme = this->theme;
 					Mn_Linked_List_Doubly->sizeId = this->sizeId;
+
+					Mn_Linked_List_Doubly->l.change(sizeId, theme);
 				}
 				else
 					if (this->btn_Linked_List_Cirly->isPressed())
 					{
+						Mn_Linked_List_Cirly->l.delAll();
+						Mn_Linked_List_Cirly->anime->clearAll();
+						Mn_Linked_List_Cirly->isDrawing = DrawNormal;
+
+						Mn_Linked_List_Cirly->n = 3 + (rand() % 3);
+						for (int i = 0; i < Mn_Linked_List_Cirly->n; i++) Mn_Linked_List_Cirly->l.addHead((New(rand() % 100)));
+
 						AppState = app_linked_list_C, Mn_Linked_List_Cirly->stat = on;
 						Mn_Linked_List_Cirly->theme = this->theme;
 						Mn_Linked_List_Cirly->sizeId = this->sizeId;
+
+						Mn_Linked_List_Cirly->l.change(sizeId, theme);
 					}
 					else
 
 				if (this->btn_Queue->isPressed())
 				{
-					AppState = app_queue, Mn_Queue->stat = on; 
+					Mn_Queue->l.delAll();
+					Mn_Queue->anime->clearAll();
+					Mn_Queue->isDrawing = DrawNormal;
+
+					Mn_Queue->n = 3 + (rand() % 3);
+					for (int i = 0; i < Mn_Queue->n; i++) Mn_Queue->l.addHead((New(rand() % 100)));
+
+					AppState = app_queue, Mn_Queue->stat = on;
 					Mn_Queue->theme = this->theme;
 					Mn_Queue->sizeId = this->sizeId;
+
+					Mn_Queue->l.change(sizeId, theme);
 				}
 				else
 					if (this->btn_Stack->isPressed())
 					{
+						Mn_Stack->l.delAll();
+						Mn_Stack->anime->clearAll();
+						Mn_Stack->isDrawing = DrawNormal;
+
+						Mn_Stack->n = 3 + (rand() % 3);
+						for (int i = 0; i < Mn_Stack->n; i++) Mn_Stack->l.addHead((New(rand() % 100)));
+
 						AppState = app_stack, Mn_Stack->stat = on;
 						Mn_Stack->theme = this->theme;
 						Mn_Stack->sizeId = this->sizeId;
+
+						Mn_Stack->l.change(sizeId, theme);
 					}
 					else
 			if (this->btn_Quit->isPressed()) AppState = app_quit;
@@ -183,7 +248,7 @@ void App::update()
 			Mn_Static_Array->update(mousePosWindowf);
 			if (!Mn_Static_Array->stat) AppState = app_main;
 			this->theme = Mn_Static_Array->theme;
-			this->sizeId = Mn_Static_Array->theme;
+			this->sizeId = Mn_Static_Array->sizeId;
 
 			break;
 
@@ -191,42 +256,42 @@ void App::update()
 			Mn_Dynamic_Array->update(mousePosWindowf);
 			if (!Mn_Dynamic_Array->stat) AppState = app_main;
 			this->theme = Mn_Dynamic_Array->theme;
-			this->sizeId = Mn_Dynamic_Array->theme;
+			this->sizeId = Mn_Dynamic_Array->sizeId;
 			break;
 
 		case app_linked_list:
 			Mn_Linked_List->update(mousePosWindowf);
 			if (!Mn_Linked_List->stat) AppState = app_main;
 			this->theme = Mn_Linked_List->theme;
-			this->sizeId = Mn_Linked_List->theme;
+			this->sizeId = Mn_Linked_List->sizeId;
 			break;
 
 		case app_linked_list_D:
 			Mn_Linked_List_Doubly->update(mousePosWindowf);
 			if (!Mn_Linked_List_Doubly->stat) AppState = app_main;
 			this->theme = Mn_Linked_List_Doubly->theme;
-			this->sizeId = Mn_Linked_List_Doubly->theme;
+			this->sizeId = Mn_Linked_List_Doubly->sizeId;
 			break;
 
 		case app_linked_list_C:
 			Mn_Linked_List_Cirly->update(mousePosWindowf);
 			if (!Mn_Linked_List_Cirly->stat) AppState = app_main;
 			this->theme = Mn_Linked_List_Cirly->theme;
-			this->sizeId = Mn_Linked_List_Cirly->theme;
+			this->sizeId = Mn_Linked_List_Cirly->sizeId;
 			break;
 
 		case app_queue:
 			Mn_Queue->update(mousePosWindowf);
 			if (!Mn_Queue->stat) AppState = app_main;
 			this->theme = Mn_Queue->theme;
-			this->sizeId = Mn_Queue->theme;
+			this->sizeId = Mn_Queue->sizeId;
 			break;
 
 		case app_stack:
 			Mn_Stack->update(mousePosWindowf);
 			if (!Mn_Stack->stat) AppState = app_main;
 			this->theme = Mn_Stack->theme;
-			this->sizeId = Mn_Stack->theme;
+			this->sizeId = Mn_Stack->sizeId;
 			break;
 
 		default:
